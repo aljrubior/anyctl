@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/aljrubior/anyctl/clients"
-	response2 "github.com/aljrubior/anyctl/clients/fabrics/response"
 	"github.com/aljrubior/anyctl/clients/targets/requests"
 	"github.com/aljrubior/anyctl/clients/targets/response"
 	"github.com/aljrubior/anyctl/conf"
@@ -107,52 +106,4 @@ func (this *DefaultTargetClient) buildTargetsResponse(data []byte) (*response.Ta
 	return &response.TargetsResponse{
 		Data: targetsResponse,
 	}, nil
-}
-
-func (this *DefaultTargetClient) GetFabrics(name, token string) (*response2.FabricsResponse, error) {
-	client := &http.Client{Timeout: time.Duration(10) * time.Second}
-
-	protocol := this.config.Protocol
-	host := this.config.Host
-	path := this.config.FabricsPath
-	url := fmt.Sprintf("%s://%s/%s", protocol, host, path)
-
-	req, _ := http.NewRequest("GET", url, nil)
-	req.Header.Add("Authorization", this.GetBearerTokenValue(token))
-
-	query := req.URL.Query()
-
-	query.Add("fabricNameOrFabricId", name)
-	query.Add("page", "0")
-	query.Add("size", "20")
-
-	req.URL.RawQuery = query.Encode()
-
-	resp, err := client.Do(req)
-
-	defer resp.Body.Close()
-
-	if err != nil {
-		return nil, err
-	}
-
-	data, err := ioutil.ReadAll(resp.Body)
-
-	if err != nil {
-		return nil, err
-	}
-
-	if resp.StatusCode != 200 {
-		return nil, this.ThrowError(resp)
-	}
-
-	var fabrics response2.FabricsResponse
-
-	err = json.Unmarshal(data, &fabrics)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return &fabrics, nil
 }
