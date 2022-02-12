@@ -24,7 +24,7 @@ var getSchedulersCmd = &cobra.Command{
 				errors.Catch(err).Println()
 			}
 		default:
-			Console.LogInvalidParameters()
+			println("Error: Unsupported option. Try with 'anyctl runtimemanager scheduler get <deployment-name>'")
 		}
 	},
 }

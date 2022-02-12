@@ -1,10 +1,9 @@
 package schedulers
 
 import (
-	"bytes"
 	"encoding/json"
-	"fmt"
 	"github.com/aljrubior/anyctl/clients"
+	"github.com/aljrubior/anyctl/clients/schedulers/requests"
 	"github.com/aljrubior/anyctl/clients/schedulers/response"
 	"github.com/aljrubior/anyctl/conf"
 	"io/ioutil"
@@ -13,10 +12,10 @@ import (
 )
 
 func NewDefaultSchedulerClient(config *conf.SchedulerClientConfig) *DefaultSchedulerClient {
+
 	return &DefaultSchedulerClient{
 		config: config,
 	}
-
 }
 
 type DefaultSchedulerClient struct {
@@ -28,7 +27,7 @@ func (this DefaultSchedulerClient) GetSchedulers(orgId, envId, token, deployment
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := this.buildGetSchedulersRequest(orgId, envId, token, deploymentId)
+	req := requests.NewGetSchedulersRequest(this.config, token, orgId, envId, deploymentId).Build()
 
 	resp, err := client.Do(req)
 
@@ -38,10 +37,14 @@ func (this DefaultSchedulerClient) GetSchedulers(orgId, envId, token, deployment
 		return nil, err
 	}
 
-	data, err := ioutil.ReadAll(resp.Body)
-
 	if resp.StatusCode != 200 {
 		return nil, this.ThrowError(resp)
+	}
+
+	data, err := ioutil.ReadAll(resp.Body)
+
+	if err != nil {
+		return nil, err
 	}
 
 	var response response.SchedulersResponse
@@ -59,7 +62,7 @@ func (this DefaultSchedulerClient) PatchSchedulers(orgId, envId, token, deployme
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := this.buildPatchSchedulersRequest(orgId, envId, token, deploymentId, body)
+	req := requests.NewPatchSchedulersRequest(this.config, token, orgId, envId, deploymentId, body).Build()
 
 	resp, err := client.Do(req)
 
@@ -69,10 +72,14 @@ func (this DefaultSchedulerClient) PatchSchedulers(orgId, envId, token, deployme
 		return nil, err
 	}
 
-	data, err := ioutil.ReadAll(resp.Body)
-
 	if resp.StatusCode != 202 {
 		return nil, this.ThrowError(resp)
+	}
+
+	data, err := ioutil.ReadAll(resp.Body)
+
+	if err != nil {
+		return nil, err
 	}
 
 	var response response.SchedulersResponse
@@ -90,7 +97,7 @@ func (this DefaultSchedulerClient) PostScheduler(orgId, envId, token, deployment
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := this.buildPostSchedulerRequest(orgId, envId, token, deploymentId, flowName)
+	req := requests.NewPostSchedulerRequest(this.config, token, orgId, envId, deploymentId, flowName).Build()
 
 	resp, err := client.Do(req)
 
@@ -111,7 +118,7 @@ func (this DefaultSchedulerClient) DeleteScheduler(orgId, envId, token, deployme
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := this.buildDeleteSchedulerRequest(orgId, envId, token, deploymentId, flowName)
+	req := requests.NewDeleteSchedulerRequest(this.config, token, orgId, envId, deploymentId, flowName).Build()
 
 	resp, err := client.Do(req)
 
@@ -126,76 +133,4 @@ func (this DefaultSchedulerClient) DeleteScheduler(orgId, envId, token, deployme
 	}
 
 	return nil
-}
-
-func (this DefaultSchedulerClient) buildGetSchedulersRequest(orgId, envId, token, deploymentId string) *http.Request {
-
-	uri := this.buildSchedulersUri(orgId, envId, deploymentId)
-
-	req, _ := http.NewRequest("GET", uri, nil)
-	this.AddDefaultHeaders(req, orgId, envId, token)
-
-	return req
-}
-
-func (this DefaultSchedulerClient) buildPatchSchedulersRequest(orgId, envId, token, deploymentId string, body []byte) *http.Request {
-
-	uri := this.buildSchedulersUri(orgId, envId, deploymentId)
-
-	req, _ := http.NewRequest("PATCH", uri, bytes.NewBuffer(body))
-
-	this.AddDefaultHeaders(req, orgId, envId, token)
-	this.AddContentTypeApplicationJsonHeader(req)
-
-	return req
-}
-
-func (this DefaultSchedulerClient) buildPostSchedulerRequest(orgId, envId, token, deploymentId string, flowName string) *http.Request {
-
-	uri := this.buildRunSchedulersUri(orgId, envId, deploymentId, flowName)
-
-	req, _ := http.NewRequest("POST", uri, nil)
-
-	this.AddDefaultHeaders(req, orgId, envId, token)
-
-	return req
-}
-
-func (this DefaultSchedulerClient) buildDeleteSchedulerRequest(orgId, envId, token, deploymentId string, flowName string) *http.Request {
-
-	uri := this.buildDeleteSchedulersUri(orgId, envId, deploymentId, flowName)
-
-	req, _ := http.NewRequest(http.MethodDelete, uri, nil)
-
-	this.AddDefaultHeaders(req, orgId, envId, token)
-
-	return req
-}
-
-func (this DefaultSchedulerClient) buildSchedulersUri(orgId, envId, deploymentId string) string {
-
-	protocol := this.config.Protocol
-	host := this.config.Host
-	path := this.config.SchedulersPathTemplate
-	schedulersPath := fmt.Sprintf(path, orgId, envId, deploymentId)
-	return fmt.Sprintf("%s://%s/%s", protocol, host, schedulersPath)
-}
-
-func (this DefaultSchedulerClient) buildRunSchedulersUri(orgId, envId, deploymentId, flowName string) string {
-
-	protocol := this.config.Protocol
-	host := this.config.Host
-	path := this.config.RunSchedulerPathTemplate
-	runSchedulerPath := fmt.Sprintf(path, orgId, envId, deploymentId, flowName)
-
-	return fmt.Sprintf("%s://%s/%s", protocol, host, runSchedulerPath)
-}
-
-func (this DefaultSchedulerClient) buildDeleteSchedulersUri(orgId, envId, deploymentId, flowName string) string {
-
-	protocol := this.config.Protocol
-	host := this.config.Host
-	path := fmt.Sprintf(this.config.SchedulerPathTemplate, orgId, envId, deploymentId, flowName)
-
-	return fmt.Sprintf("%s://%s/%s", protocol, host, path)
 }

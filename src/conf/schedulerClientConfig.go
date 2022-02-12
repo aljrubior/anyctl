@@ -1,10 +1,10 @@
 package conf
 
 type SchedulerClientConfig struct {
-	Protocol                 string
-	Host                     string
-	Port                     int
-	SchedulersPathTemplate   string
-	SchedulerPathTemplate    string
-	RunSchedulerPathTemplate string
+	Protocol         string
+	Host             string
+	Port             int
+	SchedulersPath   string
+	SchedulerPath    string
+	RunSchedulerPath string
 }

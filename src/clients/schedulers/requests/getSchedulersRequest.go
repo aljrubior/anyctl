@@ -7,51 +7,47 @@ import (
 	"net/http"
 )
 
-func NewGetAssetsRequest(
-	config *conf.AssetClientConfig,
+func NewGetSchedulersRequest(
+	config *conf.SchedulerClientConfig,
 	bearerToken,
 	organizationId,
 	environmentId,
-	assetName string) *GetAssetsRequest {
+	deploymentId string) *GetSchedulersRequest {
 
-	return &GetAssetsRequest{
+	return &GetSchedulersRequest{
 		config:         config,
 		bearerToken:    bearerToken,
 		organizationId: organizationId,
 		environmentId:  environmentId,
-		assetName:      assetName,
+		deploymentId:   deploymentId,
 	}
 }
 
-type GetAssetsRequest struct {
+type GetSchedulersRequest struct {
 	clients.BaseHttpRequest
-	config         *conf.AssetClientConfig
+	config         *conf.SchedulerClientConfig
 	bearerToken    string
 	organizationId string
 	environmentId  string
-	assetName      string
+	deploymentId   string
 }
 
-func (this *GetAssetsRequest) buildUri() string {
+func (this *GetSchedulersRequest) buildUri() string {
 
 	protocol := this.config.Protocol
 	host := this.config.Host
-	path := this.config.AssetsPath
+	path := fmt.Sprintf(this.config.SchedulersPath, this.organizationId, this.environmentId, this.deploymentId)
+
 	return fmt.Sprintf("%s://%s/%s", protocol, host, path)
 }
 
-func (this *GetAssetsRequest) Build() *http.Request {
+func (this *GetSchedulersRequest) Build() *http.Request {
 
 	uri := this.buildUri()
 
 	req, _ := http.NewRequest(http.MethodGet, uri, nil)
 
 	this.AddDefaultHeaders(req, this.organizationId, this.environmentId, this.bearerToken)
-
-	q := req.URL.Query()
-	q.Add("search", this.assetName)
-	q.Add("type", "app")
-	req.URL.RawQuery = q.Encode()
 
 	return req
 }

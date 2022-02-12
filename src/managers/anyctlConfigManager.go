@@ -64,12 +64,12 @@ func (this *AnyctlConfigManager) NewDeploymentConfigClient() *conf.DeploymentCli
 
 func (this *AnyctlConfigManager) NewSchedulerClientConfig() *conf.SchedulerClientConfig {
 	return &conf.SchedulerClientConfig{
-		Protocol:                 this.anyctlConfig.Anypoint.Protocol,
-		Host:                     this.anyctlConfig.Anypoint.Host,
-		Port:                     this.anyctlConfig.Anypoint.Port,
-		SchedulerPathTemplate:    this.anyctlConfig.Anypoint.Resources.RuntimeManager.Schedulers.SchedulerPath,
-		SchedulersPathTemplate:   this.anyctlConfig.Anypoint.Resources.RuntimeManager.Schedulers.SchedulersPath,
-		RunSchedulerPathTemplate: this.anyctlConfig.Anypoint.Resources.RuntimeManager.Schedulers.RunSchedulerPath,
+		Protocol:         this.anyctlConfig.Anypoint.Protocol,
+		Host:             this.anyctlConfig.Anypoint.Host,
+		Port:             this.anyctlConfig.Anypoint.Port,
+		SchedulerPath:    this.anyctlConfig.Anypoint.Resources.RuntimeManager.Schedulers.SchedulerPath,
+		SchedulersPath:   this.anyctlConfig.Anypoint.Resources.RuntimeManager.Schedulers.SchedulersPath,
+		RunSchedulerPath: this.anyctlConfig.Anypoint.Resources.RuntimeManager.Schedulers.RunSchedulerPath,
 	}
 }
 

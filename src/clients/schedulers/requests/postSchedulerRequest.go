@@ -7,51 +7,50 @@ import (
 	"net/http"
 )
 
-func NewGetAssetsRequest(
-	config *conf.AssetClientConfig,
+func NewPostSchedulerRequest(
+	config *conf.SchedulerClientConfig,
 	bearerToken,
 	organizationId,
 	environmentId,
-	assetName string) *GetAssetsRequest {
+	deploymentId,
+	flowName string) *PostSchedulerRequest {
 
-	return &GetAssetsRequest{
+	return &PostSchedulerRequest{
 		config:         config,
 		bearerToken:    bearerToken,
 		organizationId: organizationId,
 		environmentId:  environmentId,
-		assetName:      assetName,
+		deploymentId:   deploymentId,
+		flowName:       flowName,
 	}
 }
 
-type GetAssetsRequest struct {
+type PostSchedulerRequest struct {
 	clients.BaseHttpRequest
-	config         *conf.AssetClientConfig
+	config         *conf.SchedulerClientConfig
 	bearerToken    string
 	organizationId string
 	environmentId  string
-	assetName      string
+	deploymentId   string
+	flowName       string
 }
 
-func (this *GetAssetsRequest) buildUri() string {
+func (this *PostSchedulerRequest) buildUri() string {
 
 	protocol := this.config.Protocol
 	host := this.config.Host
-	path := this.config.AssetsPath
+	path := fmt.Sprintf(this.config.RunSchedulerPath, this.organizationId, this.environmentId, this.deploymentId, this.flowName)
+
 	return fmt.Sprintf("%s://%s/%s", protocol, host, path)
 }
 
-func (this *GetAssetsRequest) Build() *http.Request {
+func (this *PostSchedulerRequest) Build() *http.Request {
 
 	uri := this.buildUri()
 
-	req, _ := http.NewRequest(http.MethodGet, uri, nil)
+	req, _ := http.NewRequest(http.MethodPost, uri, nil)
 
 	this.AddDefaultHeaders(req, this.organizationId, this.environmentId, this.bearerToken)
-
-	q := req.URL.Query()
-	q.Add("search", this.assetName)
-	q.Add("type", "app")
-	req.URL.RawQuery = q.Encode()
 
 	return req
 }

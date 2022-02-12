@@ -36,14 +36,14 @@ func (this *DefaultAssetClient) FindAssets(orgId, envId, token, assetName string
 		return nil, err
 	}
 
+	if resp.StatusCode != 200 {
+		return nil, this.ThrowError(resp)
+	}
+
 	data, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
 		return nil, err
-	}
-
-	if resp.StatusCode != 200 {
-		return nil, this.ThrowError(resp)
 	}
 
 	var assets []response.AssetResponse
@@ -71,14 +71,14 @@ func (this *DefaultAssetClient) FindLatestVersion(token, groupId, assetName stri
 		return nil, err
 	}
 
+	if resp.StatusCode != 200 {
+		return nil, this.ThrowError(resp)
+	}
+
 	data, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
 		return nil, err
-	}
-
-	if resp.StatusCode != 200 {
-		return nil, this.ThrowError(resp)
 	}
 
 	var asset response.AssetResponse
