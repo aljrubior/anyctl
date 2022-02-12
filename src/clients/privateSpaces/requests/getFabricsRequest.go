@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func NewGetFabricsRequest(config conf.PrivateSpaceClientConfig, bearerToken, privateSpaceId string) *GetFabricsRequest {
+func NewGetFabricsRequest(config *conf.PrivateSpaceClientConfig, bearerToken, privateSpaceId string) *GetFabricsRequest {
 	return &GetFabricsRequest{
 		config:         config,
 		bearerToken:    bearerToken,
@@ -17,7 +17,7 @@ func NewGetFabricsRequest(config conf.PrivateSpaceClientConfig, bearerToken, pri
 
 type GetFabricsRequest struct {
 	clients.BaseHttpRequest
-	config         conf.PrivateSpaceClientConfig
+	config         *conf.PrivateSpaceClientConfig
 	bearerToken    string
 	privateSpaceId string
 }

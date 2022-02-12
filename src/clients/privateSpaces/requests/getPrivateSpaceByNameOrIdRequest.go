@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func NewGetPrivateSpaceByNameOrIdRequest(config conf.PrivateSpaceClientConfig, bearerToken, privateSpaceId string) *GetPrivateSpaceByNameOrIdRequest {
+func NewGetPrivateSpaceByNameOrIdRequest(config *conf.PrivateSpaceClientConfig, bearerToken, privateSpaceId string) *GetPrivateSpaceByNameOrIdRequest {
 	return &GetPrivateSpaceByNameOrIdRequest{
 		config:         config,
 		bearerToken:    bearerToken,
@@ -17,7 +17,7 @@ func NewGetPrivateSpaceByNameOrIdRequest(config conf.PrivateSpaceClientConfig, b
 
 type GetPrivateSpaceByNameOrIdRequest struct {
 	clients.BaseHttpRequest
-	config         conf.PrivateSpaceClientConfig
+	config         *conf.PrivateSpaceClientConfig
 	bearerToken    string
 	privateSpaceId string
 }

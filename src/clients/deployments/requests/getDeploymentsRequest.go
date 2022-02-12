@@ -8,7 +8,7 @@ import (
 )
 
 func NewGetDeploymentsRequest(
-	config conf.DeploymentClientConfig,
+	config *conf.DeploymentClientConfig,
 	bearerToken,
 	organizationId,
 	environmentId string) *GetDeploymentsRequest {
@@ -23,7 +23,7 @@ func NewGetDeploymentsRequest(
 
 type GetDeploymentsRequest struct {
 	clients.BaseHttpRequest
-	config         conf.DeploymentClientConfig
+	config         *conf.DeploymentClientConfig
 	bearerToken    string
 	organizationId string
 	environmentId  string

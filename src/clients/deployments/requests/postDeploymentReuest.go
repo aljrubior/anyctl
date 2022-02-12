@@ -9,7 +9,7 @@ import (
 )
 
 func NewPostDeploymentRequest(
-	config conf.DeploymentClientConfig,
+	config *conf.DeploymentClientConfig,
 	bearerToken,
 	organizationId,
 	environmentId string,
@@ -26,7 +26,7 @@ func NewPostDeploymentRequest(
 
 type PostDeploymentRequest struct {
 	clients.BaseHttpRequest
-	config         conf.DeploymentClientConfig
+	config         *conf.DeploymentClientConfig
 	bearerToken    string
 	organizationId string
 	environmentId  string

@@ -13,7 +13,7 @@ import (
 	"time"
 )
 
-func NewDefaultTargetClient(config conf.TargetClientConfig) *DefaultTargetClient {
+func NewDefaultTargetClient(config *conf.TargetClientConfig) *DefaultTargetClient {
 	return &DefaultTargetClient{
 		config: config,
 	}
@@ -22,7 +22,7 @@ func NewDefaultTargetClient(config conf.TargetClientConfig) *DefaultTargetClient
 type DefaultTargetClient struct {
 	clients.HttpClient
 	TargetClient
-	config conf.TargetClientConfig
+	config *conf.TargetClientConfig
 }
 
 func (this *DefaultTargetClient) GetTargets(orgId, envId, token string) (*response.TargetsResponse, error) {

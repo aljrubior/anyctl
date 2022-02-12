@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func NewGetOrganizationRequest(config conf.AccountClientConfig, bearerToken, organizationId string) *GetOrganizationRequest {
+func NewGetOrganizationRequest(config *conf.AccountClientConfig, bearerToken, organizationId string) *GetOrganizationRequest {
 	return &GetOrganizationRequest{
 		config:         config,
 		bearerToken:    bearerToken,
@@ -17,7 +17,7 @@ func NewGetOrganizationRequest(config conf.AccountClientConfig, bearerToken, org
 
 type GetOrganizationRequest struct {
 	clients.BaseHttpRequest
-	config         conf.AccountClientConfig
+	config         *conf.AccountClientConfig
 	bearerToken    string
 	organizationId string
 }

@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func NewGetSharedSpacesRequest(config conf.SharedSpaceClientConfig, bearerToken string) *GetSharedSpacesRequest {
+func NewGetSharedSpacesRequest(config *conf.SharedSpaceClientConfig, bearerToken string) *GetSharedSpacesRequest {
 	return &GetSharedSpacesRequest{
 		config:      config,
 		bearerToken: bearerToken,
@@ -16,7 +16,7 @@ func NewGetSharedSpacesRequest(config conf.SharedSpaceClientConfig, bearerToken 
 
 type GetSharedSpacesRequest struct {
 	clients.BaseHttpRequest
-	config      conf.SharedSpaceClientConfig
+	config      *conf.SharedSpaceClientConfig
 	bearerToken string
 }
 

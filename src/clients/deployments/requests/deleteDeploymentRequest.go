@@ -8,7 +8,7 @@ import (
 )
 
 func NewDeleteDeploymentRequest(
-	config conf.DeploymentClientConfig,
+	config *conf.DeploymentClientConfig,
 	bearerToken,
 	organizationId,
 	environmentId,
@@ -25,7 +25,7 @@ func NewDeleteDeploymentRequest(
 
 type DeleteDeploymentRequest struct {
 	clients.BaseHttpRequest
-	config         conf.DeploymentClientConfig
+	config         *conf.DeploymentClientConfig
 	bearerToken    string
 	organizationId string
 	environmentId  string

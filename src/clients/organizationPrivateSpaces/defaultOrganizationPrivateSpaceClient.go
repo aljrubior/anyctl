@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-func NewOrganizationDefaultPrivateSpaceClient(config conf.RuntimeFabricClientConfig) *DefaultOrganizationPrivateSpaceClient {
+func NewOrganizationDefaultPrivateSpaceClient(config *conf.RuntimeFabricClientConfig) *DefaultOrganizationPrivateSpaceClient {
 	return &DefaultOrganizationPrivateSpaceClient{
 		config: config,
 	}
@@ -19,7 +19,7 @@ func NewOrganizationDefaultPrivateSpaceClient(config conf.RuntimeFabricClientCon
 
 type DefaultOrganizationPrivateSpaceClient struct {
 	clients.HttpClient
-	config conf.RuntimeFabricClientConfig
+	config *conf.RuntimeFabricClientConfig
 }
 
 func (this *DefaultOrganizationPrivateSpaceClient) GetPrivateSpaces(orgId, envId, token string) (*response.OrganizationPrivateSpacesResponse, error) {
@@ -80,7 +80,7 @@ func (this *DefaultOrganizationPrivateSpaceClient) GetPrivateSpace(orgId, envId,
 	if err != nil {
 		return nil, err
 	}
-	
+
 	var privatespace response.OrganizationPrivateSpaceResponse
 
 	err = json.Unmarshal(data, &privatespace)

@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-func NewDefaultAccountClient(config conf.AccountClientConfig) *DefaultAccountClient {
+func NewDefaultAccountClient(config *conf.AccountClientConfig) *DefaultAccountClient {
 	return &DefaultAccountClient{
 		config: config,
 	}
@@ -19,7 +19,7 @@ func NewDefaultAccountClient(config conf.AccountClientConfig) *DefaultAccountCli
 
 type DefaultAccountClient struct {
 	clients.HttpClient
-	config conf.AccountClientConfig
+	config *conf.AccountClientConfig
 }
 
 func (this DefaultAccountClient) GetOrganization(token, orgId string) (*response.OrganizationResponse, error) {

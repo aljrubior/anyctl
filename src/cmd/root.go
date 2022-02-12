@@ -76,48 +76,48 @@ func init() {
 
 	// Asset Injection
 	assetConfig := anyctlConfigManager.NewAssetClientConfig()
-	assetClient := assets.NewDefaultAssetClient(*assetConfig)
+	assetClient := assets.NewDefaultAssetClient(assetConfig)
 	assetService := services.NewDefaultAssetService(assetClient)
 	AssetManager = managers.NewDefaultAssetManager(assetService)
 
 	// Deployment Injection
 	deploymentClientConfig := anyctlConfigManager.NewDeploymentConfigClient()
-	deploymentClient := deployments.NewDefaultDeploymentClient(*deploymentClientConfig)
+	deploymentClient := deployments.NewDefaultDeploymentClient(deploymentClientConfig)
 	deploymentService := services.NewDefaultDeploymentService(deploymentClient)
 	DeploymentManager = managers.NewDefaultDeploymentManager(deploymentService, AssetManager)
 
 	// Target Injection
 	targetClientConfig := anyctlConfigManager.NewTargetClientConfig()
-	targetClient := targets.NewDefaultTargetClient(*targetClientConfig)
+	targetClient := targets.NewDefaultTargetClient(targetClientConfig)
 	targetService := services.NewDefaultTargetService(targetClient)
 	TargetManager = managers.NewDefaultTargetManager(targetService)
 
 	// RtfTarget Injection
 	runtimeFabricClientConfig := anyctlConfigManager.NewRuntimeFabricClientConfig()
-	organizationRuntimeFabricClient := organizationRuntimeFabrics.NewDefaultOrganizationRuntimeFabricClient(*runtimeFabricClientConfig)
+	organizationRuntimeFabricClient := organizationRuntimeFabrics.NewDefaultOrganizationRuntimeFabricClient(runtimeFabricClientConfig)
 	organizationRuntimeFabricService := services.NewDefaultOrganizationRuntimeFabricService(organizationRuntimeFabricClient)
 	OrganizationRutimeFabricManager = managers.NewDefaultOrganizationRuntimeFabricManager(organizationRuntimeFabricService)
 
 	// Organization Private Space Injection
-	organizationPrivateSpaceClient := organizationPrivateSpaces.NewOrganizationDefaultPrivateSpaceClient(*runtimeFabricClientConfig)
+	organizationPrivateSpaceClient := organizationPrivateSpaces.NewOrganizationDefaultPrivateSpaceClient(runtimeFabricClientConfig)
 	organizationPrivateSpaceService := services.NewDefaultOrganizationPrivateSpaceService(organizationPrivateSpaceClient)
 	OrganizationPrivateSpaceManager = managers.NewDefaultOrganizationPrivateSpaceManager(organizationPrivateSpaceService)
 
 	// Shared Space Injection
 	sharedSpaceClientConfig := anyctlConfigManager.NewSharedSpaceClientConfig()
-	sharedSpaceClient := sharedspaces.NewDefaultSharedSpaceClient(*sharedSpaceClientConfig)
+	sharedSpaceClient := sharedspaces.NewDefaultSharedSpaceClient(sharedSpaceClientConfig)
 	sharedSpaceService := services.NewDefaultSharedSpaceService(sharedSpaceClient)
 	SharedSpaceManager = managers.NewDefaultSharedSpaceManager(sharedSpaceService)
 
 	// Private Space Injection
 	privateSpaceClientConfig := anyctlConfigManager.NewPrivateSpaceClientConfig()
-	privateSpaceClient := privateSpaces.NewDefaultPrivateSpaceClient(*privateSpaceClientConfig)
+	privateSpaceClient := privateSpaces.NewDefaultPrivateSpaceClient(privateSpaceClientConfig)
 	privateSpaceService := services.NewDefaultPrivateSpaceService(privateSpaceClient)
 	PrivateSpaceManager = managers.NewDefaultPrivateSpaceManager(privateSpaceService)
 
 	// Fabrics Injection
 	fabricClientConfig := anyctlConfigManager.NewFabricClientConfig()
-	fabricClient := fabrics.NewDefaultFabricClient(*fabricClientConfig)
+	fabricClient := fabrics.NewDefaultFabricClient(fabricClientConfig)
 	fabricService := services.NewDefaultFabricService(fabricClient)
 	FabricManager = managers.NewDefaultFabricManager(fabricService)
 

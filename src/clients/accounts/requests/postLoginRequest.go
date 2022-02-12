@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func NewPostLoginRequest(config conf.AccountClientConfig, username, password string) *PostLoginRequest {
+func NewPostLoginRequest(config *conf.AccountClientConfig, username, password string) *PostLoginRequest {
 	return &PostLoginRequest{
 		config:   config,
 		username: username,
@@ -17,7 +17,7 @@ func NewPostLoginRequest(config conf.AccountClientConfig, username, password str
 
 type PostLoginRequest struct {
 	clients.BaseHttpRequest
-	config   conf.AccountClientConfig
+	config   *conf.AccountClientConfig
 	username string
 	password string
 }

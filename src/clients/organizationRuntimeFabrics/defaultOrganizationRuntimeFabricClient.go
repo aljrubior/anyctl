@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-func NewDefaultOrganizationRuntimeFabricClient(config conf.RuntimeFabricClientConfig) *DefaultOrganizationRuntimeFabricClient {
+func NewDefaultOrganizationRuntimeFabricClient(config *conf.RuntimeFabricClientConfig) *DefaultOrganizationRuntimeFabricClient {
 	return &DefaultOrganizationRuntimeFabricClient{
 		config: config,
 	}
@@ -19,7 +19,7 @@ func NewDefaultOrganizationRuntimeFabricClient(config conf.RuntimeFabricClientCo
 
 type DefaultOrganizationRuntimeFabricClient struct {
 	clients.HttpClient
-	config conf.RuntimeFabricClientConfig
+	config *conf.RuntimeFabricClientConfig
 }
 
 func (this *DefaultOrganizationRuntimeFabricClient) GetFabrics(orgId, envId, token string) (*[]response.OrganizationFabricResponse, error) {

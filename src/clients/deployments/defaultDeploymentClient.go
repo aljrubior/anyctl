@@ -11,15 +11,15 @@ import (
 	"time"
 )
 
-type DefaultDeploymentClient struct {
-	clients.HttpClient
-	config conf.DeploymentClientConfig
-}
-
-func NewDefaultDeploymentClient(config conf.DeploymentClientConfig) DefaultDeploymentClient {
-	return DefaultDeploymentClient{
+func NewDefaultDeploymentClient(config *conf.DeploymentClientConfig) *DefaultDeploymentClient {
+	return &DefaultDeploymentClient{
 		config: config,
 	}
+}
+
+type DefaultDeploymentClient struct {
+	clients.HttpClient
+	config *conf.DeploymentClientConfig
 }
 
 func (this *DefaultDeploymentClient) GetDeployments(orgId, envId, token string) (*response.DeploymentsResponse, error) {

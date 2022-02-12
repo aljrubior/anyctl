@@ -7,6 +7,5 @@ import (
 
 type TargetClient interface {
 	GetTargets(orgId, envId, token string) (*response.TargetsResponse, error)
-
 	GetFabrics(name, token string) (*response2.FabricsResponse, error)
 }

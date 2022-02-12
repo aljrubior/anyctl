@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func NewGetProfileRequest(config conf.AccountClientConfig, bearerToken string) *GetProfileRequest {
+func NewGetProfileRequest(config *conf.AccountClientConfig, bearerToken string) *GetProfileRequest {
 	return &GetProfileRequest{
 		config:      config,
 		bearerToken: bearerToken,
@@ -16,7 +16,7 @@ func NewGetProfileRequest(config conf.AccountClientConfig, bearerToken string) *
 
 type GetProfileRequest struct {
 	clients.BaseHttpRequest
-	config      conf.AccountClientConfig
+	config      *conf.AccountClientConfig
 	bearerToken string
 }
 

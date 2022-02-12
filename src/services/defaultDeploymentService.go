@@ -7,8 +7,8 @@ import (
 	"github.com/aljrubior/anyctl/managers/requests"
 )
 
-func NewDefaultDeploymentService(deploymentClient deployments.DeploymentClient) DefaultDeploymentService {
-	return DefaultDeploymentService{
+func NewDefaultDeploymentService(deploymentClient deployments.DeploymentClient) *DefaultDeploymentService {
+	return &DefaultDeploymentService{
 		deploymentClient: deploymentClient,
 	}
 }
@@ -17,7 +17,7 @@ type DefaultDeploymentService struct {
 	deploymentClient deployments.DeploymentClient
 }
 
-func (this DefaultDeploymentService) GetDeployments(orgId, envId, token string) (*[]response.DeploymentItem, error) {
+func (this *DefaultDeploymentService) GetDeployments(orgId, envId, token string) (*[]response.DeploymentItem, error) {
 
 	resp, err := this.deploymentClient.GetDeployments(orgId, envId, token)
 
@@ -28,7 +28,7 @@ func (this DefaultDeploymentService) GetDeployments(orgId, envId, token string) 
 	return &resp.Items, nil
 }
 
-func (this DefaultDeploymentService) GetDeployment(orgId, envId, token, deploymentId string) (*response.DeploymentResponse, error) {
+func (this *DefaultDeploymentService) GetDeployment(orgId, envId, token, deploymentId string) (*response.DeploymentResponse, error) {
 
 	resp, err := this.deploymentClient.GetDeployment(orgId, envId, token, deploymentId)
 
@@ -39,7 +39,7 @@ func (this DefaultDeploymentService) GetDeployment(orgId, envId, token, deployme
 	return resp, nil
 }
 
-func (this DefaultDeploymentService) Deploy(orgId, envId, token string, request *requests.DeploymentRequest) (*response.DeploymentResponse, error) {
+func (this *DefaultDeploymentService) Deploy(orgId, envId, token string, request *requests.DeploymentRequest) (*response.DeploymentResponse, error) {
 
 	body, err := json.Marshal(request)
 
@@ -56,7 +56,7 @@ func (this DefaultDeploymentService) Deploy(orgId, envId, token string, request 
 	return resp, nil
 }
 
-func (this DefaultDeploymentService) UpdateDeployment(orgId, envId, token, deploymentId string, request *requests.DeploymentRequest) (*response.DeploymentResponse, error) {
+func (this *DefaultDeploymentService) UpdateDeployment(orgId, envId, token, deploymentId string, request *requests.DeploymentRequest) (*response.DeploymentResponse, error) {
 
 	body, err := json.Marshal(request)
 
@@ -73,7 +73,7 @@ func (this DefaultDeploymentService) UpdateDeployment(orgId, envId, token, deplo
 	return resp, nil
 }
 
-func (this DefaultDeploymentService) DeleteDeployment(orgId, envId, token, deploymentId string) error {
+func (this *DefaultDeploymentService) DeleteDeployment(orgId, envId, token, deploymentId string) error {
 
 	return this.deploymentClient.DeleteDeployment(orgId, envId, token, deploymentId)
 }

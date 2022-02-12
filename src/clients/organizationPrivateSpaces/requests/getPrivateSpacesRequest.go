@@ -8,7 +8,7 @@ import (
 )
 
 func NewGetPrivateSpacesRequest(
-	config conf.RuntimeFabricClientConfig,
+	config *conf.RuntimeFabricClientConfig,
 	bearerToken,
 	organizationId,
 	environmentId string) *GetPrivateSpacesRequest {
@@ -23,7 +23,7 @@ func NewGetPrivateSpacesRequest(
 
 type GetPrivateSpacesRequest struct {
 	clients.BaseHttpRequest
-	config         conf.RuntimeFabricClientConfig
+	config         *conf.RuntimeFabricClientConfig
 	bearerToken    string
 	organizationId string
 	environmentId  string

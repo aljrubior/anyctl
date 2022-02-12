@@ -8,7 +8,7 @@ import (
 )
 
 func NewGetTargets(
-	config conf.TargetClientConfig,
+	config *conf.TargetClientConfig,
 	organizationId,
 	environmentId,
 	bearerToken string) *GetTargets {
@@ -23,7 +23,7 @@ func NewGetTargets(
 
 type GetTargets struct {
 	clients.BaseHttpRequest
-	config         conf.TargetClientConfig
+	config         *conf.TargetClientConfig
 	bearerToken    string
 	organizationId string
 	environmentId  string

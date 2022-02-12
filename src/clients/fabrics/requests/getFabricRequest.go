@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func NewGetFabricRequest(config conf.FabricClientConfig, bearerToken, fabricId string) *GetFabricRequest {
+func NewGetFabricRequest(config *conf.FabricClientConfig, bearerToken, fabricId string) *GetFabricRequest {
 	return &GetFabricRequest{
 		config:      config,
 		bearerToken: bearerToken,
@@ -17,7 +17,7 @@ func NewGetFabricRequest(config conf.FabricClientConfig, bearerToken, fabricId s
 
 type GetFabricRequest struct {
 	clients.BaseHttpRequest
-	config      conf.FabricClientConfig
+	config      *conf.FabricClientConfig
 	bearerToken string
 	fabricId    string
 }

@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-func NewDefaultPrivateSpaceClient(config conf.PrivateSpaceClientConfig) *DefaultPrivateSpaceClient {
+func NewDefaultPrivateSpaceClient(config *conf.PrivateSpaceClientConfig) *DefaultPrivateSpaceClient {
 	return &DefaultPrivateSpaceClient{
 		config: config,
 	}
@@ -20,7 +20,7 @@ func NewDefaultPrivateSpaceClient(config conf.PrivateSpaceClientConfig) *Default
 
 type DefaultPrivateSpaceClient struct {
 	clients.HttpClient
-	config conf.PrivateSpaceClientConfig
+	config *conf.PrivateSpaceClientConfig
 }
 
 func (this *DefaultPrivateSpaceClient) GetPrivateSpaces(token string) (*response.PrivateSpacesResponse, error) {

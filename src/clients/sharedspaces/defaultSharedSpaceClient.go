@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-func NewDefaultSharedSpaceClient(config conf.SharedSpaceClientConfig) *DefaultSharedSpaceClient {
+func NewDefaultSharedSpaceClient(config *conf.SharedSpaceClientConfig) *DefaultSharedSpaceClient {
 	return &DefaultSharedSpaceClient{
 		config: config,
 	}
@@ -19,7 +19,7 @@ func NewDefaultSharedSpaceClient(config conf.SharedSpaceClientConfig) *DefaultSh
 
 type DefaultSharedSpaceClient struct {
 	clients.HttpClient
-	config conf.SharedSpaceClientConfig
+	config *conf.SharedSpaceClientConfig
 }
 
 func (this *DefaultSharedSpaceClient) GetSharedSpace(token, sharedSpaceId string) (*response.SharedSpaceResponse, error) {

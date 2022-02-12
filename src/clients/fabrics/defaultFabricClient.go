@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-func NewDefaultFabricClient(config conf.FabricClientConfig) *DefaultFabricClient {
+func NewDefaultFabricClient(config *conf.FabricClientConfig) *DefaultFabricClient {
 	return &DefaultFabricClient{
 		config: config,
 	}
@@ -19,7 +19,7 @@ func NewDefaultFabricClient(config conf.FabricClientConfig) *DefaultFabricClient
 
 type DefaultFabricClient struct {
 	clients.HttpClient
-	config conf.FabricClientConfig
+	config *conf.FabricClientConfig
 }
 
 func (this *DefaultFabricClient) GetFabrics(token string) (*[]response.FabricResponse, error) {

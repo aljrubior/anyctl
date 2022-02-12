@@ -9,7 +9,7 @@ import (
 )
 
 func NewPatchDeploymentRequest(
-	config conf.DeploymentClientConfig,
+	config *conf.DeploymentClientConfig,
 	bearerToken,
 	organizationId,
 	environmentId,
@@ -28,7 +28,7 @@ func NewPatchDeploymentRequest(
 
 type PatchDeploymentRequest struct {
 	clients.BaseHttpRequest
-	config         conf.DeploymentClientConfig
+	config         *conf.DeploymentClientConfig
 	bearerToken    string
 	organizationId string
 	environmentId  string

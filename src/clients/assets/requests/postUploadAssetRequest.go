@@ -12,7 +12,7 @@ import (
 )
 
 func NewPostUploadAssetRequest(
-	config conf.AssetClientConfig,
+	config *conf.AssetClientConfig,
 	bearerToken,
 	organizationId,
 	assetName,
@@ -30,7 +30,7 @@ func NewPostUploadAssetRequest(
 
 type PostUploadAssetRequest struct {
 	clients.BaseHttpRequest
-	config         conf.AssetClientConfig
+	config         *conf.AssetClientConfig
 	bearerToken    string
 	organizationId string
 	assetName      string

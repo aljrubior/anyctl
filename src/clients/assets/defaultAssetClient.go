@@ -11,7 +11,7 @@ import (
 	"time"
 )
 
-func NewDefaultAssetClient(config conf.AssetClientConfig) *DefaultAssetClient {
+func NewDefaultAssetClient(config *conf.AssetClientConfig) *DefaultAssetClient {
 	return &DefaultAssetClient{
 		config: config,
 	}
@@ -19,8 +19,7 @@ func NewDefaultAssetClient(config conf.AssetClientConfig) *DefaultAssetClient {
 
 type DefaultAssetClient struct {
 	clients.HttpClient
-	AssetClient
-	config conf.AssetClientConfig
+	config *conf.AssetClientConfig
 }
 
 func (this *DefaultAssetClient) FindAssets(orgId, envId, token, assetName string) (*[]response.AssetResponse, error) {

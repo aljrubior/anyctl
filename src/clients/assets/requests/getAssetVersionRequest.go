@@ -8,7 +8,7 @@ import (
 )
 
 func NewGetAssetVersionRequest(
-	config conf.AssetClientConfig,
+	config *conf.AssetClientConfig,
 	bearerToken,
 	organizationId,
 	assetName,
@@ -25,7 +25,7 @@ func NewGetAssetVersionRequest(
 
 type GetAssetVersionRequest struct {
 	clients.BaseHttpRequest
-	config         conf.AssetClientConfig
+	config         *conf.AssetClientConfig
 	bearerToken    string
 	organizationId string
 	assetName      string
