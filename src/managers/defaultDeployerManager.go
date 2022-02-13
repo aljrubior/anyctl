@@ -10,19 +10,19 @@ import (
 	"strings"
 )
 
-func NewDefaultDeployerManager(deploymentManager DeploymentManager, assetManager AssetManager, rtfTargetManager RuntimeFabricManager) *DefaultDeployerManager {
+func NewDefaultDeployerManager(deploymentManager DeploymentManager, assetManager AssetManager, organizationRuntimeFabricManager OrganizationRuntimeFabricManager) *DefaultDeployerManager {
 	return &DefaultDeployerManager{
-		deploymentManager: deploymentManager,
-		assetManager:      assetManager,
-		rtfTargetManager:  rtfTargetManager,
+		deploymentManager:                deploymentManager,
+		assetManager:                     assetManager,
+		organizationRuntimeFabricManager: organizationRuntimeFabricManager,
 	}
 }
 
 type DefaultDeployerManager struct {
 	DeployerManager
-	deploymentManager DeploymentManager
-	assetManager      AssetManager
-	rtfTargetManager  RuntimeFabricManager
+	deploymentManager                DeploymentManager
+	assetManager                     AssetManager
+	organizationRuntimeFabricManager OrganizationRuntimeFabricManager
 }
 
 func (this DefaultDeployerManager) Deploy(ctx *entities.CurrentContextEntity, deploymentName, assetRef, targetName, runtimeBaseVersion string) (*entities.DeploymentEntity, error) {
@@ -37,7 +37,7 @@ func (this DefaultDeployerManager) Deploy(ctx *entities.CurrentContextEntity, de
 		return nil, this.ThrowAssetNotFoundError(assetRef, nil)
 	}
 
-	target, targets, err := this.rtfTargetManager.FindFabricTargetByName(ctx, targetName)
+	target, targets, err := this.organizationRuntimeFabricManager.FindFabricTargetByName(ctx, targetName)
 
 	if err != nil {
 		return nil, err

@@ -8,7 +8,7 @@ import (
 	"github.com/aljrubior/anyctl/utils"
 )
 
-func NewDefaultRuntimeFabricHandler(configManager managers.ConfigManager, runtimeFabricManager managers.RuntimeFabricManager) *DefaultRuntimeFabrichandler {
+func NewDefaultRuntimeFabricHandler(configManager managers.ConfigManager, runtimeFabricManager managers.OrganizationRuntimeFabricManager) *DefaultRuntimeFabrichandler {
 	return &DefaultRuntimeFabrichandler{
 		configManager,
 		runtimeFabricManager,
@@ -17,7 +17,7 @@ func NewDefaultRuntimeFabricHandler(configManager managers.ConfigManager, runtim
 
 type DefaultRuntimeFabrichandler struct {
 	configManager        managers.ConfigManager
-	runtimeFabricManager managers.RuntimeFabricManager
+	runtimeFabricManager managers.OrganizationRuntimeFabricManager
 }
 
 func (this DefaultRuntimeFabrichandler) GetFabrics() error {

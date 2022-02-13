@@ -2,7 +2,7 @@ package managers
 
 import "github.com/aljrubior/anyctl/managers/entities"
 
-type RuntimeFabricManager interface {
+type OrganizationRuntimeFabricManager interface {
 	GetFabrics(ctx *entities.CurrentContextEntity) (*[]entities.OrganizationFabricEntity, error)
 	GetFabric(ctx *entities.CurrentContextEntity, targetId string) (*entities.OrganizationFabricEntity, error)
 	GetFabricTarget(ctx *entities.CurrentContextEntity, targetId string) (*entities.FabricTargetEntity, error)
