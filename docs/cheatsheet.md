@@ -49,7 +49,7 @@ anyctl admin privatespaces get private-space-name
 anyctl admin privatespaces get private-space-id
 
 # List Managed Firewall Rules for a Private Space
-anyctl admin privatespaces get private-space-id/private-space-name
+anyctl admin privatespaces get-firewall-rules private-space-id/private-space-name
 
 # List Fabrics for a Private Space
 anyctl admin privatespaces get-fabrics private-space-id/private-space-name
@@ -71,7 +71,7 @@ anyctl admin fabrics get fabric-name
 anyctl admin fabrics get fabric-id
 
 # List versions information for a Fabric
-anyctl admin fabrics get-versions fabric-id/fabric-name
+anyctl admin fabrics get-versions fabric-name/fabric-id
 
 # Describe a Fabric
 anyctl admin fabrics describe fabric-name/fabric-id
@@ -125,7 +125,7 @@ anyctl targets runtimefabrics describe runtime-fabric-name
 anyctl runtimemanager privatespaces get
 
 # List a Private Space
-anyctl runtimemanager privatespaces get runtime-mgr-private-space
+anyctl runtimemanager privatespaces get private-space-name
 
 # List Private Spaces filtered by name pattern
 anyctl runtimemanager privatespaces get private-space-name-pattern
@@ -165,16 +165,16 @@ anyctl deploy run deployment-name --asset group-id:asset-name --target-name targ
 anyctl deployments run deployment-name --asset asset-name --target-name target-name --runtime-version runtime-version
 
 # Deploying an application with a specific version of the asset
-anyctl deployments run app-01 --asset asset-name:asset-version --target-name runtime-mgr-private-space --runtime-version runtime-version
+anyctl deployments run app-01 --asset asset-name:asset-version --target-name target-name --runtime-version runtime-version
 
 # Deploying an application with a latest version of the asset on the latest runtime version in the target
 anyctl runtimemanager deployments run deployment-name --asset asset-name --target-name target-name
 
 # Stop a deployment
-anyctl runtimemanager deployments deployment-name
+anyctl runtimemanager deployments stop deployment-name
 
 # Start a deployment
-anyctl runtimemanager deployments deployment-name
+anyctl runtimemanager deployments start deployment-name
 
 # Delete a deployment
 anyctl runtimemanager deployments delete deployment-name
