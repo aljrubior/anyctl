@@ -1,9 +1,12 @@
 package services
 
-import "github.com/aljrubior/anyctl/clients/accounts/response"
+import (
+	"github.com/aljrubior/anyctl/clients/accounts/response"
+	"github.com/aljrubior/anyctl/managers/requests"
+)
 
 type AccountService interface {
-	GetAuthorizationToken(username, password string) (string, error)
+	Login(request requests.LoginRequest) (*string, error)
 	GetProfile(accessToken string) (*response.Profile, error)
 	GetOrganization(token, orgId string) (*response.OrganizationResponse, error)
 }

@@ -67,10 +67,14 @@ func (this DefaultAccountClient) GetProfile(token string) (*response.Profile, er
 		return nil, err
 	}
 
-	data, err := ioutil.ReadAll(resp.Body)
-
 	if resp.StatusCode != 200 {
 		return nil, this.ThrowError(resp)
+	}
+
+	data, err := ioutil.ReadAll(resp.Body)
+
+	if err != nil {
+		return nil, err
 	}
 
 	var profile response.Profile
@@ -84,11 +88,11 @@ func (this DefaultAccountClient) GetProfile(token string) (*response.Profile, er
 	return &profile, nil
 }
 
-func (this DefaultAccountClient) GetAuthorizationToken(username, password string) (*response.LoginResponse, error) {
+func (this DefaultAccountClient) Login(body []byte) (*response.LoginResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewPostLoginRequest(&this.config, username, password).Build()
+	req := requests.NewPostLoginRequest(&this.config, body).Build()
 
 	resp, err := client.Do(req)
 
@@ -98,21 +102,21 @@ func (this DefaultAccountClient) GetAuthorizationToken(username, password string
 		return nil, err
 	}
 
+	if resp.StatusCode != 200 {
+		return nil, this.ThrowError(resp)
+	}
+
 	data, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
 		return nil, err
 	}
 
-	if resp.StatusCode != 200 {
-		return nil, this.ThrowError(resp)
-	}
+	var loginResponse response.LoginResponse
 
-	var logingResponse response.LoginResponse
-
-	if err := json.Unmarshal(data, &logingResponse); err != nil {
+	if err := json.Unmarshal(data, &loginResponse); err != nil {
 		return nil, err
 	}
 
-	return &logingResponse, nil
+	return &loginResponse, nil
 }

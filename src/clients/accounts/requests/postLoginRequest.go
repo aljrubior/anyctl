@@ -1,25 +1,24 @@
 package requests
 
 import (
+	"bytes"
 	"fmt"
 	"github.com/aljrubior/anyctl/clients"
 	"github.com/aljrubior/anyctl/conf"
 	"net/http"
 )
 
-func NewPostLoginRequest(config *conf.AccountClientConfig, username, password string) *PostLoginRequest {
+func NewPostLoginRequest(config *conf.AccountClientConfig, body []byte) *PostLoginRequest {
 	return &PostLoginRequest{
-		config:   config,
-		username: username,
-		password: password,
+		config: config,
+		body:   body,
 	}
 }
 
 type PostLoginRequest struct {
 	clients.BaseHttpRequest
-	config   *conf.AccountClientConfig
-	username string
-	password string
+	config *conf.AccountClientConfig
+	body   []byte
 }
 
 func (this *PostLoginRequest) buildUri() string {
@@ -34,11 +33,9 @@ func (this *PostLoginRequest) Build() *http.Request {
 
 	uri := this.buildUri()
 
-	req, _ := http.NewRequest(http.MethodPost, uri, nil)
-	param := req.URL.Query()
-	param.Add("username", this.username)
-	param.Add("password", this.password)
+	req, _ := http.NewRequest(http.MethodPost, uri, bytes.NewBuffer(this.body))
 
-	req.URL.RawQuery = param.Encode()
+	this.AddContentType(req, clients.ContentTypeJSON)
+
 	return req
 }

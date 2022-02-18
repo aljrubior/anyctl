@@ -47,11 +47,13 @@ func (this DefaultConfigManager) CreateConfig(username, password, token string, 
 	config.SetOrgnizationId(profile.Organization.Id)
 
 	data, err := yaml.Marshal(&config)
+
 	if err != nil {
 		return nil, err
 	}
 
 	anypointDir, err := this.getConfigDir()
+
 	if err != nil {
 		return nil, err
 	}

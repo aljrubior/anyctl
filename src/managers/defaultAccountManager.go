@@ -2,6 +2,7 @@ package managers
 
 import (
 	"github.com/aljrubior/anyctl/managers/entities"
+	"github.com/aljrubior/anyctl/managers/requests"
 	"github.com/aljrubior/anyctl/managers/wrappers"
 	"github.com/aljrubior/anyctl/services"
 )
@@ -18,30 +19,32 @@ type DefaultAccountManager struct {
 
 func (this DefaultAccountManager) Login(username, password string) (*entities.LoginEntity, error) {
 
-	token, err := this.accountService.GetAuthorizationToken(username, password)
+	req := requests.NewLoginRequestBuilder(username, password).Build()
+
+	token, err := this.accountService.Login(*req)
 
 	if err != nil {
 		return nil, err
 	}
 
-	profile, err := this.accountService.GetProfile(token)
+	profile, err := this.accountService.GetProfile(*token)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return entities.NewLoginEntityBuilder(token, profile).Build(), nil
+	return entities.NewLoginEntityBuilder(*token, profile).Build(), nil
 }
 
 func (this DefaultAccountManager) RefreshAccessToken(username, password string) (string, error) {
 
-	token, err := this.accountService.GetAuthorizationToken(username, password)
+	loginEntity, err := this.Login(username, password)
 
 	if err != nil {
 		return "", err
 	}
 
-	return token, nil
+	return loginEntity.Token, nil
 }
 
 func (this DefaultAccountManager) FindMasterOrg(ctx *entities.CurrentContextEntity, organizationId string) (*entities.OrganizationEntity, error) {

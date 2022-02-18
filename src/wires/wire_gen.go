@@ -31,7 +31,7 @@ func InitializeAccountManager(config conf.AccountClientConfig) (managers.Account
 	return defaultAccountManager, nil
 }
 
-// Injectors from anyctlConfigManagerProvider.go:
+// Injectors from anyctlConfigManagerWire.go:
 
 func InitializeAnyctlConfigManager() (managers.AnyctlConfigManager, error) {
 	appConfig := conf.NewAppConfig()
@@ -84,7 +84,7 @@ func InitializeFabricManager(config conf.FabricClientConfig) (managers.FabricMan
 	return defaultFabricManager, nil
 }
 
-// Injectors from organizationPrivateSpaceWire.go:
+// Injectors from organizationPrivateSpaceManagerWire.go:
 
 func InitializeOrganizationPrivateSpaceManager(config conf.RuntimeFabricClientConfig) (managers.OrganizationPrivateSpaceManager, error) {
 	defaultOrganizationPrivateSpaceClient := organizationPrivateSpaces.NewOrganizationDefaultPrivateSpaceClient(config)

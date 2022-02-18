@@ -198,6 +198,7 @@ func (this *AnyctlConfigManager) GetAccountClientConfig() conf.AccountClientConf
 			Port:                     this.anyctlConfig.Anypoint.Port,
 			LoginPath:                this.anyctlConfig.Anypoint.Resources.Admin.Accounts.LoginPath,
 			OrganizationPathTemplate: this.anyctlConfig.Anypoint.Resources.Admin.Accounts.OrganizationPath,
+			ProfilePath:              this.anyctlConfig.Anypoint.Resources.Admin.Accounts.ProfilePath,
 		}
 	}
 
