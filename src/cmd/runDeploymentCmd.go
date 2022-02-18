@@ -15,7 +15,7 @@ var runDeploymentCmd = &cobra.Command{
 	Short: "run",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		deployerHandler := handlers.NewDefaultRunHandler(*ConfigManager, *DeployerManager)
+		deployerHandler := handlers.NewDefaultRunHandler(ConfigManager, DeployerManager)
 
 		switch len(args) {
 		case 1:

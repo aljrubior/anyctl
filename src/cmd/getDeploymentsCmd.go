@@ -12,7 +12,7 @@ var getDeploymentsCmd = &cobra.Command{
 	Short:   "Retrieve a list of deployments",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		deploymentHandler := handlers.NewDeploymentHandler(*DeploymentManager, *ConfigManager, *TargetManager)
+		deploymentHandler := handlers.NewDeploymentHandler(DeploymentManager, ConfigManager, TargetManager)
 
 		switch len(args) {
 		case 0:

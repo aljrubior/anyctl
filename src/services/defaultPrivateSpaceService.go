@@ -6,8 +6,8 @@ import (
 	"github.com/aljrubior/anyctl/clients/privateSpaces/response"
 )
 
-func NewDefaultPrivateSpaceService(privateSpaceClient privateSpaces.PrivateSpaceClient) *DefaultPrivateSpaceService {
-	return &DefaultPrivateSpaceService{
+func NewDefaultPrivateSpaceService(privateSpaceClient privateSpaces.PrivateSpaceClient) DefaultPrivateSpaceService {
+	return DefaultPrivateSpaceService{
 		privateSpaceClient,
 	}
 }

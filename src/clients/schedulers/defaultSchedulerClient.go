@@ -11,23 +11,23 @@ import (
 	"time"
 )
 
-func NewDefaultSchedulerClient(config *conf.SchedulerClientConfig) *DefaultSchedulerClient {
+func NewDefaultSchedulerClient(config conf.SchedulerClientConfig) DefaultSchedulerClient {
 
-	return &DefaultSchedulerClient{
+	return DefaultSchedulerClient{
 		config: config,
 	}
 }
 
 type DefaultSchedulerClient struct {
 	clients.HttpClient
-	config *conf.SchedulerClientConfig
+	config conf.SchedulerClientConfig
 }
 
 func (this DefaultSchedulerClient) GetSchedulers(orgId, envId, token, deploymentId string) (*response.SchedulersResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetSchedulersRequest(this.config, token, orgId, envId, deploymentId).Build()
+	req := requests.NewGetSchedulersRequest(&this.config, token, orgId, envId, deploymentId).Build()
 
 	resp, err := client.Do(req)
 
@@ -62,7 +62,7 @@ func (this DefaultSchedulerClient) PatchSchedulers(orgId, envId, token, deployme
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewPatchSchedulersRequest(this.config, token, orgId, envId, deploymentId, body).Build()
+	req := requests.NewPatchSchedulersRequest(&this.config, token, orgId, envId, deploymentId, body).Build()
 
 	resp, err := client.Do(req)
 
@@ -97,7 +97,7 @@ func (this DefaultSchedulerClient) PostScheduler(orgId, envId, token, deployment
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewPostSchedulerRequest(this.config, token, orgId, envId, deploymentId, flowName).Build()
+	req := requests.NewPostSchedulerRequest(&this.config, token, orgId, envId, deploymentId, flowName).Build()
 
 	resp, err := client.Do(req)
 
@@ -118,7 +118,7 @@ func (this DefaultSchedulerClient) DeleteScheduler(orgId, envId, token, deployme
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewDeleteSchedulerRequest(this.config, token, orgId, envId, deploymentId, flowName).Build()
+	req := requests.NewDeleteSchedulerRequest(&this.config, token, orgId, envId, deploymentId, flowName).Build()
 
 	resp, err := client.Do(req)
 

@@ -30,7 +30,7 @@ func (this DefaultAssetHandler) FindAssets(assetName string) error {
 	if err != nil {
 		return err
 	}
-
+	
 	assets, options, err := this.assetManager.FindAssetByName(ctx, assetName)
 
 	if err != nil {

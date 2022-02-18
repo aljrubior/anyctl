@@ -11,22 +11,22 @@ import (
 	"time"
 )
 
-func NewDefaultOrganizationRuntimeFabricClient(config *conf.RuntimeFabricClientConfig) *DefaultOrganizationRuntimeFabricClient {
-	return &DefaultOrganizationRuntimeFabricClient{
+func NewDefaultOrganizationRuntimeFabricClient(config conf.RuntimeFabricClientConfig) DefaultOrganizationRuntimeFabricClient {
+	return DefaultOrganizationRuntimeFabricClient{
 		config: config,
 	}
 }
 
 type DefaultOrganizationRuntimeFabricClient struct {
 	clients.HttpClient
-	config *conf.RuntimeFabricClientConfig
+	config conf.RuntimeFabricClientConfig
 }
 
-func (this *DefaultOrganizationRuntimeFabricClient) GetFabrics(orgId, envId, token string) (*[]response.OrganizationFabricResponse, error) {
+func (this DefaultOrganizationRuntimeFabricClient) GetFabrics(orgId, envId, token string) (*[]response.OrganizationFabricResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetFabricsRequest(this.config, token, orgId, envId).Build()
+	req := requests.NewGetFabricsRequest(&this.config, token, orgId, envId).Build()
 
 	resp, err := client.Do(req)
 
@@ -57,11 +57,11 @@ func (this *DefaultOrganizationRuntimeFabricClient) GetFabrics(orgId, envId, tok
 	return &targets, nil
 }
 
-func (this *DefaultOrganizationRuntimeFabricClient) GetFabric(orgId, envId, token, targetId string) (*response.OrganizationFabricResponse, error) {
+func (this DefaultOrganizationRuntimeFabricClient) GetFabric(orgId, envId, token, targetId string) (*response.OrganizationFabricResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetFabricRequest(this.config, token, orgId, envId, targetId).Build()
+	req := requests.NewGetFabricRequest(&this.config, token, orgId, envId, targetId).Build()
 
 	resp, err := client.Do(req)
 
@@ -92,11 +92,11 @@ func (this *DefaultOrganizationRuntimeFabricClient) GetFabric(orgId, envId, toke
 	return &target, nil
 }
 
-func (this *DefaultOrganizationRuntimeFabricClient) GetTargets(orgId, envId, token string) (*[]response.FabricTargetResponse, error) {
+func (this DefaultOrganizationRuntimeFabricClient) GetTargets(orgId, envId, token string) (*[]response.FabricTargetResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetTargetsRequest(this.config, token, orgId, envId).Build()
+	req := requests.NewGetTargetsRequest(&this.config, token, orgId, envId).Build()
 
 	resp, err := client.Do(req)
 
@@ -127,11 +127,11 @@ func (this *DefaultOrganizationRuntimeFabricClient) GetTargets(orgId, envId, tok
 	return &targets, nil
 }
 
-func (this *DefaultOrganizationRuntimeFabricClient) GetTarget(orgId, envId, token, targetId string) (*response.FabricTargetResponse, error) {
+func (this DefaultOrganizationRuntimeFabricClient) GetTarget(orgId, envId, token, targetId string) (*response.FabricTargetResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetTargetRequest(this.config, token, orgId, envId, targetId).Build()
+	req := requests.NewGetTargetRequest(&this.config, token, orgId, envId, targetId).Build()
 
 	resp, err := client.Do(req)
 

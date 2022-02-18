@@ -12,7 +12,7 @@ var getOrganizationPrivateSpaceFirewallRulesCmd = &cobra.Command{
 	Short:   "Lists all the nodes in the specified runtime fabric.",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		privateSpaceHandler := handlers.NewDefaultOrganizationPrivateSpaceHandler(*ConfigManager, *OrganizationPrivateSpaceManager)
+		privateSpaceHandler := handlers.NewDefaultOrganizationPrivateSpaceHandler(ConfigManager, OrganizationPrivateSpaceManager)
 
 		switch len(args) {
 		case 1:

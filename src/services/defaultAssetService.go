@@ -5,8 +5,8 @@ import (
 	"github.com/aljrubior/anyctl/clients/assets/response"
 )
 
-func NewDefaultAssetService(assetClient assets.AssetClient) *DefaultAssetService {
-	return &DefaultAssetService{
+func NewDefaultAssetService(assetClient assets.AssetClient) DefaultAssetService {
+	return DefaultAssetService{
 		assetClient: assetClient,
 	}
 }

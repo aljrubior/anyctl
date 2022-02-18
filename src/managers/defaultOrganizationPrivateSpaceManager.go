@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-func NewDefaultOrganizationPrivateSpaceManager(privateSpaceService services.OrganizationPrivateSpaceService) *DefaultOrganizationPrivateSpaceManager {
-	return &DefaultOrganizationPrivateSpaceManager{
+func NewDefaultOrganizationPrivateSpaceManager(privateSpaceService services.OrganizationPrivateSpaceService) DefaultOrganizationPrivateSpaceManager {
+	return DefaultOrganizationPrivateSpaceManager{
 		privateSpaceService,
 	}
 }

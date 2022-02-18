@@ -12,23 +12,22 @@ import (
 	"time"
 )
 
-func NewDefaultTargetClient(config *conf.TargetClientConfig) *DefaultTargetClient {
-	return &DefaultTargetClient{
+func NewDefaultTargetClient(config conf.TargetClientConfig) DefaultTargetClient {
+	return DefaultTargetClient{
 		config: config,
 	}
 }
 
 type DefaultTargetClient struct {
 	clients.HttpClient
-	TargetClient
-	config *conf.TargetClientConfig
+	config conf.TargetClientConfig
 }
 
-func (this *DefaultTargetClient) GetTargets(orgId, envId, token string) (*response.TargetsResponse, error) {
+func (this DefaultTargetClient) GetTargets(orgId, envId, token string) (*response.TargetsResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetTargets(this.config, orgId, envId, token).Build()
+	req := requests.NewGetTargets(&this.config, orgId, envId, token).Build()
 
 	resp, err := client.Do(req)
 
@@ -51,7 +50,7 @@ func (this *DefaultTargetClient) GetTargets(orgId, envId, token string) (*respon
 	return this.buildTargetsResponse(data)
 }
 
-func (this *DefaultTargetClient) buildTargetsResponse(data []byte) (*response.TargetsResponse, error) {
+func (this DefaultTargetClient) buildTargetsResponse(data []byte) (*response.TargetsResponse, error) {
 
 	var targets map[string][]map[string]interface{}
 

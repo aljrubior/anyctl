@@ -5,8 +5,8 @@ import (
 	"github.com/aljrubior/anyctl/services"
 )
 
-func NewDefaultFabricManager(fabricService services.FabricService) *DefaultFabricManager {
-	return &DefaultFabricManager{
+func NewDefaultFabricManager(fabricService services.FabricService) DefaultFabricManager {
+	return DefaultFabricManager{
 		fabricService,
 	}
 }

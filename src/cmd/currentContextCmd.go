@@ -12,7 +12,7 @@ var currentEnvironmentCmd = &cobra.Command{
 
 		switch len(args) {
 		case 0:
-			configHandler := handlers.NewDefaultConfigHandler(*AccountManager, *ConfigManager)
+			configHandler := handlers.NewDefaultConfigHandler(AccountManager, ConfigManager)
 
 			if err := configHandler.PrintCurrentContext(); err != nil {
 				Console.LogError(err)

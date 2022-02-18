@@ -12,7 +12,7 @@ var getPrivateSpaceFabricsCmd = &cobra.Command{
 	Short:   "Lists all Fabrics for Private Space.",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		privateSpaceHandler := handlers.NewDefaultPrivateSpaceHandler(*ConfigManager, *PrivateSpaceManager)
+		privateSpaceHandler := handlers.NewDefaultPrivateSpaceHandler(ConfigManager, PrivateSpaceManager)
 
 		switch len(args) {
 		case 1:

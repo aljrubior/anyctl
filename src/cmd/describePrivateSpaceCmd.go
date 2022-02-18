@@ -11,7 +11,7 @@ var describePrivateSpaceCmd = &cobra.Command{
 	Short:   "List all private spaces",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		privateSpaceHandler := handlers.NewDefaultPrivateSpaceHandler(*ConfigManager, *PrivateSpaceManager)
+		privateSpaceHandler := handlers.NewDefaultPrivateSpaceHandler(ConfigManager, PrivateSpaceManager)
 
 		switch len(args) {
 		case 1:

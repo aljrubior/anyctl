@@ -34,7 +34,9 @@ func (this *GetOrganizationRequest) buildUri() string {
 func (this *GetOrganizationRequest) Build() *http.Request {
 
 	uri := this.buildUri()
+
 	req, _ := http.NewRequest(http.MethodGet, uri, nil)
+
 	this.AddAuthorizationHeader(req, this.bearerToken)
 
 	return req

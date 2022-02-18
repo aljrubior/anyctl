@@ -15,7 +15,7 @@ var cloneDeploymentCmd = &cobra.Command{
 	Short: "Clone a deployment",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		migrationHandler := handlers.NewDefaultDeploymentMigrationHandler(*DeployerManager, *ConfigManager, *DeploymentManager, *TargetManager, *AccountManager)
+		migrationHandler := handlers.NewDefaultDeploymentMigrationHandler(DeployerManager, ConfigManager, DeploymentManager, TargetManager, AccountManager)
 
 		switch len(args) {
 		case 1:

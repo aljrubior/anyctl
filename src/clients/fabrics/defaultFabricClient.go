@@ -11,22 +11,24 @@ import (
 	"time"
 )
 
-func NewDefaultFabricClient(config *conf.FabricClientConfig) *DefaultFabricClient {
-	return &DefaultFabricClient{
+func NewDefaultFabricClient(config conf.FabricClientConfig) DefaultFabricClient {
+	return DefaultFabricClient{
 		config: config,
 	}
 }
 
 type DefaultFabricClient struct {
 	clients.HttpClient
-	config *conf.FabricClientConfig
+	config conf.FabricClientConfig
 }
 
-func (this *DefaultFabricClient) GetFabrics(token string) (*[]response.FabricResponse, error) {
+func (this DefaultFabricClient) GetFabrics(token string) (*[]response.FabricResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetFabricsRequest(this.config, token).Build()
+	println(token)
+
+	req := requests.NewGetFabricsRequest(&this.config, token).Build()
 
 	resp, err := client.Do(req)
 
@@ -36,14 +38,14 @@ func (this *DefaultFabricClient) GetFabrics(token string) (*[]response.FabricRes
 		return nil, err
 	}
 
+	if resp.StatusCode != 200 {
+		return nil, this.ThrowError(resp)
+	}
+
 	data, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
 		return nil, err
-	}
-
-	if resp.StatusCode != 200 {
-		return nil, this.ThrowError(resp)
 	}
 
 	var fabrics []response.FabricResponse
@@ -57,11 +59,11 @@ func (this *DefaultFabricClient) GetFabrics(token string) (*[]response.FabricRes
 	return &fabrics, nil
 }
 
-func (this *DefaultFabricClient) GetFabric(token, fabricId string) (*response.FabricResponse, error) {
+func (this DefaultFabricClient) GetFabric(token, fabricId string) (*response.FabricResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetFabricRequest(this.config, token, fabricId).Build()
+	req := requests.NewGetFabricRequest(&this.config, token, fabricId).Build()
 
 	resp, err := client.Do(req)
 
@@ -71,14 +73,14 @@ func (this *DefaultFabricClient) GetFabric(token, fabricId string) (*response.Fa
 		return nil, err
 	}
 
+	if resp.StatusCode != 200 {
+		return nil, this.ThrowError(resp)
+	}
+
 	data, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
 		return nil, err
-	}
-
-	if resp.StatusCode != 200 {
-		return nil, this.ThrowError(resp)
 	}
 
 	var fabric response.FabricResponse
@@ -92,11 +94,11 @@ func (this *DefaultFabricClient) GetFabric(token, fabricId string) (*response.Fa
 	return &fabric, nil
 }
 
-func (this *DefaultFabricClient) GetFabricsByNameOrId(token string, fabricId string) (*response.FabricsResponse, error) {
+func (this DefaultFabricClient) GetFabricsByNameOrId(token string, fabricId string) (*response.FabricsResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetFabricsByNameOrIdRequest(this.config, token, fabricId).Build()
+	req := requests.NewGetFabricsByNameOrIdRequest(&this.config, token, fabricId).Build()
 
 	resp, err := client.Do(req)
 

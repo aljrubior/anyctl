@@ -14,7 +14,7 @@ var getOrganizationUsageCmd = &cobra.Command{
 	Short:   " organization",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		usageHandler := handlers.NewDefaultOrganizationHandler(*AccountManager, *ConfigManager)
+		usageHandler := handlers.NewDefaultOrganizationHandler(AccountManager, ConfigManager)
 
 		switch len(args) {
 		case 0:

@@ -1,7 +1,7 @@
 package conf
 
-func NewAppConfig() *AppConfig {
-	return &AppConfig{}
+func NewAppConfig() AppConfig {
+	return AppConfig{}
 }
 
 type AppConfig struct {

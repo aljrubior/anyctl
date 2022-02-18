@@ -6,8 +6,8 @@ import (
 	"github.com/aljrubior/anyctl/services"
 )
 
-func NewDefaultSchedulerManager(deploymentManager DeploymentManager, schedulerService services.SchedulerService) *DefaultSchedulerManager {
-	return &DefaultSchedulerManager{
+func NewDefaultSchedulerManager(deploymentManager DeploymentManager, schedulerService services.SchedulerService) DefaultSchedulerManager {
+	return DefaultSchedulerManager{
 		schedulerService:  schedulerService,
 		deploymentManager: deploymentManager,
 	}

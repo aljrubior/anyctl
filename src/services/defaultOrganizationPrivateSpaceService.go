@@ -5,14 +5,14 @@ import (
 	"github.com/aljrubior/anyctl/clients/organizationPrivateSpaces/response"
 )
 
-func NewDefaultOrganizationPrivateSpaceService(privateSpaceClient organizationPrivateSpaces.PrivateSpaceClient) *DefaultOrganizationPrivateSpaceService {
-	return &DefaultOrganizationPrivateSpaceService{
+func NewDefaultOrganizationPrivateSpaceService(privateSpaceClient organizationPrivateSpaces.OrganizationPrivateSpaceClient) DefaultOrganizationPrivateSpaceService {
+	return DefaultOrganizationPrivateSpaceService{
 		privateSpaceClient,
 	}
 }
 
 type DefaultOrganizationPrivateSpaceService struct {
-	privateSpaceClient organizationPrivateSpaces.PrivateSpaceClient
+	privateSpaceClient organizationPrivateSpaces.OrganizationPrivateSpaceClient
 }
 
 func (this DefaultOrganizationPrivateSpaceService) GetPrivateSpaces(orgId, envId, token string) (*[]response.OrganizationPrivateSpaceResponse, error) {

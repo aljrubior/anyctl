@@ -12,7 +12,7 @@ var getRuntimeFabrics = &cobra.Command{
 	Short:   "Lists all the deployment targets of type Runtime Fabric available to deploy applications in the current environment.",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		runtimeFabricHandler := handlers.NewDefaultRuntimeFabricHandler(*ConfigManager, *OrganizationRutimeFabricManager)
+		runtimeFabricHandler := handlers.NewDefaultRuntimeFabricHandler(ConfigManager, OrganizationRutimeFabricManager)
 
 		switch len(args) {
 		case 0:

@@ -12,7 +12,7 @@ var getOrganizationPrivateSpaceFabricsCmd = &cobra.Command{
 	Short:   "Lists all the fabrics in a specified runtime fabric.",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		privateSpaceHandler := handlers.NewDefaultOrganizationPrivateSpaceHandler(*ConfigManager, *OrganizationPrivateSpaceManager)
+		privateSpaceHandler := handlers.NewDefaultOrganizationPrivateSpaceHandler(ConfigManager, OrganizationPrivateSpaceManager)
 
 		switch len(args) {
 		case 1:

@@ -15,7 +15,7 @@ var uploadAssetCmd = &cobra.Command{
 	Short: "upload",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		assetHandler := handlers.NewDefaultAssetHandler(*AssetManager, *ConfigManager)
+		assetHandler := handlers.NewDefaultAssetHandler(AssetManager, ConfigManager)
 
 		switch len(args) {
 		case 0:

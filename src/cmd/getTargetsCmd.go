@@ -12,7 +12,7 @@ var getTargetsCmd = &cobra.Command{
 	Short:   "Lists all the deployment targets available to deploy applications in the current environment.",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		targetHandler := handlers.NewDefaultTargetHandler(*ConfigManager, *TargetManager)
+		targetHandler := handlers.NewDefaultTargetHandler(ConfigManager, TargetManager)
 
 		switch len(args) {
 		case 0:

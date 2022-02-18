@@ -11,22 +11,22 @@ import (
 	"time"
 )
 
-func NewDefaultSharedSpaceClient(config *conf.SharedSpaceClientConfig) *DefaultSharedSpaceClient {
-	return &DefaultSharedSpaceClient{
+func NewDefaultSharedSpaceClient(config conf.SharedSpaceClientConfig) DefaultSharedSpaceClient {
+	return DefaultSharedSpaceClient{
 		config: config,
 	}
 }
 
 type DefaultSharedSpaceClient struct {
 	clients.HttpClient
-	config *conf.SharedSpaceClientConfig
+	config conf.SharedSpaceClientConfig
 }
 
-func (this *DefaultSharedSpaceClient) GetSharedSpace(token, sharedSpaceId string) (*response.SharedSpaceResponse, error) {
+func (this DefaultSharedSpaceClient) GetSharedSpace(token, sharedSpaceId string) (*response.SharedSpaceResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetSharedSpaceRequest(this.config, token, sharedSpaceId).Build()
+	req := requests.NewGetSharedSpaceRequest(&this.config, token, sharedSpaceId).Build()
 
 	resp, err := client.Do(req)
 
@@ -57,11 +57,11 @@ func (this *DefaultSharedSpaceClient) GetSharedSpace(token, sharedSpaceId string
 	return &privatespace, nil
 }
 
-func (this *DefaultSharedSpaceClient) GetSharedSpaces(token string) (*[]response.SharedSpaceResponse, error) {
+func (this DefaultSharedSpaceClient) GetSharedSpaces(token string) (*[]response.SharedSpaceResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetSharedSpacesRequest(this.config, token).Build()
+	req := requests.NewGetSharedSpacesRequest(&this.config, token).Build()
 
 	resp, err := client.Do(req)
 

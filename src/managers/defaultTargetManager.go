@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-func NewDefaultTargetManager(targetService services.TargetService) *DefaultTargetManager {
-	return &DefaultTargetManager{
+func NewDefaultTargetManager(targetService services.TargetService) DefaultTargetManager {
+	return DefaultTargetManager{
 		targetService: targetService,
 	}
 }
@@ -62,7 +62,7 @@ func (this DefaultTargetManager) FindTargetsContainsName(ctx *entities.CurrentCo
 	return &targetsFound, nil
 }
 
-func (this *DefaultTargetManager) find(targets *[]entities.TargetEntity, targetName string) *entities.TargetEntity {
+func (this DefaultTargetManager) find(targets *[]entities.TargetEntity, targetName string) *entities.TargetEntity {
 
 	for _, v := range *targets {
 		if v.GetName() == targetName {

@@ -12,7 +12,7 @@ var getRuntimeFabricNodeCmd = &cobra.Command{
 	Short:   "Lists all the nodes in the specified runtime fabric.",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		runtimeFabricHandler := handlers.NewDefaultRuntimeFabricHandler(*ConfigManager, *OrganizationRutimeFabricManager)
+		runtimeFabricHandler := handlers.NewDefaultRuntimeFabricHandler(ConfigManager, OrganizationRutimeFabricManager)
 
 		switch len(args) {
 		case 1:

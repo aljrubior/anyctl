@@ -11,7 +11,7 @@ var getSharedSpacesCmd = &cobra.Command{
 	Short:   "Retrieve a list of shared spaces",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		privateSpaceHandler := handlers.NewDefaultSharedSpaceHandler(*ConfigManager, *SharedSpaceManager, *PrivateSpaceManager)
+		privateSpaceHandler := handlers.NewDefaultSharedSpaceHandler(ConfigManager, SharedSpaceManager, PrivateSpaceManager)
 
 		switch len(args) {
 		case 0:

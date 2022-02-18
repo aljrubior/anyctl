@@ -9,8 +9,8 @@ import (
 	"strings"
 )
 
-func NewDefaultDeploymentManager(deploymentService services.DeploymentService, assetManager AssetManager) *DefaultDeploymentManager {
-	return &DefaultDeploymentManager{
+func NewDefaultDeploymentManager(deploymentService services.DeploymentService, assetManager AssetManager) DefaultDeploymentManager {
+	return DefaultDeploymentManager{
 		deploymentService: deploymentService,
 		assetManager:      assetManager,
 	}

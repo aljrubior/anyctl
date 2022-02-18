@@ -6,8 +6,8 @@ import (
 	"strings"
 )
 
-func NewDefaultSharedSpaceManager(sharedSpaceService services.SharedSpaceService) *DefaultSharedSpaceManager {
-	return &DefaultSharedSpaceManager{
+func NewDefaultSharedSpaceManager(sharedSpaceService services.SharedSpaceService) DefaultSharedSpaceManager {
+	return DefaultSharedSpaceManager{
 		sharedSpaceService,
 	}
 }

@@ -11,7 +11,7 @@ var describeSharedSpaceCmd = &cobra.Command{
 	Short:   "Describe a shared spaces",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		sharedSpaceHandler := handlers.NewDefaultSharedSpaceHandler(*ConfigManager, *SharedSpaceManager, *PrivateSpaceManager)
+		sharedSpaceHandler := handlers.NewDefaultSharedSpaceHandler(ConfigManager, SharedSpaceManager, PrivateSpaceManager)
 
 		switch len(args) {
 		case 1:

@@ -8,8 +8,8 @@ import (
 	"strings"
 )
 
-func NewDefaultOrganizationRuntimeFabricManager(runtimeFabricService services.OrganizationRuntimeFabricService) *DefaultOrganizationRuntimeFabricManager {
-	return &DefaultOrganizationRuntimeFabricManager{
+func NewDefaultOrganizationRuntimeFabricManager(runtimeFabricService services.OrganizationRuntimeFabricService) DefaultOrganizationRuntimeFabricManager {
+	return DefaultOrganizationRuntimeFabricManager{
 		runtimeFabricService,
 	}
 }

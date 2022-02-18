@@ -13,7 +13,7 @@ var setAssetCmd = &cobra.Command{
 	Short: "Update the deployment asset",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		deploymentHandler := handlers.NewDeploymentHandler(*DeploymentManager, *ConfigManager, *TargetManager)
+		deploymentHandler := handlers.NewDeploymentHandler(DeploymentManager, ConfigManager, TargetManager)
 
 		switch len(args) {
 		case 1:

@@ -12,7 +12,7 @@ var getTargetsStandaloneAddressesCmd = &cobra.Command{
 	Short:   "Display the target details",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		targetHandler := handlers.NewDefaultTargetHandler(*ConfigManager, *TargetManager)
+		targetHandler := handlers.NewDefaultTargetHandler(ConfigManager, TargetManager)
 
 		switch len(args) {
 		case 1:

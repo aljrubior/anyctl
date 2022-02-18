@@ -5,8 +5,8 @@ import (
 	"github.com/aljrubior/anyctl/clients/fabrics/response"
 )
 
-func NewDefaultFabricService(fabricClient fabrics.FabricClient) *DefaultFabricService {
-	return &DefaultFabricService{
+func NewDefaultFabricService(fabricClient fabrics.FabricClient) DefaultFabricService {
+	return DefaultFabricService{
 		fabricClient,
 	}
 }

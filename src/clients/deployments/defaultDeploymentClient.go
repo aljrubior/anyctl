@@ -11,21 +11,21 @@ import (
 	"time"
 )
 
-func NewDefaultDeploymentClient(config *conf.DeploymentClientConfig) *DefaultDeploymentClient {
-	return &DefaultDeploymentClient{
+func NewDefaultDeploymentClient(config conf.DeploymentClientConfig) DefaultDeploymentClient {
+	return DefaultDeploymentClient{
 		config: config,
 	}
 }
 
 type DefaultDeploymentClient struct {
 	clients.HttpClient
-	config *conf.DeploymentClientConfig
+	config conf.DeploymentClientConfig
 }
 
-func (this *DefaultDeploymentClient) GetDeployments(orgId, envId, token string) (*response.DeploymentsResponse, error) {
+func (this DefaultDeploymentClient) GetDeployments(orgId, envId, token string) (*response.DeploymentsResponse, error) {
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetDeploymentsRequest(this.config, token, orgId, envId).Build()
+	req := requests.NewGetDeploymentsRequest(&this.config, token, orgId, envId).Build()
 
 	resp, err := client.Do(req)
 
@@ -52,10 +52,10 @@ func (this *DefaultDeploymentClient) GetDeployments(orgId, envId, token string) 
 	return &response, nil
 }
 
-func (this *DefaultDeploymentClient) GetDeployment(orgId, envId, token, deploymentId string) (*response.DeploymentResponse, error) {
+func (this DefaultDeploymentClient) GetDeployment(orgId, envId, token, deploymentId string) (*response.DeploymentResponse, error) {
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetDeploymentRequest(this.config, token, orgId, envId, deploymentId).Build()
+	req := requests.NewGetDeploymentRequest(&this.config, token, orgId, envId, deploymentId).Build()
 
 	resp, err := client.Do(req)
 
@@ -82,10 +82,10 @@ func (this *DefaultDeploymentClient) GetDeployment(orgId, envId, token, deployme
 	return &response, nil
 }
 
-func (this *DefaultDeploymentClient) PostDeployment(orgId, envId, token string, body []byte) (*response.DeploymentResponse, error) {
+func (this DefaultDeploymentClient) PostDeployment(orgId, envId, token string, body []byte) (*response.DeploymentResponse, error) {
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewPostDeploymentRequest(this.config, token, orgId, envId, body).Build()
+	req := requests.NewPostDeploymentRequest(&this.config, token, orgId, envId, body).Build()
 
 	resp, err := client.Do(req)
 
@@ -112,11 +112,11 @@ func (this *DefaultDeploymentClient) PostDeployment(orgId, envId, token string, 
 	return &response, nil
 }
 
-func (this *DefaultDeploymentClient) PatchDeployment(orgId, envId, token, deploymentId string, body []byte) (*response.DeploymentResponse, error) {
+func (this DefaultDeploymentClient) PatchDeployment(orgId, envId, token, deploymentId string, body []byte) (*response.DeploymentResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewPatchDeploymentRequest(this.config, token, orgId, envId, deploymentId, body).Build()
+	req := requests.NewPatchDeploymentRequest(&this.config, token, orgId, envId, deploymentId, body).Build()
 
 	resp, err := client.Do(req)
 
@@ -143,11 +143,11 @@ func (this *DefaultDeploymentClient) PatchDeployment(orgId, envId, token, deploy
 	return &response, nil
 }
 
-func (this *DefaultDeploymentClient) DeleteDeployment(orgId, envId, token, deploymentId string) error {
+func (this DefaultDeploymentClient) DeleteDeployment(orgId, envId, token, deploymentId string) error {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewDeleteDeploymentRequest(this.config, token, orgId, envId, deploymentId).Build()
+	req := requests.NewDeleteDeploymentRequest(&this.config, token, orgId, envId, deploymentId).Build()
 
 	resp, err := client.Do(req)
 

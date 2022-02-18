@@ -11,7 +11,7 @@ var deleteDeploymentCmd = &cobra.Command{
 	Short: "Delete deployment",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		deploymentHandler := handlers.NewDeploymentHandler(*DeploymentManager, *ConfigManager, *TargetManager)
+		deploymentHandler := handlers.NewDeploymentHandler(DeploymentManager, ConfigManager, TargetManager)
 
 		switch len(args) {
 		case 1:

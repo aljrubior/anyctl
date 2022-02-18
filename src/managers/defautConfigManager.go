@@ -12,9 +12,8 @@ import (
 	"os"
 )
 
-func NewDefaultConfigManager(appConfig conf.AppConfig) *DefaultConfigManager {
-
-	return &DefaultConfigManager{
+func NewDefaultConfigManager(appConfig conf.AppConfig) DefaultConfigManager {
+	return DefaultConfigManager{
 		configDir:  appConfig.ConfigDir(),
 		configFile: appConfig.AnypointConfigFile(),
 	}
@@ -189,6 +188,7 @@ func (this DefaultConfigManager) getEnvironmentId(fromName string) string {
 
 func (this DefaultConfigManager) GetEnvironments() *[]model.Environment {
 
+	this.loadConfig()
 	return &this.config.Environments
 }
 

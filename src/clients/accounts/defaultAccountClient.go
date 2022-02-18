@@ -11,22 +11,22 @@ import (
 	"time"
 )
 
-func NewDefaultAccountClient(config *conf.AccountClientConfig) *DefaultAccountClient {
-	return &DefaultAccountClient{
+func NewDefaultAccountClient(config conf.AccountClientConfig) DefaultAccountClient {
+	return DefaultAccountClient{
 		config: config,
 	}
 }
 
 type DefaultAccountClient struct {
 	clients.HttpClient
-	config *conf.AccountClientConfig
+	config conf.AccountClientConfig
 }
 
 func (this DefaultAccountClient) GetOrganization(token, orgId string) (*response.OrganizationResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetOrganizationRequest(this.config, orgId, token).Build()
+	req := requests.NewGetOrganizationRequest(&this.config, token, orgId).Build()
 
 	resp, err := client.Do(req)
 
@@ -57,7 +57,7 @@ func (this DefaultAccountClient) GetProfile(token string) (*response.Profile, er
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetProfileRequest(this.config, token).Build()
+	req := requests.NewGetProfileRequest(&this.config, token).Build()
 
 	resp, err := client.Do(req)
 
@@ -88,7 +88,7 @@ func (this DefaultAccountClient) GetAuthorizationToken(username, password string
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewPostLoginRequest(this.config, username, password).Build()
+	req := requests.NewPostLoginRequest(&this.config, username, password).Build()
 
 	resp, err := client.Do(req)
 

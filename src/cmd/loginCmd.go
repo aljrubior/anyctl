@@ -14,7 +14,7 @@ var loginCmd = &cobra.Command{
 	Short:   "Log into Anypoint platform",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		loginHandler := handlers.NewDefaultLoginHandler(*AccountManager, *ConfigManager)
+		loginHandler := handlers.NewDefaultLoginHandler(AccountManager, ConfigManager)
 
 		if err := loginHandler.Login(username, password); err != nil {
 			Console.LogError(err)

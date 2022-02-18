@@ -12,22 +12,22 @@ import (
 	"time"
 )
 
-func NewDefaultPrivateSpaceClient(config *conf.PrivateSpaceClientConfig) *DefaultPrivateSpaceClient {
-	return &DefaultPrivateSpaceClient{
+func NewDefaultPrivateSpaceClient(config conf.PrivateSpaceClientConfig) DefaultPrivateSpaceClient {
+	return DefaultPrivateSpaceClient{
 		config: config,
 	}
 }
 
 type DefaultPrivateSpaceClient struct {
 	clients.HttpClient
-	config *conf.PrivateSpaceClientConfig
+	config conf.PrivateSpaceClientConfig
 }
 
-func (this *DefaultPrivateSpaceClient) GetPrivateSpaces(token string) (*response.PrivateSpacesResponse, error) {
+func (this DefaultPrivateSpaceClient) GetPrivateSpaces(token string) (*response.PrivateSpacesResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetPrivateSpacesRequest(this.config, token).Build()
+	req := requests.NewGetPrivateSpacesRequest(&this.config, token).Build()
 
 	resp, err := client.Do(req)
 
@@ -58,11 +58,11 @@ func (this *DefaultPrivateSpaceClient) GetPrivateSpaces(token string) (*response
 	return &privateSpacesResponse, nil
 }
 
-func (this *DefaultPrivateSpaceClient) GetPrivateSpace(token, privateSpaceId string) (*response.PrivateSpaceResponse, error) {
+func (this DefaultPrivateSpaceClient) GetPrivateSpace(token, privateSpaceId string) (*response.PrivateSpaceResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetPrivateSpaceRequest(this.config, token, privateSpaceId).Build()
+	req := requests.NewGetPrivateSpaceRequest(&this.config, token, privateSpaceId).Build()
 
 	resp, err := client.Do(req)
 
@@ -93,11 +93,11 @@ func (this *DefaultPrivateSpaceClient) GetPrivateSpace(token, privateSpaceId str
 	return &privateSpaceResponse, nil
 }
 
-func (this *DefaultPrivateSpaceClient) GetPrivateSpacesByNameOrId(token string, privateSpaceId string) (*response.PrivateSpacesResponse, error) {
+func (this DefaultPrivateSpaceClient) GetPrivateSpacesByNameOrId(token string, privateSpaceId string) (*response.PrivateSpacesResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetPrivateSpaceByNameOrIdRequest(this.config, token, privateSpaceId).Build()
+	req := requests.NewGetPrivateSpaceByNameOrIdRequest(&this.config, token, privateSpaceId).Build()
 
 	resp, err := client.Do(req)
 
@@ -128,11 +128,11 @@ func (this *DefaultPrivateSpaceClient) GetPrivateSpacesByNameOrId(token string, 
 	return &privateSpacesResponse, nil
 }
 
-func (this *DefaultPrivateSpaceClient) GetFabrics(token, privateSpaceId string) (*[]response2.FabricResponse, error) {
+func (this DefaultPrivateSpaceClient) GetFabrics(token, privateSpaceId string) (*[]response2.FabricResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetFabricsRequest(this.config, token, privateSpaceId).Build()
+	req := requests.NewGetFabricsRequest(&this.config, token, privateSpaceId).Build()
 
 	resp, err := client.Do(req)
 
@@ -163,11 +163,11 @@ func (this *DefaultPrivateSpaceClient) GetFabrics(token, privateSpaceId string) 
 	return &fabrics, nil
 }
 
-func (this *DefaultPrivateSpaceClient) GetFabric(token, privateSpaceId, fabricId string) (*response2.FabricResponse, error) {
+func (this DefaultPrivateSpaceClient) GetFabric(token, privateSpaceId, fabricId string) (*response2.FabricResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetFabricRequest(this.config, token, privateSpaceId, fabricId).Build()
+	req := requests.NewGetFabricRequest(&this.config, token, privateSpaceId, fabricId).Build()
 
 	resp, err := client.Do(req)
 

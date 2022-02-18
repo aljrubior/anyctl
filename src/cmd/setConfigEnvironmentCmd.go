@@ -12,7 +12,7 @@ var setConfigEnvironmentCmd = &cobra.Command{
 	Long:  `This command makes active the environment specified in <environment-name>`,
 	Run: func(cmd *cobra.Command, args []string) {
 
-		configHandler := handlers.NewDefaultConfigHandler(*AccountManager, *ConfigManager)
+		configHandler := handlers.NewDefaultConfigHandler(AccountManager, ConfigManager)
 
 		if len(args) == 1 {
 			environmentName := args[0]

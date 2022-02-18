@@ -13,7 +13,7 @@ var scaleDeploymentCmd = &cobra.Command{
 	Short: "Scale deployment replicas",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		deploymentHandler := handlers.NewDeploymentHandler(*DeploymentManager, *ConfigManager, *TargetManager)
+		deploymentHandler := handlers.NewDeploymentHandler(DeploymentManager, ConfigManager, TargetManager)
 
 		switch len(args) {
 		case 1:

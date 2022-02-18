@@ -11,22 +11,22 @@ import (
 	"time"
 )
 
-func NewDefaultAssetClient(config *conf.AssetClientConfig) *DefaultAssetClient {
-	return &DefaultAssetClient{
+func NewDefaultAssetClient(config conf.AssetClientConfig) DefaultAssetClient {
+	return DefaultAssetClient{
 		config: config,
 	}
 }
 
 type DefaultAssetClient struct {
 	clients.HttpClient
-	config *conf.AssetClientConfig
+	config conf.AssetClientConfig
 }
 
-func (this *DefaultAssetClient) FindAssets(orgId, envId, token, assetName string) (*[]response.AssetResponse, error) {
+func (this DefaultAssetClient) FindAssets(orgId, envId, token, assetName string) (*[]response.AssetResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetAssetsRequest(this.config, token, orgId, envId, assetName).Build()
+	req := requests.NewGetAssetsRequest(&this.config, token, orgId, envId, assetName).Build()
 
 	resp, err := client.Do(req)
 
@@ -57,11 +57,11 @@ func (this *DefaultAssetClient) FindAssets(orgId, envId, token, assetName string
 	return &assets, nil
 }
 
-func (this *DefaultAssetClient) FindLatestVersion(token, groupId, assetName string) (*response.AssetResponse, error) {
+func (this DefaultAssetClient) FindLatestVersion(token, groupId, assetName string) (*response.AssetResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetAssetLatestVersionRequest(this.config, token, groupId, assetName).Build()
+	req := requests.NewGetAssetLatestVersionRequest(&this.config, token, groupId, assetName).Build()
 
 	resp, err := client.Do(req)
 
@@ -92,11 +92,11 @@ func (this *DefaultAssetClient) FindLatestVersion(token, groupId, assetName stri
 	return &asset, nil
 }
 
-func (this *DefaultAssetClient) FindSpecificVersion(token, groupId, assetName, version string) (*response.AssetResponse, error) {
+func (this DefaultAssetClient) FindSpecificVersion(token, groupId, assetName, version string) (*response.AssetResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req := requests.NewGetAssetVersionRequest(this.config, token, groupId, assetName, version).Build()
+	req := requests.NewGetAssetVersionRequest(&this.config, token, groupId, assetName, version).Build()
 
 	resp, err := client.Do(req)
 
@@ -127,11 +127,11 @@ func (this *DefaultAssetClient) FindSpecificVersion(token, groupId, assetName, v
 	return &asset, nil
 }
 
-func (this *DefaultAssetClient) UploadArtifact(token, orgId, filePath, assetName, version string) (*response.AssetPublicationResponse, error) {
+func (this DefaultAssetClient) UploadArtifact(token, orgId, filePath, assetName, version string) (*response.AssetPublicationResponse, error) {
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	req, err := requests.NewPostUploadAssetRequest(this.config, token, orgId, assetName, version, filePath).Build()
+	req, err := requests.NewPostUploadAssetRequest(&this.config, token, orgId, assetName, version, filePath).Build()
 
 	if err != nil {
 		return nil, err

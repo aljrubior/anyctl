@@ -11,7 +11,7 @@ var getOrganizationPrivateSpacesCmd = &cobra.Command{
 	Short:   "Retrieve a list of private spaces",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		privateSpaceHandler := handlers.NewDefaultOrganizationPrivateSpaceHandler(*ConfigManager, *OrganizationPrivateSpaceManager)
+		privateSpaceHandler := handlers.NewDefaultOrganizationPrivateSpaceHandler(ConfigManager, OrganizationPrivateSpaceManager)
 
 		switch len(args) {
 		case 0:

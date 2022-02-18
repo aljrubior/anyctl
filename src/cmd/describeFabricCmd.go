@@ -11,7 +11,7 @@ var describeFabricCmd = &cobra.Command{
 	Short:   "Describe a shared spaces",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		fabricHandler := handlers.NewDefaultFabricHandler(*ConfigManager, *FabricManager, *AccountManager)
+		fabricHandler := handlers.NewDefaultFabricHandler(ConfigManager, FabricManager, AccountManager)
 
 		switch len(args) {
 		case 1:

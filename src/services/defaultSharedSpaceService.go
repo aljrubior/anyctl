@@ -5,9 +5,9 @@ import (
 	"github.com/aljrubior/anyctl/clients/sharedspaces/response"
 )
 
-func NewDefaultSharedSpaceService(sharedSpaceClient sharedspaces.SharedSpaceClient) *DefaultSharedSpaceService {
-	return &DefaultSharedSpaceService{
-		sharedSpaceClient,
+func NewDefaultSharedSpaceService(sharedSpaceClient sharedspaces.SharedSpaceClient) DefaultSharedSpaceService {
+	return DefaultSharedSpaceService{
+		sharedSpaceClient: sharedSpaceClient,
 	}
 }
 

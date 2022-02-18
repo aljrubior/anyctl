@@ -12,7 +12,7 @@ var getFabricsCmd = &cobra.Command{
 	Short:   "Retrieve a list of fabrics",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		fabricHandler := handlers.NewDefaultFabricHandler(*ConfigManager, *FabricManager, *AccountManager)
+		fabricHandler := handlers.NewDefaultFabricHandler(ConfigManager, FabricManager, AccountManager)
 
 		switch len(args) {
 		case 1:

@@ -11,7 +11,7 @@ var runSchedulerCmd = &cobra.Command{
 	Short: "Run scheduler",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		schedulerHandler := handlers.NewDefaultSchedulerHandler(*ConfigManager, *DeploymentManager, *SchedulerManager)
+		schedulerHandler := handlers.NewDefaultSchedulerHandler(ConfigManager, DeploymentManager, SchedulerManager)
 
 		switch len(args) {
 		case 2:

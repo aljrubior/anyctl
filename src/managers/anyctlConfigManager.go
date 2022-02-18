@@ -8,22 +8,41 @@ import (
 	"os"
 )
 
-func NewAnyctlConfigManager(appConfig *conf.AppConfig) (*AnyctlConfigManager, error) {
+func NewAnyctlConfigManager(appConfig conf.AppConfig) (AnyctlConfigManager, error) {
 	newManager := AnyctlConfigManager{
 		appConfig: appConfig,
 	}
 
 	if err := newManager.loadConfiguration(); err != nil {
-		return nil, err
+		return AnyctlConfigManager{}, err
 	}
 
-	return &newManager, nil
+	newManager.init()
+
+	return newManager, nil
 
 }
 
 type AnyctlConfigManager struct {
-	appConfig    *conf.AppConfig
-	anyctlConfig *conf.AnyctlConfig
+	appConfig    conf.AppConfig
+	anyctlConfig conf.AnyctlConfig
+
+	AssetClientConfig               conf.AssetClientConfig
+	DeploymentClientConfig          conf.DeploymentClientConfig
+	TargetClientConfig              conf.TargetClientConfig
+	OrganizationRuntimeFabricConfig conf.RuntimeFabricClientConfig
+	SharedSpaceClientConfig         *conf.SharedSpaceClientConfig
+	privateSpaceClientConfig        *conf.PrivateSpaceClientConfig
+	fabricClientConfig              *conf.FabricClientConfig
+	schedulerClientConfig           *conf.SchedulerClientConfig
+	accountClientConfig             *conf.AccountClientConfig
+}
+
+func (this *AnyctlConfigManager) init() {
+	this.AssetClientConfig = this.newAssetClientConfig()
+	this.DeploymentClientConfig = this.NewDeploymentConfigClient()
+	this.TargetClientConfig = this.NewTargetClientConfig()
+	this.OrganizationRuntimeFabricConfig = this.NewRuntimeFabricClientConfig()
 }
 
 func (this *AnyctlConfigManager) loadConfiguration() error {
@@ -51,8 +70,8 @@ func (this *AnyctlConfigManager) loadConfiguration() error {
 	return nil
 }
 
-func (this *AnyctlConfigManager) NewDeploymentConfigClient() *conf.DeploymentClientConfig {
-	return &conf.DeploymentClientConfig{
+func (this AnyctlConfigManager) NewDeploymentConfigClient() conf.DeploymentClientConfig {
+	return conf.DeploymentClientConfig{
 		Protocol:                     this.anyctlConfig.Anypoint.Protocol,
 		Host:                         this.anyctlConfig.Anypoint.Host,
 		Port:                         this.anyctlConfig.Anypoint.Port,
@@ -62,19 +81,24 @@ func (this *AnyctlConfigManager) NewDeploymentConfigClient() *conf.DeploymentCli
 	}
 }
 
-func (this *AnyctlConfigManager) NewSchedulerClientConfig() *conf.SchedulerClientConfig {
-	return &conf.SchedulerClientConfig{
-		Protocol:         this.anyctlConfig.Anypoint.Protocol,
-		Host:             this.anyctlConfig.Anypoint.Host,
-		Port:             this.anyctlConfig.Anypoint.Port,
-		SchedulerPath:    this.anyctlConfig.Anypoint.Resources.RuntimeManager.Schedulers.SchedulerPath,
-		SchedulersPath:   this.anyctlConfig.Anypoint.Resources.RuntimeManager.Schedulers.SchedulersPath,
-		RunSchedulerPath: this.anyctlConfig.Anypoint.Resources.RuntimeManager.Schedulers.RunSchedulerPath,
+func (this *AnyctlConfigManager) GetSchedulerClientConfig() conf.SchedulerClientConfig {
+	if this.schedulerClientConfig == nil {
+		this.schedulerClientConfig = &conf.SchedulerClientConfig{
+			Protocol:         this.anyctlConfig.Anypoint.Protocol,
+			Host:             this.anyctlConfig.Anypoint.Host,
+			Port:             this.anyctlConfig.Anypoint.Port,
+			SchedulerPath:    this.anyctlConfig.Anypoint.Resources.RuntimeManager.Schedulers.SchedulerPath,
+			SchedulersPath:   this.anyctlConfig.Anypoint.Resources.RuntimeManager.Schedulers.SchedulersPath,
+			RunSchedulerPath: this.anyctlConfig.Anypoint.Resources.RuntimeManager.Schedulers.RunSchedulerPath,
+		}
 	}
+
+	return *this.schedulerClientConfig
 }
 
-func (this *AnyctlConfigManager) NewAssetClientConfig() *conf.AssetClientConfig {
-	return &conf.AssetClientConfig{
+func (this AnyctlConfigManager) newAssetClientConfig() conf.AssetClientConfig {
+
+	return conf.AssetClientConfig{
 		Protocol:            this.anyctlConfig.Anypoint.Protocol,
 		Host:                this.anyctlConfig.Anypoint.Host,
 		Port:                this.anyctlConfig.Anypoint.Port,
@@ -85,8 +109,8 @@ func (this *AnyctlConfigManager) NewAssetClientConfig() *conf.AssetClientConfig 
 	}
 }
 
-func (this *AnyctlConfigManager) NewTargetClientConfig() *conf.TargetClientConfig {
-	return &conf.TargetClientConfig{
+func (this *AnyctlConfigManager) NewTargetClientConfig() conf.TargetClientConfig {
+	return conf.TargetClientConfig{
 		Protocol:    this.anyctlConfig.Anypoint.Protocol,
 		Host:        this.anyctlConfig.Anypoint.Host,
 		Port:        this.anyctlConfig.Anypoint.Port,
@@ -95,8 +119,8 @@ func (this *AnyctlConfigManager) NewTargetClientConfig() *conf.TargetClientConfi
 	}
 }
 
-func (this *AnyctlConfigManager) NewRuntimeFabricClientConfig() *conf.RuntimeFabricClientConfig {
-	return &conf.RuntimeFabricClientConfig{
+func (this AnyctlConfigManager) NewRuntimeFabricClientConfig() conf.RuntimeFabricClientConfig {
+	return conf.RuntimeFabricClientConfig{
 		Protocol:               this.anyctlConfig.Anypoint.Protocol,
 		Host:                   this.anyctlConfig.Anypoint.Host,
 		Port:                   this.anyctlConfig.Anypoint.Port,
@@ -110,46 +134,63 @@ func (this *AnyctlConfigManager) NewRuntimeFabricClientConfig() *conf.RuntimeFab
 	}
 }
 
-func (this *AnyctlConfigManager) NewSharedSpaceClientConfig() *conf.SharedSpaceClientConfig {
-	return &conf.SharedSpaceClientConfig{
-		Protocol:         this.anyctlConfig.Anypoint.Protocol,
-		Host:             this.anyctlConfig.Anypoint.Host,
-		Port:             this.anyctlConfig.Anypoint.Port,
-		SharedSpacePath:  this.anyctlConfig.Anypoint.Resources.Admin.SharedSpaces.SharedSpacePath,
-		SharedSpacesPath: this.anyctlConfig.Anypoint.Resources.Admin.SharedSpaces.SharedSpacesPath,
+func (this *AnyctlConfigManager) GetSharedSpaceClientConfig() conf.SharedSpaceClientConfig {
+	if this.SharedSpaceClientConfig == nil {
+		this.SharedSpaceClientConfig = &conf.SharedSpaceClientConfig{
+			Protocol:         this.anyctlConfig.Anypoint.Protocol,
+			Host:             this.anyctlConfig.Anypoint.Host,
+			Port:             this.anyctlConfig.Anypoint.Port,
+			SharedSpacePath:  this.anyctlConfig.Anypoint.Resources.Admin.SharedSpaces.SharedSpacePath,
+			SharedSpacesPath: this.anyctlConfig.Anypoint.Resources.Admin.SharedSpaces.SharedSpacesPath,
+		}
 	}
+
+	return *this.SharedSpaceClientConfig
 }
 
-func (this *AnyctlConfigManager) NewPrivateSpaceClientConfig() *conf.PrivateSpaceClientConfig {
-	return &conf.PrivateSpaceClientConfig{
-		Protocol:          this.anyctlConfig.Anypoint.Protocol,
-		Host:              this.anyctlConfig.Anypoint.Host,
-		Port:              this.anyctlConfig.Anypoint.Port,
-		PrivateSpacePath:  this.anyctlConfig.Anypoint.Resources.Admin.PrivateSpaces.PrivateSpacePath,
-		PrivateSpacesPath: this.anyctlConfig.Anypoint.Resources.Admin.PrivateSpaces.PrivateSpacesPath,
-		FabricPath:        this.anyctlConfig.Anypoint.Resources.Admin.PrivateSpaces.FabricPath,
-		FabricsPath:       this.anyctlConfig.Anypoint.Resources.Admin.PrivateSpaces.FabricsPath,
+func (this *AnyctlConfigManager) GetPrivateSpaceClientConfig() conf.PrivateSpaceClientConfig {
+	if this.privateSpaceClientConfig == nil {
+		this.privateSpaceClientConfig = &conf.PrivateSpaceClientConfig{
+			Protocol:          this.anyctlConfig.Anypoint.Protocol,
+			Host:              this.anyctlConfig.Anypoint.Host,
+			Port:              this.anyctlConfig.Anypoint.Port,
+			PrivateSpacePath:  this.anyctlConfig.Anypoint.Resources.Admin.PrivateSpaces.PrivateSpacePath,
+			PrivateSpacesPath: this.anyctlConfig.Anypoint.Resources.Admin.PrivateSpaces.PrivateSpacesPath,
+			FabricPath:        this.anyctlConfig.Anypoint.Resources.Admin.PrivateSpaces.FabricPath,
+			FabricsPath:       this.anyctlConfig.Anypoint.Resources.Admin.PrivateSpaces.FabricsPath,
+		}
 	}
+
+	return *this.privateSpaceClientConfig
 }
 
-func (this *AnyctlConfigManager) NewFabricClientConfig() *conf.FabricClientConfig {
-	return &conf.FabricClientConfig{
-		Protocol:    this.anyctlConfig.Anypoint.Protocol,
-		Host:        this.anyctlConfig.Anypoint.Host,
-		Port:        this.anyctlConfig.Anypoint.Port,
-		FabricPath:  this.anyctlConfig.Anypoint.Resources.Admin.Fabrics.FabricPath,
-		FabricsPath: this.anyctlConfig.Anypoint.Resources.Admin.Fabrics.FabricsPath,
+func (this AnyctlConfigManager) GetFabricClientConfig() conf.FabricClientConfig {
+
+	if this.fabricClientConfig == nil {
+		this.fabricClientConfig = &conf.FabricClientConfig{
+			Protocol:    this.anyctlConfig.Anypoint.Protocol,
+			Host:        this.anyctlConfig.Anypoint.Host,
+			Port:        this.anyctlConfig.Anypoint.Port,
+			FabricPath:  this.anyctlConfig.Anypoint.Resources.Admin.Fabrics.FabricPath,
+			FabricsPath: this.anyctlConfig.Anypoint.Resources.Admin.Fabrics.FabricsPath,
+		}
 	}
+
+	return *this.fabricClientConfig
 }
 
-func (this *AnyctlConfigManager) NewAccountClientConfig() *conf.AccountClientConfig {
-	return &conf.AccountClientConfig{
-		Protocol:                 this.anyctlConfig.Anypoint.Protocol,
-		Host:                     this.anyctlConfig.Anypoint.Host,
-		Port:                     this.anyctlConfig.Anypoint.Port,
-		LoginPath:                this.anyctlConfig.Anypoint.Resources.Admin.Accounts.LoginPath,
-		OrganizationPathTemplate: this.anyctlConfig.Anypoint.Resources.Admin.Accounts.OrganizationPath,
+func (this *AnyctlConfigManager) GetAccountClientConfig() conf.AccountClientConfig {
+	if this.accountClientConfig == nil {
+		this.accountClientConfig = &conf.AccountClientConfig{
+			Protocol:                 this.anyctlConfig.Anypoint.Protocol,
+			Host:                     this.anyctlConfig.Anypoint.Host,
+			Port:                     this.anyctlConfig.Anypoint.Port,
+			LoginPath:                this.anyctlConfig.Anypoint.Resources.Admin.Accounts.LoginPath,
+			OrganizationPathTemplate: this.anyctlConfig.Anypoint.Resources.Admin.Accounts.OrganizationPath,
+		}
 	}
+
+	return *this.accountClientConfig
 }
 
 func (this AnyctlConfigManager) getConfigDir() (string, error) {

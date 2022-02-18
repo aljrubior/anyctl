@@ -11,7 +11,7 @@ var getOrganizationQuotasCmd = &cobra.Command{
 	Short:   "Retrieve current organization quotas",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		entitlementHandler := handlers.NewDefaultOrganizationHandler(*AccountManager, *ConfigManager)
+		entitlementHandler := handlers.NewDefaultOrganizationHandler(AccountManager, ConfigManager)
 
 		switch len(args) {
 		case 0:

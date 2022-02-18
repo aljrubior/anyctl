@@ -10,8 +10,11 @@ import (
 	"strings"
 )
 
-func NewDefaultDeployerManager(deploymentManager DeploymentManager, assetManager AssetManager, organizationRuntimeFabricManager OrganizationRuntimeFabricManager) *DefaultDeployerManager {
-	return &DefaultDeployerManager{
+func NewDefaultDeployerManager(
+	deploymentManager DeploymentManager,
+	assetManager AssetManager,
+	organizationRuntimeFabricManager OrganizationRuntimeFabricManager) DefaultDeployerManager {
+	return DefaultDeployerManager{
 		deploymentManager:                deploymentManager,
 		assetManager:                     assetManager,
 		organizationRuntimeFabricManager: organizationRuntimeFabricManager,

@@ -10,7 +10,7 @@ var refreshTokenCmd = &cobra.Command{
 	Short: "Renew the access token.",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		configHandler := handlers.NewDefaultConfigHandler(*AccountManager, *ConfigManager)
+		configHandler := handlers.NewDefaultConfigHandler(AccountManager, ConfigManager)
 
 		if err := configHandler.RefreshAccessToken(); err != nil {
 			Console.LogError(err)

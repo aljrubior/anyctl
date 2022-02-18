@@ -5,8 +5,8 @@ import (
 	"github.com/aljrubior/anyctl/clients/organizationRuntimeFabrics/response"
 )
 
-func NewDefaultOrganizationRuntimeFabricService(runtimeFabricClient organizationRuntimeFabrics.OrganizationRuntimeFabricClient) *DefaultOrganizationRuntimeFabricService {
-	return &DefaultOrganizationRuntimeFabricService{
+func NewDefaultOrganizationRuntimeFabricService(runtimeFabricClient organizationRuntimeFabrics.OrganizationRuntimeFabricClient) DefaultOrganizationRuntimeFabricService {
+	return DefaultOrganizationRuntimeFabricService{
 		runtimeFabricClient,
 	}
 }

@@ -12,7 +12,7 @@ var getPrivateSpaceManagedFirewallRulesCmd = &cobra.Command{
 	Short:   "Lists all managed firewall rules.",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		privateSpaceHandler := handlers.NewDefaultPrivateSpaceHandler(*ConfigManager, *PrivateSpaceManager)
+		privateSpaceHandler := handlers.NewDefaultPrivateSpaceHandler(ConfigManager, PrivateSpaceManager)
 
 		switch len(args) {
 		case 1:

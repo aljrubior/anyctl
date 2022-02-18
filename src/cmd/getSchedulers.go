@@ -12,7 +12,7 @@ var getSchedulersCmd = &cobra.Command{
 	Short:   "Retrieve a list of assets from a given name",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		schedulerHandler := handlers.NewDefaultSchedulerHandler(*ConfigManager, *DeploymentManager, *SchedulerManager)
+		schedulerHandler := handlers.NewDefaultSchedulerHandler(ConfigManager, DeploymentManager, SchedulerManager)
 
 		switch len(args) {
 		case 1:

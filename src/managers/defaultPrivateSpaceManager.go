@@ -5,8 +5,8 @@ import (
 	"github.com/aljrubior/anyctl/services"
 )
 
-func NewDefaultPrivateSpaceManager(privateSpaceService services.PrivateSpaceService) *DefaultPrivateSpaceManager {
-	return &DefaultPrivateSpaceManager{
+func NewDefaultPrivateSpaceManager(privateSpaceService services.PrivateSpaceService) DefaultPrivateSpaceManager {
+	return DefaultPrivateSpaceManager{
 		privateSpaceService,
 	}
 }

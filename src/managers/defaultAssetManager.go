@@ -8,8 +8,8 @@ import (
 	"strings"
 )
 
-func NewDefaultAssetManager(assetService services.AssetService) *DefaultAssetManager {
-	return &DefaultAssetManager{
+func NewDefaultAssetManager(assetService services.AssetService) DefaultAssetManager {
+	return DefaultAssetManager{
 		assetService: assetService,
 	}
 }
@@ -33,7 +33,7 @@ func (this DefaultAssetManager) FindAssetByName(ctx *entities.CurrentContextEnti
 			result = append(result, v)
 		}
 	}
-	
+
 	return entities.NewAssetEntitiesBuilder(&result).Build(), entities.NewAssetEntitiesBuilder(options).Build(), nil
 }
 

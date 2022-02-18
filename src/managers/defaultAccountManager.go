@@ -6,8 +6,8 @@ import (
 	"github.com/aljrubior/anyctl/services"
 )
 
-func NewDefaultAccountManager(accountService services.AccountService) *DefaultAccountManager {
-	return &DefaultAccountManager{
+func NewDefaultAccountManager(accountService services.AccountService) DefaultAccountManager {
+	return DefaultAccountManager{
 		accountService,
 	}
 }
