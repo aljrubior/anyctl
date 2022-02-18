@@ -42,7 +42,7 @@ func InitializeAnyctlConfigManager() (managers.AnyctlConfigManager, error) {
 	return anyctlConfigManager, nil
 }
 
-// Injectors from assetManagerProvider.go:
+// Injectors from assetManagerWire.go:
 
 func InitializeAssetManager(config conf.AssetClientConfig) (managers.AssetManager, error) {
 	defaultAssetClient := assets.NewDefaultAssetClient(config)
@@ -51,7 +51,7 @@ func InitializeAssetManager(config conf.AssetClientConfig) (managers.AssetManage
 	return defaultAssetManager, nil
 }
 
-// Injectors from configManagerProvider.go:
+// Injectors from configManagerWire.go:
 
 func InitializeConfigManager() managers.ConfigManager {
 	appConfig := conf.NewAppConfig()
@@ -84,7 +84,7 @@ func InitializeFabricManager(config conf.FabricClientConfig) (managers.FabricMan
 	return defaultFabricManager, nil
 }
 
-// Injectors from organizationPrivateSpaceProvider.go:
+// Injectors from organizationPrivateSpaceWire.go:
 
 func InitializeOrganizationPrivateSpaceManager(config conf.RuntimeFabricClientConfig) (managers.OrganizationPrivateSpaceManager, error) {
 	defaultOrganizationPrivateSpaceClient := organizationPrivateSpaces.NewOrganizationDefaultPrivateSpaceClient(config)
@@ -93,7 +93,7 @@ func InitializeOrganizationPrivateSpaceManager(config conf.RuntimeFabricClientCo
 	return defaultOrganizationPrivateSpaceManager, nil
 }
 
-// Injectors from organizationRuntimeFabricManagerProvider.go:
+// Injectors from organizationRuntimeFabricManagerWire.go:
 
 func InitializeOrganizationRuntimeFabricManager(config conf.RuntimeFabricClientConfig) (managers.OrganizationRuntimeFabricManager, error) {
 	defaultOrganizationRuntimeFabricClient := organizationRuntimeFabrics.NewDefaultOrganizationRuntimeFabricClient(config)
@@ -129,7 +129,7 @@ func InitializeSharedSpaceManager(config conf.SharedSpaceClientConfig) (managers
 	return defaultSharedSpaceManager, nil
 }
 
-// Injectors from targetManagerProvider.go:
+// Injectors from targetManagerWire.go:
 
 func InitializeTargetManager(config conf.TargetClientConfig) (managers.TargetManager, error) {
 	defaultTargetClient := targets.NewDefaultTargetClient(config)
