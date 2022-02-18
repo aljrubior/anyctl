@@ -21,7 +21,7 @@ var ConfigManager managers.ConfigManager
 var AssetManager managers.AssetManager
 var DeploymentManager managers.DeploymentManager
 var TargetManager managers.TargetManager
-var OrganizationRutimeFabricManager managers.OrganizationRuntimeFabricManager
+var OrganizationRuntimeFabricManager managers.OrganizationRuntimeFabricManager
 var OrganizationPrivateSpaceManager managers.OrganizationPrivateSpaceManager
 var SharedSpaceManager managers.SharedSpaceManager
 var PrivateSpaceManager managers.PrivateSpaceManager
@@ -85,7 +85,7 @@ func init() {
 	}
 
 	// Organization Runtime Fabric Injection
-	OrganizationRutimeFabricManager, err = wires.InitializeOrganizationRuntimeFabricManager(anyctlConfigManager.GetOrganizationRuntimeFabricClientConfig())
+	OrganizationRuntimeFabricManager, err = wires.InitializeOrganizationRuntimeFabricManager(anyctlConfigManager.GetOrganizationRuntimeFabricClientConfig())
 
 	if err != nil {
 		exit(err)
@@ -127,7 +127,7 @@ func init() {
 	}
 
 	// Deployer Injection
-	DeployerManager, err = wires.InitializeDeployerManager(DeploymentManager, AssetManager, OrganizationRutimeFabricManager)
+	DeployerManager, err = wires.InitializeDeployerManager(DeploymentManager, AssetManager, OrganizationRuntimeFabricManager)
 
 	if err != nil {
 		exit(err)
