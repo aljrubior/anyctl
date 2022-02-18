@@ -124,7 +124,7 @@ func (this *AnyctlConfigManager) GetTargetClientConfig() conf.TargetClientConfig
 
 }
 
-func (this *AnyctlConfigManager) NewRuntimeFabricClientConfig() conf.RuntimeFabricClientConfig {
+func (this *AnyctlConfigManager) GetOrganizationRuntimeFabricClientConfig() conf.RuntimeFabricClientConfig {
 
 	if this.OrganizationRuntimeFabricConfig == nil {
 		this.OrganizationRuntimeFabricConfig = &conf.RuntimeFabricClientConfig{
