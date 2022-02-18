@@ -64,81 +64,60 @@ func init() {
 	ConfigManager = wires.InitializeConfigManager()
 
 	// Asset Injection
-	AssetManager, err = wires.InitializeAssetManager(anyctlConfigManager.GetAssetClientConfig())
-
-	if err != nil {
+	if AssetManager, err = wires.InitializeAssetManager(anyctlConfigManager.GetAssetClientConfig()); err != nil {
 		exit(err)
 	}
 
 	// Deployment Injection
-	DeploymentManager, err = wires.InitializeDeploymentManager(anyctlConfigManager.GetDeploymentConfigClient(), AssetManager)
-
-	if err != nil {
+	if DeploymentManager, err = wires.InitializeDeploymentManager(anyctlConfigManager.GetDeploymentConfigClient(), AssetManager); err != nil {
 		exit(err)
 	}
 
 	// Target Injection
-	TargetManager, err = wires.InitializeTargetManager(anyctlConfigManager.GetTargetClientConfig())
-
-	if err != nil {
+	if TargetManager, err = wires.InitializeTargetManager(anyctlConfigManager.GetTargetClientConfig()); err != nil {
 		exit(err)
 	}
 
 	// Organization Runtime Fabric Injection
-	OrganizationRuntimeFabricManager, err = wires.InitializeOrganizationRuntimeFabricManager(anyctlConfigManager.GetOrganizationRuntimeFabricClientConfig())
-
-	if err != nil {
+	if OrganizationRuntimeFabricManager, err = wires.InitializeOrganizationRuntimeFabricManager(anyctlConfigManager.GetOrganizationRuntimeFabricClientConfig()); err != nil {
 		exit(err)
 	}
 
 	// Organization Private Space Injection
-	OrganizationPrivateSpaceManager, err = wires.InitializeOrganizationPrivateSpaceManager(anyctlConfigManager.GetOrganizationRuntimeFabricClientConfig())
-
-	if err != nil {
+	if OrganizationPrivateSpaceManager, err = wires.InitializeOrganizationPrivateSpaceManager(anyctlConfigManager.GetOrganizationRuntimeFabricClientConfig()); err != nil {
 		exit(err)
 	}
 
 	// Shared Space Injection
-	SharedSpaceManager, err = wires.InitializeSharedSpaceManager(anyctlConfigManager.GetSharedSpaceClientConfig())
-
-	if err != nil {
+	if SharedSpaceManager, err = wires.InitializeSharedSpaceManager(anyctlConfigManager.GetSharedSpaceClientConfig()); err != nil {
 		exit(err)
 	}
 
 	// Private Space Injection
-	PrivateSpaceManager, err = wires.InitializePrivateSpaceManager(anyctlConfigManager.GetPrivateSpaceClientConfig())
-
-	if err != nil {
+	if PrivateSpaceManager, err = wires.InitializePrivateSpaceManager(anyctlConfigManager.GetPrivateSpaceClientConfig()); err != nil {
 		exit(err)
 	}
 
 	// Fabrics Injection
-	FabricManager, err = wires.InitializeFabricManager(anyctlConfigManager.GetFabricClientConfig())
-
-	if err != nil {
+	if FabricManager, err = wires.InitializeFabricManager(anyctlConfigManager.GetFabricClientConfig()); err != nil {
 		exit(err)
 	}
 
 	// Scheduler Injection
-	SchedulerManager, err = wires.InitializeSchedulerManager(anyctlConfigManager.GetSchedulerClientConfig(), DeploymentManager)
-
-	if err != nil {
+	if SchedulerManager, err = wires.InitializeSchedulerManager(anyctlConfigManager.GetSchedulerClientConfig(), DeploymentManager); err != nil {
 		exit(err)
 	}
 
 	// Deployer Injection
-	DeployerManager, err = wires.InitializeDeployerManager(DeploymentManager, AssetManager, OrganizationRuntimeFabricManager)
-
-	if err != nil {
+	if DeployerManager, err = wires.InitializeDeployerManager(DeploymentManager, AssetManager, OrganizationRuntimeFabricManager); err != nil {
 		exit(err)
 	}
 
 	// Account Injection
-	AccountManager, err = wires.InitializeAccountManager(anyctlConfigManager.GetAccountClientConfig())
-
-	if err != nil {
+	if AccountManager, err = wires.InitializeAccountManager(anyctlConfigManager.GetAccountClientConfig()); err != nil {
 		exit(err)
 	}
+
 }
 
 func exit(err error) {
