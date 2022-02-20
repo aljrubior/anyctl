@@ -897,12 +897,46 @@ func PrintDiffDeploymentSpecs(currentVersion, withVersion entities.DeploymentSpe
 	yaml.Unmarshal(currentVersionAsBytes, &currentVersionAsMap)
 	yaml.Unmarshal(withVersionAsBytes, &withVersionAsMap)
 
+	delete(currentVersionAsMap, "createdAt")
+	delete(withVersionAsMap, "createdAt")
+
 	differences := comparators.NewDeploymentComparator(currentVersionAsMap, withVersionAsMap).Compare()
 
+	fmt.Fprintf(w, "Deployment differences are indicated with the following symbols:\n")
+	fmt.Fprintf(w, "\t+ Add\n")
+	fmt.Fprintf(w, "\t~ Change\n")
+	fmt.Fprintf(w, "\t- Remove\n")
+	fmt.Fprintf(w, "\n")
+	fmt.Fprintf(w, "The following differences has been found between the current version '%s' and version '%s':\n", currentVersion.Version[:6], withVersion.Version[:6])
+	fmt.Fprintf(w, "\n")
+
+	var addCount, deleteCount, changeCount int
+
 	for _, v := range differences {
-		println(valueOfDepth(v.Depth), v.Operator, value(v.KeyName), value(v.LeftValue), value(v.RightValue))
+		value := ""
+		keyName := fmt.Sprintf("%v:", v.KeyName)
+
+		switch v.Operator {
+		case "~":
+			if v.LeftValue == nil && v.RightValue == nil {
+				value = ""
+			} else {
+				value = fmt.Sprintf("%s --> %v", v.LeftValue, v.RightValue)
+				changeCount++
+			}
+		case "-":
+			value = fmt.Sprintf("%v", v.RightValue)
+			deleteCount++
+		case "+":
+			value = fmt.Sprintf("%v", v.RightValue)
+			addCount++
+		}
+
+		println(valueOfDepth(v.Depth), v.Operator, keyName, value)
 	}
 
+	fmt.Fprintf(w, "\n")
+	fmt.Fprintf(w, "Result: %v to add, %v to change, %v to delete.", addCount, changeCount, deleteCount)
 	fmt.Fprintf(w, "\n")
 
 	return nil
@@ -919,7 +953,7 @@ func valueOfDepth(depth int) string {
 
 }
 
-func value(value interface{}) string {
+func valueOf(value interface{}) string {
 	if value == nil {
 		return ""
 	}

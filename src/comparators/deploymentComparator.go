@@ -75,7 +75,6 @@ func (this *DeploymentComparator) diffNewKeysOnly(leftHand, rightHand map[interf
 				diff = this.addNewKey(diff, depth, k, rightValue)
 			}
 		}
-
 	}
 
 	return diff
