@@ -35,10 +35,14 @@ func (this DefaultDeploymentClient) GetDeployments(orgId, envId, token string) (
 		return nil, err
 	}
 
-	data, err := ioutil.ReadAll(resp.Body)
-
 	if resp.StatusCode != 200 {
 		return nil, this.ThrowError(resp)
+	}
+
+	data, err := ioutil.ReadAll(resp.Body)
+
+	if err != nil {
+		return nil, err
 	}
 
 	var response response.DeploymentsResponse
@@ -65,10 +69,14 @@ func (this DefaultDeploymentClient) GetDeployment(orgId, envId, token, deploymen
 		return nil, err
 	}
 
-	data, err := ioutil.ReadAll(resp.Body)
-
 	if resp.StatusCode != 200 {
 		return nil, this.ThrowError(resp)
+	}
+
+	data, err := ioutil.ReadAll(resp.Body)
+
+	if err != nil {
+		return nil, err
 	}
 
 	var response response.DeploymentResponse
@@ -162,4 +170,34 @@ func (this DefaultDeploymentClient) DeleteDeployment(orgId, envId, token, deploy
 	}
 
 	return nil
+}
+
+func (this DefaultDeploymentClient) GetDeploymentSpecs(orgId, envId, token, deploymentId string) (*[]response.DeploymentSpecResponse, error) {
+	client := &http.Client{Timeout: time.Duration(10) * time.Second}
+
+	req := requests.NewGetDeploymentSpecsRequest(&this.config, token, orgId, envId, deploymentId).Build()
+
+	resp, err := client.Do(req)
+
+	defer resp.Body.Close()
+
+	if err != nil {
+		return nil, err
+	}
+
+	data, err := ioutil.ReadAll(resp.Body)
+
+	if resp.StatusCode != 200 {
+		return nil, this.ThrowError(resp)
+	}
+
+	var response []response.DeploymentSpecResponse
+
+	err = json.Unmarshal(data, &response)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &response, nil
 }

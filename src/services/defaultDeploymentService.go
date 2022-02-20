@@ -77,3 +77,14 @@ func (this DefaultDeploymentService) DeleteDeployment(orgId, envId, token, deplo
 
 	return this.deploymentClient.DeleteDeployment(orgId, envId, token, deploymentId)
 }
+
+func (this DefaultDeploymentService) GetDeploymentSpecs(orgId, envId, token, deploymentId string) (*[]response.DeploymentSpecResponse, error) {
+
+	resp, err := this.deploymentClient.GetDeploymentSpecs(orgId, envId, token, deploymentId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
+}

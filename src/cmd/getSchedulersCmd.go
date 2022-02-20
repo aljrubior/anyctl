@@ -30,5 +30,5 @@ var getSchedulersCmd = &cobra.Command{
 }
 
 func init() {
-	schedulersCmd.AddCommand(getSchedulersCmd)
+	historyCmd.AddCommand(getSchedulersCmd)
 }

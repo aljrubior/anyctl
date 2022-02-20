@@ -12,5 +12,6 @@ type DeploymentHandler interface {
 	SetDeploymentAsset(deploymentName string, assetRef string) error
 	FindDeploymentsContainsName(deploymentName string) error
 	DescribeDeployment(deploymentName string) error
+
 	ThrowDeploymentNotFoundError(deploymentName string, deployments *[]entities.DeploymentItemEntity) error
 }

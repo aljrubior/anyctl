@@ -64,12 +64,13 @@ func (this *AnyctlConfigManager) loadConfiguration() error {
 func (this *AnyctlConfigManager) GetDeploymentConfigClient() conf.DeploymentClientConfig {
 	if this.deploymentClientConfig == nil {
 		this.deploymentClientConfig = &conf.DeploymentClientConfig{
-			Protocol:                     this.anyctlConfig.Anypoint.Protocol,
-			Host:                         this.anyctlConfig.Anypoint.Host,
-			Port:                         this.anyctlConfig.Anypoint.Port,
-			DeploymentPathTemplate:       this.anyctlConfig.Anypoint.Resources.RuntimeManager.Deployments.DeploymentPath,
-			DeploymentsPathTemplate:      this.anyctlConfig.Anypoint.Resources.RuntimeManager.Deployments.DeploymentsPath,
-			UpdateDeploymentPathTemplate: this.anyctlConfig.Anypoint.Resources.RuntimeManager.Deployments.UpdateDeploymentPath,
+			Protocol:             this.anyctlConfig.Anypoint.Protocol,
+			Host:                 this.anyctlConfig.Anypoint.Host,
+			Port:                 this.anyctlConfig.Anypoint.Port,
+			DeploymentPath:       this.anyctlConfig.Anypoint.Resources.RuntimeManager.Deployments.DeploymentPath,
+			DeploymentsPath:      this.anyctlConfig.Anypoint.Resources.RuntimeManager.Deployments.DeploymentsPath,
+			UpdateDeploymentPath: this.anyctlConfig.Anypoint.Resources.RuntimeManager.Deployments.UpdateDeploymentPath,
+			SpecsPath:            this.anyctlConfig.Anypoint.Resources.RuntimeManager.Deployments.SpecsPath,
 		}
 	}
 

@@ -36,7 +36,7 @@ func (this *GetDeploymentRequest) buildUri() string {
 
 	protocol := this.config.Protocol
 	host := this.config.Host
-	path := fmt.Sprintf(this.config.DeploymentPathTemplate, this.organizationId, this.environmentId, this.deploymentId)
+	path := fmt.Sprintf(this.config.DeploymentPath, this.organizationId, this.environmentId, this.deploymentId)
 	return fmt.Sprintf("%s://%s/%s", protocol, host, path)
 }
 

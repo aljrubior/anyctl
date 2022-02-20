@@ -1,9 +1,11 @@
 package utils
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/aljrubior/anyctl/builders"
 	"github.com/aljrubior/anyctl/clients/fabrics/response"
+	"github.com/aljrubior/anyctl/comparators"
 	"github.com/aljrubior/anyctl/managers/entities"
 	"github.com/aljrubior/anyctl/managers/wrappers"
 	"github.com/aljrubior/anyctl/manifests"
@@ -12,6 +14,7 @@ import (
 	"strconv"
 	"strings"
 	"text/tabwriter"
+	"time"
 )
 
 func PrintDeployments(deployments *[]entities.DeploymentItemEntity, targets *[]entities.TargetEntity) {
@@ -843,4 +846,83 @@ func PrintDeploymentManifest(manifest *manifests.DeploymentManifest) {
 	}
 
 	println(string(data))
+}
+
+func PrintDeploymentSpecs(specs *[]entities.DeploymentSpecEntity) {
+	w := new(tabwriter.Writer)
+
+	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
+
+	defer w.Flush()
+
+	fmt.Fprintf(w, "\n %s\t%s", "DATE", "CHANGES")
+
+	for i, v := range *specs {
+		createdAt := time.UnixMilli(v.CreatedAt).Format("2006-01-02T15:04:05")
+		version := v.Version[:6]
+		if i == 0 {
+			version = fmt.Sprintf("%s (Last successful)", version)
+		}
+
+		fmt.Fprintf(w, fmt.Sprintf("\n %s\t%s",
+			createdAt,
+			version))
+	}
+
+	fmt.Fprintf(w, "\n")
+}
+
+func PrintDiffDeploymentSpecs(currentVersion, withVersion entities.DeploymentSpecEntity) error {
+	w := new(tabwriter.Writer)
+
+	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
+
+	defer w.Flush()
+
+	currentVersionAsBytes, err := json.Marshal(currentVersion.DeploymentSpecResponse)
+
+	if err != nil {
+		return err
+	}
+
+	withVersionAsBytes, err := json.Marshal(withVersion.DeploymentSpecResponse)
+
+	if err != nil {
+		return err
+	}
+
+	var currentVersionAsMap map[interface{}]interface{}
+	var withVersionAsMap map[interface{}]interface{}
+
+	yaml.Unmarshal(currentVersionAsBytes, &currentVersionAsMap)
+	yaml.Unmarshal(withVersionAsBytes, &withVersionAsMap)
+
+	differences := comparators.NewDeploymentComparator(currentVersionAsMap, withVersionAsMap).Compare()
+
+	for _, v := range differences {
+		println(valueOfDepth(v.Depth), v.Operator, value(v.KeyName), value(v.LeftValue), value(v.RightValue))
+	}
+
+	fmt.Fprintf(w, "\n")
+
+	return nil
+}
+
+func valueOfDepth(depth int) string {
+	spaces := ""
+
+	for i := 0; i <= depth; i++ {
+		spaces += "  "
+	}
+
+	return spaces
+
+}
+
+func value(value interface{}) string {
+	if value == nil {
+		return ""
+	}
+
+	return fmt.Sprintf("%v", value)
 }

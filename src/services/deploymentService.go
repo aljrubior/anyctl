@@ -11,4 +11,6 @@ type DeploymentService interface {
 	Deploy(orgId, envId, token string, request *requests.DeploymentRequest) (*response.DeploymentResponse, error)
 	UpdateDeployment(orgId, envId, token, deploymentId string, request *requests.DeploymentRequest) (*response.DeploymentResponse, error)
 	DeleteDeployment(orgId, envId, token, deploymentId string) error
+
+	GetDeploymentSpecs(orgId, envId, token, deploymentId string) (*[]response.DeploymentSpecResponse, error)
 }

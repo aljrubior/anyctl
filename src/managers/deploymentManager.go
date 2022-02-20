@@ -17,4 +17,6 @@ type DeploymentManager interface {
 	DeleteDeployment(ctx *entities.CurrentContextEntity, deploymentId string) error
 	ScaleDeployment(ctx *entities.CurrentContextEntity, deploymentId string, desiredReplicas int) (*entities.DeploymentEntity, error)
 	SetDeploymentAsset(ctx *entities.CurrentContextEntity, deploymentName, assetRef string) (*entities.DeploymentEntity, error)
+
+	GetDeploymentSpecs(ctx *entities.CurrentContextEntity, deploymentId string) (*[]entities.DeploymentSpecEntity, error)
 }

@@ -172,3 +172,14 @@ func (this DefaultDeploymentManager) SetDeploymentAsset(ctx *entities.CurrentCon
 func (this DefaultDeploymentManager) ThrowAssetNotFoundError(assetName string, err error) error {
 	return errors.NewAssetNotFoundError(assetName, nil).WithReason(err.Error())
 }
+
+func (this DefaultDeploymentManager) GetDeploymentSpecs(ctx *entities.CurrentContextEntity, deploymentId string) (*[]entities.DeploymentSpecEntity, error) {
+
+	resp, err := this.deploymentService.GetDeploymentSpecs(ctx.OrganizationId, ctx.EnvironmentId, ctx.AuthorizationToken, deploymentId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return entities.NewDeploymentSpecEntitiesBuilder(resp).Build(), nil
+}
