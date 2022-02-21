@@ -37,3 +37,23 @@ func (this *FabricPrinter) PrintVersionInformation() {
 
 	fmt.Fprintf(w, "\n")
 }
+
+func (this *FabricPrinter) Print() {
+	w := new(tabwriter.Writer)
+
+	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
+
+	defer w.Flush()
+
+	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s", "NAME", "REGION", "VERSION", "STATUS", "LEVEL", "INFRA ID")
+
+	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s",
+		this.entity.Name,
+		this.entity.Region,
+		this.entity.Version,
+		this.entity.Status,
+		this.entity.ClusterConfigurationLevel,
+		this.entity.InfraDeploymentId)
+
+	fmt.Fprintf(w, "\n")
+}

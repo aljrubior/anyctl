@@ -76,7 +76,7 @@ func (this DefaultFabricHandler) GetFabric(fabricId string) error {
 		return this.ThrowNewFabricNotFoundError(fabricId)
 	}
 
-	utils.PrintFabric(fabric)
+	printers.NewFabricPrinter(fabric).Print()
 
 	return nil
 }

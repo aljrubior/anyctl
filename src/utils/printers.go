@@ -608,25 +608,3 @@ func PrintFabricManifest(manifest *manifests.FabricManifest) {
 
 	println(string(data))
 }
-
-func PrintFabric(fabric *entities.FabricEntity) {
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s", "NAME", "REGION", "VERSION", "STATUS", "LEVEL", "INFRA ID")
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s",
-		fabric.Name,
-		fabric.Region,
-		fabric.Version,
-		fabric.Status,
-		fabric.ClusterConfigurationLevel,
-		fabric.InfraDeploymentId)
-
-	fmt.Fprintf(w, "\n")
-
-}
