@@ -1,8 +1,37 @@
 package comparators
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+	"github.com/aljrubior/anyctl/clients/deployments/response"
+	"github.com/aljrubior/anyctl/comparators/model"
+	"gopkg.in/yaml.v2"
+)
 
 var emptyMap map[interface{}]interface{}
+
+func NewDeploymentResponseComparator(leftHand, rightHand response.DeploymentResponse) (*DeploymentComparator, error) {
+
+	leftHandAsMap, err := transformDeploymentResponseToMap(leftHand)
+
+	if err != nil {
+		return nil, err
+	}
+
+	rightHandAsMap, err := transformDeploymentResponseToMap(rightHand)
+
+	if err != nil {
+		return nil, err
+	}
+
+	_, exists := rightHandAsMap["desiredVersion"]
+
+	if exists {
+		delete(leftHandAsMap, "desiredVersion")
+	}
+
+	return NewDeploymentComparator(leftHandAsMap, rightHandAsMap), nil
+}
 
 func NewDeploymentComparator(leftHand, rightHand map[interface{}]interface{}) *DeploymentComparator {
 	return &DeploymentComparator{
@@ -136,4 +165,36 @@ func (this *DeploymentComparator) diff(leftHand, rightHand map[interface{}]inter
 	}
 
 	return diff
+}
+
+func transformDeploymentResponseToMap(response response.DeploymentResponse) (map[interface{}]interface{}, error) {
+	data, err := json.Marshal(response)
+
+	if err != nil {
+		return nil, err
+	}
+
+	var spec model.DeploymentSpec
+
+	err = json.Unmarshal(data, &spec)
+
+	if err != nil {
+		return nil, err
+	}
+
+	data, err = json.Marshal(spec)
+
+	if err != nil {
+		return nil, err
+	}
+
+	var result map[interface{}]interface{}
+
+	err = yaml.Unmarshal(data, &result)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
 }

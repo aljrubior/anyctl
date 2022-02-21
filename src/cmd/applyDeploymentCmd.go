@@ -7,6 +7,7 @@ import (
 )
 
 var deploymentConfigurationFile *string
+var showDeploymentPlan *bool
 
 var applyDeploymentsCmd = &cobra.Command{
 	Use:   "apply",
@@ -17,6 +18,14 @@ var applyDeploymentsCmd = &cobra.Command{
 
 		switch len(args) {
 		case 0:
+			if *showDeploymentPlan {
+				if err := applyDeploymentHandler.ShowApplyPlan(*deploymentConfigurationFile); err != nil {
+					errors.Catch(err).Println()
+				}
+
+				return
+			}
+
 			if err := applyDeploymentHandler.Apply(*deploymentConfigurationFile); err != nil {
 				errors.Catch(err).Println()
 			}
@@ -30,4 +39,5 @@ func init() {
 	deploymentsCmd.AddCommand(applyDeploymentsCmd)
 
 	deploymentConfigurationFile = applyDeploymentsCmd.Flags().StringP("file", "f", "", "File that contains the deployment configuration")
+	showDeploymentPlan = applyDeploymentsCmd.Flags().BoolP("plan", "", false, "Display the deployment update plan")
 }

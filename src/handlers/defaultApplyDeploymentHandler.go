@@ -3,11 +3,13 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/aljrubior/anyctl/comparators"
 	"github.com/aljrubior/anyctl/errors"
 	"github.com/aljrubior/anyctl/managers"
 	"github.com/aljrubior/anyctl/managers/entities"
 	"github.com/aljrubior/anyctl/managers/requests"
 	"github.com/aljrubior/anyctl/manifests"
+	"github.com/aljrubior/anyctl/utils"
 	"io/ioutil"
 	"sigs.k8s.io/yaml"
 )
@@ -109,6 +111,83 @@ func (this DefaultApplyDeploymentHandler) Apply(filePath string) error {
 
 		return nil
 	}
+
+	return nil
+}
+
+func (this DefaultApplyDeploymentHandler) ShowApplyPlan(filePath string) error {
+
+	dataAsYaml, err := ioutil.ReadFile(filePath)
+
+	if err != nil {
+		return err
+	}
+
+	dataAsJson, err := yaml.YAMLToJSON(dataAsYaml)
+
+	if err != nil {
+		return err
+	}
+
+	var manifest manifests.DeploymentManifest
+
+	err = json.Unmarshal(dataAsJson, &manifest)
+
+	if err != nil {
+		return err
+	}
+
+	ctx, err := this.configManager.GetCurrentContext()
+
+	if err != nil {
+		return err
+	}
+
+	targetId := manifest.Spec.Target.TargetId
+	deploymentName := manifest.Spec.Name
+	groupId := manifest.Spec.Application.Ref.GroupId
+	artifactId := manifest.Spec.Application.Ref.ArtifactId
+	version := manifest.Spec.Application.Ref.Version
+
+	// Target Validation
+	target, targets, err := this.targetManager.FindTargetById(ctx, targetId)
+
+	if err != nil {
+		return err
+	}
+
+	if target == nil {
+		return this.ThrowTargetNotFoundError(targetId, targets)
+	}
+
+	// Ref Validation
+	asset, err := this.assetManager.FindSpecificVersion(ctx, groupId, artifactId, version)
+
+	if err != nil {
+		return err
+	}
+
+	if asset == nil {
+		return this.ThrowAssetNotFoundError(fmt.Sprintf("%s:%s:%s", groupId, artifactId, version))
+	}
+
+	deployment, _, err := this.deploymentManager.FindDeploymentByName(ctx, deploymentName)
+
+	if deployment != nil {
+
+		comparator, err := comparators.NewDeploymentResponseComparator(deployment.DeploymentResponse, manifest.Spec)
+
+		if err != nil {
+			return err
+		}
+
+		differences := comparator.Compare()
+
+		utils.PrintDeploymentDifferences(differences)
+		return nil
+	}
+
+	println(fmt.Sprintf("Deployment '%s' will be created.", deploymentName))
 
 	return nil
 }
