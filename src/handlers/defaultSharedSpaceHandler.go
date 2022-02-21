@@ -5,6 +5,7 @@ import (
 	"github.com/aljrubior/anyctl/managers"
 	"github.com/aljrubior/anyctl/managers/entities"
 	"github.com/aljrubior/anyctl/manifests"
+	"github.com/aljrubior/anyctl/printers"
 	"github.com/aljrubior/anyctl/utils"
 )
 
@@ -132,7 +133,13 @@ func (this DefaultSharedSpaceHandler) DescribeSharedSpace(sharedSpaceName string
 		return err
 	}
 
-	utils.PrintSharedSpaceManifest(manifests.NewSharedSpaceManifest(sharedSpace.SharedSpaceResponse))
+	printer, err := printers.NewSharedSpaceManifestPrinter(manifests.NewSharedSpaceManifest(sharedSpace.SharedSpaceResponse))
+
+	if err != nil {
+		return err
+	}
+
+	printer.Print()
 
 	return nil
 }

@@ -652,15 +652,3 @@ func PrintFabricVersionInformation(fabric *entities.FabricEntity) {
 	fmt.Fprintf(w, "\n")
 
 }
-
-func PrintSharedSpaceManifest(manifest *manifests.SharedSpaceManifest) {
-
-	data, err := yaml.Marshal(*manifest)
-
-	if err != nil {
-		println(err)
-		return
-	}
-
-	println(string(data))
-}
