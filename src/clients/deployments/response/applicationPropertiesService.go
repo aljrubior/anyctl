@@ -1,4 +1,4 @@
-package requests
+package response
 
 type ApplicationPropertiesService struct {
 	ApplicationName  string            `json:"applicationName,omitempty"`

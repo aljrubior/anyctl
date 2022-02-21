@@ -58,7 +58,7 @@ func PrintDeployment(deployment *entities.DeploymentEntity, targets *[]entities.
 		deployment.Status,
 		targetsMap[deployment.Target.TargetId].GetName(),
 		deployment.Target.DeploymentSettings.RuntimeVersion,
-		fmt.Sprintf("%s:%s", deployment.Application.Asset.ArtifactId, deployment.Application.Asset.Version)))
+		fmt.Sprintf("%s:%s", deployment.Application.Ref.ArtifactId, deployment.Application.Ref.Version)))
 }
 
 func PrintAssets(assets *[]entities.AssetEntity) {
@@ -907,7 +907,7 @@ func PrintDiffDeploymentSpecs(currentVersion, withVersion entities.DeploymentSpe
 	fmt.Fprintf(w, "\t~ Change\n")
 	fmt.Fprintf(w, "\t- Remove\n")
 	fmt.Fprintf(w, "\n")
-	fmt.Fprintf(w, "The following differences has been found between the current version '%s' and version '%s':\n", currentVersion.Version[:6], withVersion.Version[:6])
+	fmt.Fprintf(w, "Applying version '%s' will result in the following changes to the current version '%s':\n", withVersion.Version[:6], currentVersion.Version[:6])
 	fmt.Fprintf(w, "\n")
 
 	var addCount, deleteCount, changeCount int
@@ -932,7 +932,7 @@ func PrintDiffDeploymentSpecs(currentVersion, withVersion entities.DeploymentSpe
 			addCount++
 		}
 
-		println(valueOfDepth(v.Depth), v.Operator, keyName, value)
+		fmt.Fprintf(w, "%s %s %s %s\n", valueOfDepth(v.Depth), v.Operator, keyName, value)
 	}
 
 	fmt.Fprintf(w, "\n")

@@ -32,30 +32,30 @@ func (this DeploymentUpdateRequestBuilder) Build() *DeploymentRequest {
 
 	return &DeploymentRequest{
 		Name: this.response.Name,
-		Target: &Target{
+		Target: Target{
 			Provider: this.response.Target.Provider,
 			TargetId: this.response.Target.TargetId,
 			Replicas: this.getReplicas(),
 			Type:     this.response.Target.Type,
 		},
-		Application: &Application{
+		Application: Application{
 			Ref:          this.buildArtifactRef(),
 			DesiredState: this.response.Application.DesiredState,
 		},
 	}
 }
 
-func (this DeploymentUpdateRequestBuilder) buildArtifactRef() *ArtifactRef {
+func (this DeploymentUpdateRequestBuilder) buildArtifactRef() ArtifactRef {
 	if this.assetEntity == nil {
-		return &ArtifactRef{
-			GroupId:    this.response.Application.Asset.GroupId,
-			ArtifactId: this.response.Application.Asset.ArtifactId,
-			Version:    this.response.Application.Asset.Version,
-			Packaging:  this.response.Application.Asset.Packaging,
+		return ArtifactRef{
+			GroupId:    this.response.Application.Ref.GroupId,
+			ArtifactId: this.response.Application.Ref.ArtifactId,
+			Version:    this.response.Application.Ref.Version,
+			Packaging:  this.response.Application.Ref.Packaging,
 		}
 	}
 
-	return &ArtifactRef{
+	return ArtifactRef{
 		GroupId:    this.assetEntity.GroupId,
 		ArtifactId: this.assetEntity.AssetId,
 		Version:    this.assetEntity.Version,

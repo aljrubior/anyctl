@@ -9,7 +9,7 @@ type DeploymentStopRequestBuilder struct {
 
 func (this DeploymentStopRequestBuilder) Build() *DeploymentRequest {
 	return &DeploymentRequest{
-		Application: &Application{
+		Application: Application{
 			DesiredState: "STOPPED",
 		},
 	}

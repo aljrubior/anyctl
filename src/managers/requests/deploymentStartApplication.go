@@ -9,7 +9,7 @@ type DeploymentStartRequestBuilder struct {
 
 func (this DeploymentStartRequestBuilder) Build() *DeploymentRequest {
 	return &DeploymentRequest{
-		Application: &Application{
+		Application: Application{
 			DesiredState: "STARTED",
 		},
 	}

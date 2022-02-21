@@ -25,7 +25,7 @@ func (this *TargetNotFoundAdvisor) Advise() {
 	advice := this.getAdvice(3)
 
 	if advice == "" {
-		fmt.Println(message)
+		fmt.Printf("%s.", message)
 	} else {
 		fmt.Printf("%s. %s", message, advice)
 	}
@@ -48,5 +48,8 @@ func (this *TargetNotFoundAdvisor) getAdvice(maxAdvice int) string {
 		}
 	}
 
+	if options == "" {
+		return options
+	}
 	return fmt.Sprintf("Maybe you mean [%s]\n", strings.Trim(options, " "))
 }

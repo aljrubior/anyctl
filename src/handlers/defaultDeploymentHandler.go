@@ -243,7 +243,7 @@ func (this DefaultDeploymentHandler) SetDeploymentAsset(deploymentName string, a
 		return err
 	}
 
-	println(fmt.Sprintf("Deployment '%s' updated with asset '%s:%s'.", deployment.Name, deployment.Application.Asset.ArtifactId, deployment.Application.Asset.Version))
+	println(fmt.Sprintf("Deployment '%s' updated with asset '%s:%s'.", deployment.Name, deployment.Application.Ref.ArtifactId, deployment.Application.Ref.Version))
 
 	return nil
 }

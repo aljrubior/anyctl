@@ -35,4 +35,5 @@ require (
 	golang.org/x/tools v0.1.5 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	gopkg.in/ini.v1 v1.66.2 // indirect
+	sigs.k8s.io/yaml v1.3.0 // indirect
 )

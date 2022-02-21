@@ -11,8 +11,8 @@ type ApplicationRequestSpec struct {
 	MemoryLimit                         string
 	Clustered                           bool
 	EnforceDeployingReplicasAcrossNodes bool
-	PublicUrl                           *string
-	PathRewrite                         *string
+	PublicUrl                           string
+	PathRewrite                         string
 	RuntimeVersion                      string
 	LastMileSecurity                    bool
 	ForwardSslSession                   bool

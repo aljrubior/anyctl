@@ -183,3 +183,14 @@ func (this DefaultDeploymentManager) GetDeploymentSpecs(ctx *entities.CurrentCon
 
 	return entities.NewDeploymentSpecEntitiesBuilder(resp).Build(), nil
 }
+
+func (this DefaultDeploymentManager) UpdateDeployment(ctx *entities.CurrentContextEntity, deploymentId string, request requests.DeploymentRequest) (*entities.DeploymentEntity, error) {
+
+	deployment, err := this.deploymentService.UpdateDeployment(ctx.OrganizationId, ctx.EnvironmentId, ctx.AuthorizationToken, deploymentId, &request)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return entities.NewDeploymentEntityBuilder(deployment).Build(), nil
+}

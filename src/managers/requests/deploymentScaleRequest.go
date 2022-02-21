@@ -17,12 +17,12 @@ type DeploymentScaleRequestBuilder struct {
 func (this DeploymentScaleRequestBuilder) Build() *DeploymentRequest {
 
 	return &DeploymentRequest{
-		Target: &Target{
+		Target: Target{
 			Provider: this.target.Provider,
 			TargetId: this.target.TargetId,
 			Replicas: this.desiredReplicas,
-			DeploymentSettings: &DeploymentSettings{
-				Resources: &Resources{
+			DeploymentSettings: DeploymentSettings{
+				Resources: Resources{
 					Cpu: ResourceItem{
 						Limit:    this.target.DeploymentSettings.Resources.Cpu.Limit,
 						Reserved: this.target.DeploymentSettings.Resources.Cpu.Reserved,
@@ -34,13 +34,13 @@ func (this DeploymentScaleRequestBuilder) Build() *DeploymentRequest {
 				},
 				Clustered:                           this.target.DeploymentSettings.Clustered,
 				EnforceDeployingReplicasAcrossNodes: this.target.DeploymentSettings.EnforceDeployingReplicasAcrossNodes,
-				Http: &Http{
+				Http: Http{
 					Inbound: Inbound{
-						PublicUrl:   &this.target.DeploymentSettings.Http.Inbound.PublicUrl,
-						PathRewrite: &this.target.DeploymentSettings.Http.Inbound.PathRewrite,
+						PublicUrl:   this.target.DeploymentSettings.Http.Inbound.PublicUrl,
+						PathRewrite: this.target.DeploymentSettings.Http.Inbound.PathRewrite,
 					},
 				},
-				Jvm:               &Jvm{},
+				Jvm:               Jvm{},
 				RuntimeVersion:    this.target.DeploymentSettings.RuntimeVersion,
 				LastMileSecurity:  this.target.DeploymentSettings.LastMileSecurity,
 				ForwardSslSession: this.target.DeploymentSettings.ForwardSslSession,

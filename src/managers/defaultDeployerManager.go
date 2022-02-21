@@ -2,6 +2,7 @@ package managers
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/aljrubior/anyctl/clients/deployments/response"
 	"github.com/aljrubior/anyctl/errors"
 	"github.com/aljrubior/anyctl/managers/entities"
@@ -117,19 +118,19 @@ func (this DefaultDeployerManager) clone(response response.DeploymentResponse, w
 		}
 	}
 
-	if request.Application.Configuration == nil {
+	if fmt.Sprintf("%v", request.Application.Configuration) == "{}" {
 		request.Application.Configuration = this.buildDefaultConfigurations(request.Name)
 	}
 	return &request, nil
 
 }
 
-func (this DefaultDeployerManager) buildDefaultConfigurations(applicationName string) *requests.ApplicationConfiguration {
-	return &requests.ApplicationConfiguration{
+func (this DefaultDeployerManager) buildDefaultConfigurations(applicationName string) requests.ApplicationConfiguration {
+	return requests.ApplicationConfiguration{
 		ApplicationPropertiesService: requests.ApplicationPropertiesService{
 			ApplicationName:  applicationName,
-			Properties:       requests.ApplicationProperties{},
-			SecureProperties: requests.SecureProperties{},
+			Properties:       map[string]string{},
+			SecureProperties: map[string]string{},
 		},
 	}
 }

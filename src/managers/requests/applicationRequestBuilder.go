@@ -15,11 +15,11 @@ func (this ApplicationRequestBuilder) Build() *DeploymentRequest {
 	return &DeploymentRequest{
 		Name:   this.spec.ApplicationName,
 		Labels: []string{"beta"},
-		Target: &Target{
+		Target: Target{
 			Provider: this.spec.TargetProvider,
 			TargetId: this.spec.TargetId,
-			DeploymentSettings: &DeploymentSettings{
-				Resources: &Resources{
+			DeploymentSettings: DeploymentSettings{
+				Resources: Resources{
 					Cpu: ResourceItem{
 						Reserved: this.spec.CpuReserved,
 						Limit:    this.spec.CpuLimit,
@@ -31,13 +31,13 @@ func (this ApplicationRequestBuilder) Build() *DeploymentRequest {
 				},
 				Clustered:                           this.spec.Clustered,
 				EnforceDeployingReplicasAcrossNodes: this.spec.EnforceDeployingReplicasAcrossNodes,
-				Http: &Http{
+				Http: Http{
 					Inbound: Inbound{
 						PublicUrl:   this.spec.PublicUrl,
 						PathRewrite: this.spec.PathRewrite,
 					},
 				},
-				Jvm:               &Jvm{},
+				Jvm:               Jvm{},
 				RuntimeVersion:    this.spec.RuntimeVersion,
 				LastMileSecurity:  this.spec.LastMileSecurity,
 				ForwardSslSession: this.spec.ForwardSslSession,
@@ -45,8 +45,8 @@ func (this ApplicationRequestBuilder) Build() *DeploymentRequest {
 			},
 			Replicas: this.spec.Replicas,
 		},
-		Application: &Application{
-			Ref: &ArtifactRef{
+		Application: Application{
+			Ref: ArtifactRef{
 				GroupId:    this.spec.GroupId,
 				ArtifactId: this.spec.ArtifactId,
 				Version:    this.spec.ArtifactVersion,
@@ -54,11 +54,11 @@ func (this ApplicationRequestBuilder) Build() *DeploymentRequest {
 			},
 			Assets:       this.spec.Assets,
 			DesiredState: this.spec.DesiredState,
-			Configuration: &ApplicationConfiguration{
+			Configuration: ApplicationConfiguration{
 				ApplicationPropertiesService: ApplicationPropertiesService{
 					ApplicationName:  this.spec.ApplicationName,
-					Properties:       ApplicationProperties{},
-					SecureProperties: SecureProperties{},
+					Properties:       map[string]string{},
+					SecureProperties: map[string]string{},
 				},
 			},
 		},

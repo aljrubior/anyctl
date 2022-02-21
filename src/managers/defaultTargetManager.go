@@ -44,6 +44,23 @@ func (this DefaultTargetManager) FindTargetByName(ctx *entities.CurrentContextEn
 	return nil, targets, nil
 }
 
+func (this DefaultTargetManager) FindTargetById(ctx *entities.CurrentContextEntity, targetId string) (*entities.TargetEntity, *[]entities.TargetEntity, error) {
+
+	targets, err := this.GetTargets(ctx)
+
+	if err != nil {
+		return nil, nil, err
+	}
+
+	for _, v := range *targets {
+		if v.GetId() == targetId {
+			return &v, nil, nil
+		}
+	}
+
+	return nil, targets, nil
+}
+
 func (this DefaultTargetManager) FindTargetsContainsName(ctx *entities.CurrentContextEntity, targetName string) (*[]entities.TargetEntity, error) {
 	targets, err := this.GetTargets(ctx)
 
