@@ -6,7 +6,6 @@ import (
 	"github.com/aljrubior/anyctl/managers"
 	"github.com/aljrubior/anyctl/managers/entities"
 	"github.com/aljrubior/anyctl/printers"
-	"github.com/aljrubior/anyctl/utils"
 )
 
 func NewDefaultDeploymentHistoryHandler(
@@ -49,7 +48,7 @@ func (this DefaultDeploymentHistoryHandler) GetDeploymentHistory(deploymentName 
 		return err
 	}
 
-	utils.PrintDeploymentSpecs(specs)
+	printers.NewDeploymentSpecPrinter(specs).Print()
 
 	return nil
 }
