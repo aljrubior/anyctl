@@ -1,11 +1,9 @@
 package utils
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/aljrubior/anyctl/builders"
 	"github.com/aljrubior/anyctl/clients/fabrics/response"
-	"github.com/aljrubior/anyctl/comparators"
 	"github.com/aljrubior/anyctl/managers/entities"
 	"github.com/aljrubior/anyctl/managers/wrappers"
 	"github.com/aljrubior/anyctl/manifests"
@@ -870,93 +868,4 @@ func PrintDeploymentSpecs(specs *[]entities.DeploymentSpecEntity) {
 	}
 
 	fmt.Fprintf(w, "\n")
-}
-
-func PrintDiffDeploymentSpecs(currentVersion, withVersion entities.DeploymentSpecEntity) error {
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	currentVersionAsBytes, err := json.Marshal(currentVersion.DeploymentSpecResponse)
-
-	if err != nil {
-		return err
-	}
-
-	withVersionAsBytes, err := json.Marshal(withVersion.DeploymentSpecResponse)
-
-	if err != nil {
-		return err
-	}
-
-	var currentVersionAsMap map[interface{}]interface{}
-	var withVersionAsMap map[interface{}]interface{}
-
-	yaml.Unmarshal(currentVersionAsBytes, &currentVersionAsMap)
-	yaml.Unmarshal(withVersionAsBytes, &withVersionAsMap)
-
-	delete(currentVersionAsMap, "createdAt")
-	delete(withVersionAsMap, "createdAt")
-
-	differences := comparators.NewDeploymentComparator(currentVersionAsMap, withVersionAsMap).Compare()
-
-	fmt.Fprintf(w, "Deployment differences are indicated with the following symbols:\n")
-	fmt.Fprintf(w, "\t+ Add\n")
-	fmt.Fprintf(w, "\t~ Change\n")
-	fmt.Fprintf(w, "\t- Remove\n")
-	fmt.Fprintf(w, "\n")
-	fmt.Fprintf(w, "Applying version '%s' will result in the following changes to the current version '%s':\n", withVersion.Version[:6], currentVersion.Version[:6])
-	fmt.Fprintf(w, "\n")
-
-	var addCount, deleteCount, changeCount int
-
-	for _, v := range differences {
-		value := ""
-		keyName := fmt.Sprintf("%v:", v.KeyName)
-
-		switch v.Operator {
-		case "~":
-			if v.LeftValue == nil && v.RightValue == nil {
-				value = ""
-			} else {
-				value = fmt.Sprintf("%s --> %v", v.LeftValue, v.RightValue)
-				changeCount++
-			}
-		case "-":
-			value = fmt.Sprintf("%v", v.RightValue)
-			deleteCount++
-		case "+":
-			value = fmt.Sprintf("%v", v.RightValue)
-			addCount++
-		}
-
-		fmt.Fprintf(w, "%s %s %s %s\n", valueOfDepth(v.Depth), v.Operator, keyName, value)
-	}
-
-	fmt.Fprintf(w, "\n")
-	fmt.Fprintf(w, "Result: %v to add, %v to change, %v to delete.", addCount, changeCount, deleteCount)
-	fmt.Fprintf(w, "\n")
-
-	return nil
-}
-
-func valueOfDepth(depth int) string {
-	spaces := ""
-
-	for i := 0; i <= depth; i++ {
-		spaces += "  "
-	}
-
-	return spaces
-
-}
-
-func valueOf(value interface{}) string {
-	if value == nil {
-		return ""
-	}
-
-	return fmt.Sprintf("%v", value)
 }

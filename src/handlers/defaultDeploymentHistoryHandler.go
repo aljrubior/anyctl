@@ -1,9 +1,11 @@
 package handlers
 
 import (
+	"github.com/aljrubior/anyctl/comparators"
 	errors2 "github.com/aljrubior/anyctl/errors"
 	"github.com/aljrubior/anyctl/managers"
 	"github.com/aljrubior/anyctl/managers/entities"
+	"github.com/aljrubior/anyctl/printers"
 	"github.com/aljrubior/anyctl/utils"
 )
 
@@ -90,7 +92,15 @@ func (this DefaultDeploymentHistoryHandler) Compare(deploymentName, withSpecVers
 		}
 	}
 
-	utils.PrintDiffDeploymentSpecs(currentVersion, withSpec)
+	comparator, err := comparators.NewDeploymentSpecResponseComparator(currentVersion.DeploymentSpecResponse, withSpec.DeploymentSpecResponse)
+
+	if err != nil {
+		return err
+	}
+
+	differences := comparator.Compare()
+
+	printers.NewDeploymentDifferencePrinter(differences).Print()
 
 	return nil
 }

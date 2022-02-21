@@ -33,6 +33,23 @@ func NewDeploymentResponseComparator(leftHand, rightHand response.DeploymentResp
 	return NewDeploymentComparator(leftHandAsMap, rightHandAsMap), nil
 }
 
+func NewDeploymentSpecResponseComparator(leftHand, rightHand response.DeploymentSpecResponse) (*DeploymentComparator, error) {
+
+	leftHandAsMap, err := transformDeploymentSpecResponseToMap(leftHand)
+
+	if err != nil {
+		return nil, err
+	}
+
+	rightHandAsMap, err := transformDeploymentSpecResponseToMap(rightHand)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return NewDeploymentComparator(leftHandAsMap, rightHandAsMap), nil
+}
+
 func NewDeploymentComparator(leftHand, rightHand map[interface{}]interface{}) *DeploymentComparator {
 	return &DeploymentComparator{
 		leftHand:  leftHand,
@@ -197,4 +214,23 @@ func transformDeploymentResponseToMap(response response.DeploymentResponse) (map
 	}
 
 	return result, nil
+}
+
+func transformDeploymentSpecResponseToMap(response response.DeploymentSpecResponse) (map[interface{}]interface{}, error) {
+	data, err := json.Marshal(response)
+
+	if err != nil {
+		return nil, err
+	}
+
+	var result map[interface{}]interface{}
+
+	err = yaml.Unmarshal(data, &result)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return result, nil
+
 }
