@@ -9,7 +9,7 @@ import (
 	"github.com/aljrubior/anyctl/managers/entities"
 	"github.com/aljrubior/anyctl/managers/requests"
 	"github.com/aljrubior/anyctl/manifests"
-	"github.com/aljrubior/anyctl/utils"
+	"github.com/aljrubior/anyctl/printers"
 	"io/ioutil"
 	"sigs.k8s.io/yaml"
 )
@@ -183,7 +183,8 @@ func (this DefaultApplyDeploymentHandler) ShowApplyPlan(filePath string) error {
 
 		differences := comparator.Compare()
 
-		utils.PrintDeploymentDifferences(differences)
+		printers.NewDeploymentDifferencePrinter(differences).Print()
+
 		return nil
 	}
 
