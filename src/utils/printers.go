@@ -832,15 +832,3 @@ func PrintRuntimeFabricTargetManifest(manifest *manifests.RuntimeFabricTargetMan
 
 	println(string(data))
 }
-
-func PrintDeploymentManifest(manifest *manifests.DeploymentManifest) {
-
-	data, err := yaml.Marshal(*manifest)
-
-	if err != nil {
-		println(err)
-		return
-	}
-
-	println(string(data))
-}

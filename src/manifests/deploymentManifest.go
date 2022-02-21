@@ -17,8 +17,8 @@ func NewDeploymentManifest(response response.DeploymentResponse) *DeploymentMani
 }
 
 type DeploymentManifest struct {
-	ApiVersion string                      `yaml:"apiVersion"`
-	Kind       string                      `yaml:"kind"`
-	Metadata   model.Metadata              `yaml:"metadata"`
-	Spec       response.DeploymentResponse `yaml:"spec"`
+	ApiVersion string                      `json:"apiVersion"`
+	Kind       string                      `json:"kind"`
+	Metadata   model.Metadata              `json:"metadata"`
+	Spec       response.DeploymentResponse `json:"spec"`
 }

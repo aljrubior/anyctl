@@ -1,5 +1,5 @@
 package response
 
 type Http struct {
-	Inbound Inbound `yaml:"inbound,omitempty",json:"inbound,omitempty"`
+	Inbound Inbound `json:"inbound,omitempty"`
 }

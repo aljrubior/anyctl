@@ -1,5 +1,5 @@
 package model
 
 type Metadata struct {
-	Name string
+	Name string `json:"name"`
 }

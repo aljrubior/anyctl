@@ -6,6 +6,7 @@ import (
 	"github.com/aljrubior/anyctl/managers"
 	"github.com/aljrubior/anyctl/managers/entities"
 	"github.com/aljrubior/anyctl/manifests"
+	"github.com/aljrubior/anyctl/printers"
 	"github.com/aljrubior/anyctl/utils"
 )
 
@@ -266,7 +267,13 @@ func (this DefaultDeploymentHandler) DescribeDeployment(deploymentName string) e
 		return this.ThrowDeploymentNotFoundError(deploymentName, deployments)
 	}
 
-	utils.PrintDeploymentManifest(manifests.NewDeploymentManifest(deployment.DeploymentResponse))
+	printer, err := printers.NewDeploymentManifestPrinter(manifests.NewDeploymentManifest(deployment.DeploymentResponse))
+
+	if err != nil {
+		return err
+	}
+
+	printer.Print()
 
 	return nil
 }
