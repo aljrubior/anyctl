@@ -1,5 +1,5 @@
 package response
 
 type TagetDetail struct {
-	SupportedRuntimes []SupportedRuntime `yaml:"supportedRuntimes",json:"supportedRuntimes"`
+	SupportedRuntimes []SupportedRuntime `json:"supportedRuntimes"`
 }

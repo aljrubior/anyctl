@@ -6,6 +6,7 @@ import (
 	"github.com/aljrubior/anyctl/managers/entities"
 	"github.com/aljrubior/anyctl/managers/wrappers"
 	"github.com/aljrubior/anyctl/manifests"
+	"github.com/aljrubior/anyctl/printers"
 	"github.com/aljrubior/anyctl/utils"
 	"strings"
 )
@@ -183,7 +184,13 @@ func (this DefaultTargetHandler) DescribeTarget(targetName string) error {
 
 	if targetWrapper.IsRuntimeFabricTargetEntity() {
 		runtimeFabricTarget, _ := targetWrapper.GetRuntimeFabricTargetEntity()
-		utils.PrintRuntimeFabricTargetManifest(manifests.NewRuntimeFabricTargetManifest(runtimeFabricTarget.RuntimeFabricTargetResponse))
+		printer, err := printers.NewRuntimeFabricTargetManifestPrinter(manifests.NewRuntimeFabricTargetManifest(runtimeFabricTarget.RuntimeFabricTargetResponse))
+
+		if err != nil {
+			return err
+		}
+
+		printer.Print()
 		return nil
 	}
 
