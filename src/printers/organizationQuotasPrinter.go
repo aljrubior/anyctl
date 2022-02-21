@@ -40,6 +40,7 @@ func (this *OrganizationQuotasPrinter) Print() {
 }
 
 func (this *OrganizationQuotasPrinter) formatFloat(value float64) string {
+
 	if value > 0 {
 		return fmt.Sprintf("%v", value)
 	}

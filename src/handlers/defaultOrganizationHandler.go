@@ -4,7 +4,6 @@ import (
 	"github.com/aljrubior/anyctl/managers"
 	"github.com/aljrubior/anyctl/managers/entities"
 	"github.com/aljrubior/anyctl/printers"
-	"github.com/aljrubior/anyctl/utils"
 )
 
 func NewDefaultOrganizationHandler(accountManager managers.AccountManager, configManager managers.ConfigManager) *DefaultOrganizationHandler {
@@ -33,7 +32,7 @@ func (this DefaultOrganizationHandler) GetCurrentOrganizationUsage() error {
 		return err
 	}
 
-	utils.PrintOrgUsage([]*entities.OrganizationEntity{org})
+	printers.NewOrganizationUsagePrinter([]*entities.OrganizationEntity{org}).Print()
 
 	return nil
 }
@@ -58,7 +57,7 @@ func (this DefaultOrganizationHandler) GetAllOrganizationsUsage() error {
 		orgsAsArray = append(orgsAsArray, v)
 	}
 
-	utils.PrintOrgUsage(orgsAsArray)
+	printers.NewOrganizationUsagePrinter(orgsAsArray).Print()
 
 	return nil
 }
@@ -77,7 +76,7 @@ func (this DefaultOrganizationHandler) GetSingleOrganizationUsage(orgId string) 
 		return err
 	}
 
-	utils.PrintOrgUsage([]*entities.OrganizationEntity{org})
+	printers.NewOrganizationUsagePrinter([]*entities.OrganizationEntity{org}).Print()
 
 	return nil
 }
