@@ -787,24 +787,3 @@ func formatFloat(value float64) string {
 
 	return "-"
 }
-
-func PrintOrgQuotas(org *entities.OrganizationEntity) {
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s", "NAME", "ASSIGNED", "USAGE")
-
-	fmt.Fprintf(w, fmt.Sprintf("\n %s\t%s\t%s", "Production vCores", formatFloat(org.Entitlements.VCoresProduction.Assigned), formatFloat(org.Entitlements.VCoresProduction.Reassigned)))
-	fmt.Fprintf(w, fmt.Sprintf("\n %s\t%s\t%s", "Sandbox vCores", formatFloat(org.Entitlements.VCoresSandbox.Assigned), formatFloat(org.Entitlements.VCoresSandbox.Reassigned)))
-	fmt.Fprintf(w, fmt.Sprintf("\n %s\t%s\t%s", "Design vCores", formatFloat(org.Entitlements.VCoresDesign.Assigned), formatFloat(org.Entitlements.VCoresDesign.Reassigned)))
-	fmt.Fprintf(w, fmt.Sprintf("\n %s\t%s\t%s", "Static IPs", formatFloat(org.Entitlements.StaticIps.Assigned), formatFloat(org.Entitlements.StaticIps.Reassigned)))
-	fmt.Fprintf(w, fmt.Sprintf("\n %s\t%s\t%s", "VPCs", formatFloat(org.Entitlements.Vpcs.Assigned), formatFloat(org.Entitlements.Vpcs.Reassigned)))
-	fmt.Fprintf(w, fmt.Sprintf("\n %s\t%s\t%s", "VPNs", formatFloat(org.Entitlements.Vpns.Assigned), formatFloat(org.Entitlements.Vpns.Reassigned)))
-	fmt.Fprintf(w, fmt.Sprintf("\n %s\t%s\t%s", "Load Balancers", formatFloat(org.Entitlements.LoadBalancer.Assigned), formatFloat(org.Entitlements.LoadBalancer.Reassigned)))
-
-	fmt.Fprintf(w, "\n")
-}

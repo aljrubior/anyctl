@@ -3,6 +3,7 @@ package handlers
 import (
 	"github.com/aljrubior/anyctl/managers"
 	"github.com/aljrubior/anyctl/managers/entities"
+	"github.com/aljrubior/anyctl/printers"
 	"github.com/aljrubior/anyctl/utils"
 )
 
@@ -95,7 +96,7 @@ func (this DefaultOrganizationHandler) GetCurrentOrganizationQuotas() error {
 		return err
 	}
 
-	utils.PrintOrgQuotas(org)
+	printers.NewOrganizationQuotasPrinter(org).Print()
 
 	return nil
 }

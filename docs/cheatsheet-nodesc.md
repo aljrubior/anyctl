@@ -95,5 +95,5 @@ anyctl runtimemanager deployments schedulers unmanage <deployment-name> <schedul
 
 ```
 anyctl admin organization get-usage [--all]
-anyctl organizations get-quotas
+anyctl admin organizations get-quotas
 ```
