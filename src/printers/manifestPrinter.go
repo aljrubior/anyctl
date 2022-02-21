@@ -38,6 +38,22 @@ func NewRuntimeFabricTargetManifestPrinter(manifest *manifests.RuntimeFabricTarg
 
 }
 
+func NewStandaloneTargetManifestPrinter(manifest *manifests.StandaloneTargetManifest) (*ManifestPrinter, error) {
+
+	dataAsJson, err := json.Marshal(*manifest)
+
+	if err != nil {
+		return nil, err
+	}
+
+	dataAsYaml, err := yaml.JSONToYAML(dataAsJson)
+
+	return &ManifestPrinter{
+		data: dataAsYaml,
+	}, nil
+
+}
+
 type ManifestPrinter struct {
 	data []byte
 }

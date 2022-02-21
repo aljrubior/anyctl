@@ -808,15 +808,3 @@ func PrintOrgQuotas(org *entities.OrganizationEntity) {
 
 	fmt.Fprintf(w, "\n")
 }
-
-func PrintStandaloneTargetManifest(manifest *manifests.StandaloneTargetManifest) {
-
-	data, err := yaml.Marshal(*manifest)
-
-	if err != nil {
-		println(err)
-		return
-	}
-
-	println(string(data))
-}

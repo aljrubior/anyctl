@@ -177,8 +177,17 @@ func (this DefaultTargetHandler) DescribeTarget(targetName string) error {
 	targetWrapper := wrappers.NewTargetEntityWrapper(*target)
 
 	if targetWrapper.IsStandaloneTargetEntity() {
+
 		standaloneTarget, _ := targetWrapper.GetStandaloneTargetEntity()
-		utils.PrintStandaloneTargetManifest(manifests.NewStandaloneTargetManifest(standaloneTarget.StandaloneTargetResponse))
+
+		printer, err := printers.NewStandaloneTargetManifestPrinter(manifests.NewStandaloneTargetManifest(standaloneTarget.StandaloneTargetResponse))
+
+		if err != nil {
+			return nil
+		}
+
+		printer.Print()
+
 		return nil
 	}
 
