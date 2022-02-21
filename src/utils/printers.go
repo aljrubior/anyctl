@@ -696,33 +696,3 @@ func PrintSchedulers(schedulers *[]entities.SchedulerEntity) {
 
 	fmt.Fprintf(w, "\n")
 }
-
-func PrintScheduler(scheduler *entities.SchedulerEntity) {
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	if scheduler.Type == "CronScheduler" {
-		fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s", "FLOW NAME", "TYPE", "ENABLED", "EXPRESSION", "TIME ZONE")
-		fmt.Fprintf(w, fmt.Sprintf("\n %s\t%s\t%s\t%s\t%s \n",
-			scheduler.FlowName,
-			scheduler.Type,
-			strconv.FormatBool(scheduler.Enabled),
-			scheduler.Expression,
-			scheduler.TimeZone))
-		return
-	}
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s", "FLOW NAME", "TYPE", "ENABLED", "DELAY", "FREQUENCY", "TIME UNIT")
-
-	fmt.Fprintf(w, fmt.Sprintf("\n %s\t%s\t%s\t%s\t%s\t%s \n",
-		scheduler.FlowName,
-		scheduler.Type,
-		strconv.FormatBool(scheduler.Enabled),
-		strconv.Itoa(scheduler.StartDelay),
-		strconv.Itoa(scheduler.Frequency),
-		scheduler.TimeUnit))
-}
