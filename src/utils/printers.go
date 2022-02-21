@@ -630,25 +630,3 @@ func PrintFabric(fabric *entities.FabricEntity) {
 	fmt.Fprintf(w, "\n")
 
 }
-
-func PrintFabricVersionInformation(fabric *entities.FabricEntity) {
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s", "VERSION", "DESIRED", "UPGRADE AVAILABLE", "KUBERNETES", "INFRA", "DESIRED INFRA")
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s",
-		fabric.Version,
-		fabric.DesiredVersion,
-		fabric.AvailableUpgradeVersion,
-		fabric.KubernetesVersion,
-		fabric.InfraVersion,
-		fabric.DesiredInfraVersion)
-
-	fmt.Fprintf(w, "\n")
-
-}

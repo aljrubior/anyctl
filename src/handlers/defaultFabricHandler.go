@@ -5,6 +5,7 @@ import (
 	"github.com/aljrubior/anyctl/managers"
 	"github.com/aljrubior/anyctl/managers/entities"
 	"github.com/aljrubior/anyctl/manifests"
+	"github.com/aljrubior/anyctl/printers"
 	"github.com/aljrubior/anyctl/utils"
 )
 
@@ -121,7 +122,7 @@ func (this DefaultFabricHandler) GetVersions(fabricId string) error {
 		return this.ThrowNewFabricNotFoundError(fabricId)
 	}
 
-	utils.PrintFabricVersionInformation(&(*fabrics)[0])
+	printers.NewFabricPrinter(&(*fabrics)[0]).PrintVersionInformation()
 
 	return nil
 }
