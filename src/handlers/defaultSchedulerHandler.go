@@ -6,7 +6,6 @@ import (
 	"github.com/aljrubior/anyctl/managers"
 	"github.com/aljrubior/anyctl/managers/entities"
 	"github.com/aljrubior/anyctl/printers"
-	"github.com/aljrubior/anyctl/utils"
 )
 
 func NewDefaultSchedulerHandler(
@@ -51,7 +50,7 @@ func (this DefaultSchedulerHandler) GetSchedulers(deploymentName string) error {
 		return err
 	}
 
-	utils.PrintSchedulers(schedulers)
+	printers.NewSchedulersPrinter(schedulers).Print()
 
 	return nil
 }
@@ -113,7 +112,7 @@ func (this DefaultSchedulerHandler) EnableScheduler(deploymentName, flowName str
 		return this.ThrowSchedulerNotFoundError(flowName, schedulers)
 	}
 
-	utils.PrintSchedulers(scheduler)
+	printers.NewSchedulersPrinter(scheduler).Print()
 
 	return nil
 }

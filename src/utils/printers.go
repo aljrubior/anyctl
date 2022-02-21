@@ -9,7 +9,6 @@ import (
 	"github.com/aljrubior/anyctl/manifests"
 	"gopkg.in/yaml.v2"
 	"os"
-	"strconv"
 	"strings"
 	"text/tabwriter"
 )
@@ -664,35 +663,4 @@ func PrintSharedSpaceManifest(manifest *manifests.SharedSpaceManifest) {
 	}
 
 	println(string(data))
-}
-
-func PrintSchedulers(schedulers *[]entities.SchedulerEntity) {
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s", "FLOW NAME", "TYPE", "ENABLED", "SCHEDULE")
-
-	for _, v := range *schedulers {
-		if v.Type == "CronScheduler" {
-			fmt.Fprintf(w, fmt.Sprintf("\n %s\t%s\t%s\t%s",
-				v.FlowName,
-				v.Type,
-				strconv.FormatBool(v.Enabled),
-				v.Expression))
-			continue
-		}
-
-		fmt.Fprintf(w, fmt.Sprintf("\n %s\t%s\t%s\t%s",
-			v.FlowName,
-			v.Type,
-			strconv.FormatBool(v.Enabled),
-			fmt.Sprintf("Every %d %s", v.Frequency, strings.ToLower(v.TimeUnit))))
-
-	}
-
-	fmt.Fprintf(w, "\n")
 }
