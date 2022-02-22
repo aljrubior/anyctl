@@ -9,7 +9,6 @@ import (
 	"github.com/aljrubior/anyctl/manifests"
 	"gopkg.in/yaml.v2"
 	"os"
-	"strings"
 	"text/tabwriter"
 )
 
@@ -548,27 +547,6 @@ func PrintPrivateSpaceManagedFirewallRules(privateSpace *entities.PrivateSpaceEn
 			v.Type,
 		)
 	}
-
-	fmt.Fprintf(w, "\n")
-}
-
-func PrintOrganizationPrivateSpaceNetwork(privateSpace *entities.OrganizationPrivateSpaceEntity) {
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s", "REGION", "CIDR BLOCK", "INBOUND IPS", "OUTBOUND IPS", "DNS")
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s",
-		privateSpace.Network.Region,
-		privateSpace.Network.CidrBlock,
-		strings.Join(privateSpace.Network.InboundStaticIps, ", "),
-		strings.Join(privateSpace.Network.OutboundStaticIps, ", "),
-		privateSpace.Network.DnsTarget,
-	)
 
 	fmt.Fprintf(w, "\n")
 }

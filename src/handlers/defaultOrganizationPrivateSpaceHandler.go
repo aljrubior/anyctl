@@ -128,7 +128,7 @@ func (this DefaultOrganizationPrivateSpaceHandler) GetNetwork(psName string) err
 		return this.ThrowNewPrivateSpaceNotFoundError(psName, options)
 	}
 
-	utils.PrintOrganizationPrivateSpaceNetwork(privateSpace)
+	printers.NewOrganizationPrivateSpacePrinter(privateSpace).PrintNetwork()
 
 	return nil
 }
