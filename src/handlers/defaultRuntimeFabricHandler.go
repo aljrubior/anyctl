@@ -6,7 +6,6 @@ import (
 	"github.com/aljrubior/anyctl/managers/entities"
 	"github.com/aljrubior/anyctl/manifests"
 	"github.com/aljrubior/anyctl/printers"
-	"github.com/aljrubior/anyctl/utils"
 )
 
 func NewDefaultRuntimeFabricHandler(configManager managers.ConfigManager, runtimeFabricManager managers.OrganizationRuntimeFabricManager) *DefaultRuntimeFabrichandler {
@@ -134,7 +133,7 @@ func (this DefaultRuntimeFabrichandler) GetRuntimeFabricNodes(targetName string)
 		return this.ThrowNewOrganizationFabricNotFoundError(targetName, targets)
 	}
 
-	utils.PrintOrganzationFabricNodes(target)
+	printers.NewOrganizationFabricPrinter(target).PrintNodes()
 
 	return nil
 }
