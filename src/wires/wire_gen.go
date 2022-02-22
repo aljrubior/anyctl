@@ -9,6 +9,7 @@ package wires
 import (
 	"github.com/aljrubior/anyctl/clients/accounts"
 	"github.com/aljrubior/anyctl/clients/assets"
+	"github.com/aljrubior/anyctl/clients/deploymentLogs"
 	"github.com/aljrubior/anyctl/clients/deployments"
 	"github.com/aljrubior/anyctl/clients/fabrics"
 	"github.com/aljrubior/anyctl/clients/organizationPrivateSpaces"
@@ -64,6 +65,15 @@ func InitializeConfigManager() managers.ConfigManager {
 func InitializeDeployerManager(deploymentManager managers.DeploymentManager, assetManager managers.AssetManager, fabricManager managers.OrganizationRuntimeFabricManager) (managers.DeployerManager, error) {
 	defaultDeployerManager := managers.NewDefaultDeployerManager(deploymentManager, assetManager, fabricManager)
 	return defaultDeployerManager, nil
+}
+
+// Injectors from deploymentLogsManagerWire.go:
+
+func InitializeDeploymentLogsManager(config conf.DeploymentLogsClientConfig) (managers.DeploymentLogsManager, error) {
+	defaultDeploymentLogsClient := deploymentLogs.NewDefaultDeploymentLogsClient(config)
+	defaultDeploymentLogsService := services.NewDefaultDeploymentLogsService(defaultDeploymentLogsClient)
+	defaultDeploymentLogsManager := managers.NewDefaultDeploymentLogsManager(defaultDeploymentLogsService)
+	return defaultDeploymentLogsManager, nil
 }
 
 // Injectors from deploymentManagerWire.go:

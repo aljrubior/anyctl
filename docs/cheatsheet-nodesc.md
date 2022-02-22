@@ -82,8 +82,8 @@ anyctl runtimemanager deployments migrate <deployment-name> --to-target-name <ta
 anyctl runtimemanager deployments describe <deployment-name>
 anyctl runtimemanager deployments history get <deployment-name>
 anyctl runtimemanager deployments history diff <deployment-name> <change-version>
-anyctl runtimemanager deployments apply -f <deployment-file-yaml> --plan
-anyctl runtimemanager deployments apply -f <deployment-file-yaml>
+anyctl runtimemanager deployments apply -f <deployment-file.yaml> --plan
+anyctl runtimemanager deployments apply -f <deployment-file.yaml>
 ```
 
 ### Schedulers command

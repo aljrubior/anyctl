@@ -34,6 +34,7 @@ type AnyctlConfigManager struct {
 	fabricClientConfig              *conf.FabricClientConfig
 	schedulerClientConfig           *conf.SchedulerClientConfig
 	accountClientConfig             *conf.AccountClientConfig
+	logsClientConfig                *conf.DeploymentLogsClientConfig
 }
 
 func (this *AnyctlConfigManager) loadConfiguration() error {
@@ -75,6 +76,19 @@ func (this *AnyctlConfigManager) GetDeploymentConfigClient() conf.DeploymentClie
 	}
 
 	return *this.deploymentClientConfig
+}
+
+func (this *AnyctlConfigManager) GetLogsClientConfig() conf.DeploymentLogsClientConfig {
+	if this.logsClientConfig == nil {
+		this.logsClientConfig = &conf.DeploymentLogsClientConfig{
+			Protocol: this.anyctlConfig.Anypoint.Protocol,
+			Host:     this.anyctlConfig.Anypoint.Host,
+			Port:     this.anyctlConfig.Anypoint.Port,
+			LogsPath: this.anyctlConfig.Anypoint.Resources.RuntimeManager.DeploymentLogs.LogsPath,
+		}
+	}
+
+	return *this.logsClientConfig
 }
 
 func (this *AnyctlConfigManager) GetSchedulerClientConfig() conf.SchedulerClientConfig {

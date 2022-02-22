@@ -216,10 +216,10 @@ anyctl runtimemanager deployments history get <deployment-name>
 anyctl runtimemanager deployments history diff <deployment-name> <change-version>
 
 # Show the differences between the current deployment version and the new version
-anyctl runtimemanager deployments apply -f <deployment-file-yaml> --plan
+anyctl runtimemanager deployments apply -f <deployment-file.yaml> --plan
 
 # Create or update the deployment represented in the file
-anyctl runtimemanager deployments apply -f <deployment-file-yaml>
+anyctl runtimemanager deployments apply -f <deployment-file.yaml>
 ```
 
 ### Schedulers command

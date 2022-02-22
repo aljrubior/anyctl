@@ -29,6 +29,7 @@ var FabricManager managers.FabricManager
 var DeployerManager managers.DeployerManager
 var SchedulerManager managers.SchedulerManager
 var AccountManager managers.AccountManager
+var DeploymentLogsManager managers.DeploymentLogsManager
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -100,6 +101,11 @@ func init() {
 
 	// Fabrics Injection
 	if FabricManager, err = wires.InitializeFabricManager(anyctlConfigManager.GetFabricClientConfig()); err != nil {
+		exit(err)
+	}
+
+	// Logs Injection
+	if DeploymentLogsManager, err = wires.InitializeDeploymentLogsManager(anyctlConfigManager.GetLogsClientConfig()); err != nil {
 		exit(err)
 	}
 
