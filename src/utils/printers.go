@@ -12,32 +12,6 @@ import (
 	"text/tabwriter"
 )
 
-func PrintStandaloneDetails(targetWrapper *wrappers.TargetEntityWrapper) {
-
-	target, ok := targetWrapper.GetStandaloneTargetEntity()
-
-	if !ok {
-		println("Details is not available on this target type")
-		return
-	}
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s", "RUNTIME VERSION", "TYPE", "AGENT VERSION", "STATUS")
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s",
-		target.Details.RuntimeVersion,
-		target.Details.Type,
-		target.Details.AgentVersion,
-		target.Status)
-
-	fmt.Fprintf(w, "\n")
-}
-
 func PrintStandaloneAddresses(targetWrapper *wrappers.TargetEntityWrapper) {
 
 	target, ok := targetWrapper.GetStandaloneTargetEntity()

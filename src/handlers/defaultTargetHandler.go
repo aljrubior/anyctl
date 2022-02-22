@@ -129,7 +129,7 @@ func (this DefaultTargetHandler) GetDetails(targetName string) error {
 		return this.ThrowTargetNotFoundError(targetName, options)
 	}
 
-	utils.PrintStandaloneDetails(wrappers.NewTargetEntityWrapper(*target))
+	printers.NewTargetPrinter(target).PrintStandaloneDetails()
 
 	return nil
 }

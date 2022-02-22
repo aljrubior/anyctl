@@ -53,3 +53,31 @@ func (this *TargetPrinter) PrintTargetSupportedVersions() {
 
 	fmt.Fprintf(w, "\n")
 }
+
+func (this *TargetPrinter) PrintStandaloneDetails() {
+
+	wrapper := wrappers.NewTargetEntityWrapper(*this.entity)
+
+	target, ok := wrapper.GetStandaloneTargetEntity()
+
+	if !ok {
+		println("Details is not available on this target type")
+		return
+	}
+
+	w := new(tabwriter.Writer)
+
+	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
+
+	defer w.Flush()
+
+	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s", "RUNTIME VERSION", "TYPE", "AGENT VERSION", "STATUS")
+
+	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s",
+		target.Details.RuntimeVersion,
+		target.Details.Type,
+		target.Details.AgentVersion,
+		target.Status)
+
+	fmt.Fprintf(w, "\n")
+}
