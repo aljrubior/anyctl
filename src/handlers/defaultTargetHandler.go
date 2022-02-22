@@ -106,7 +106,7 @@ func (this DefaultTargetHandler) GetSupportedRuntimes(targetName string) error {
 		return this.ThrowTargetNotFoundError(targetName, options)
 	}
 
-	utils.PrintTargetSupportedVersions(wrappers.NewTargetEntityWrapper(*target))
+	printers.NewTargetPrinter(target).PrintTargetSupportedVersions()
 
 	return nil
 }

@@ -12,40 +12,6 @@ import (
 	"text/tabwriter"
 )
 
-func PrintTargetSupportedVersions(targetWrapper *wrappers.TargetEntityWrapper) {
-
-	target, ok := targetWrapper.GetRuntimeFabricTargetEntity()
-
-	if !ok {
-		println("Supported versions is not available on this target type")
-		return
-	}
-
-	if len(target.Details) == 1 && len(target.Details[0].SupportedRuntimes) == 0 {
-		println("No runtime versions found in this target.")
-		return
-	}
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s", "BASE VERSION", "TAG", "MINIMUM TAG")
-
-	for _, v := range target.Details {
-		for _, x := range v.SupportedRuntimes {
-			fmt.Fprintf(w, "\n %s\t%s\t%s",
-				x.BaseVersion,
-				x.Tag,
-				x.MinimumTag)
-		}
-	}
-
-	fmt.Fprintf(w, "\n")
-}
-
 func PrintStandaloneDetails(targetWrapper *wrappers.TargetEntityWrapper) {
 
 	target, ok := targetWrapper.GetStandaloneTargetEntity()
