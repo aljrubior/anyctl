@@ -138,7 +138,7 @@ func (this DefaultPrivateSpaceHandler) GetFabrics(privateSpaceId string) error {
 		return err
 	}
 
-	utils.PrintPrivateSpaceFabrics(fabrics)
+	printers.NewPrivateSpaceFabricsPrinter(fabrics).Print()
 
 	return nil
 }
