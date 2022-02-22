@@ -5,7 +5,7 @@ import (
 	errors2 "github.com/aljrubior/anyctl/errors"
 	"github.com/aljrubior/anyctl/managers"
 	"github.com/aljrubior/anyctl/managers/entities"
-	"github.com/aljrubior/anyctl/utils"
+	"github.com/aljrubior/anyctl/printers"
 )
 
 func NewDefaultAssetHandler(assetManager managers.AssetManager, configManager managers.ConfigManager) *DefaultAssetHandler {
@@ -30,7 +30,7 @@ func (this DefaultAssetHandler) FindAssets(assetName string) error {
 	if err != nil {
 		return err
 	}
-	
+
 	assets, options, err := this.assetManager.FindAssetByName(ctx, assetName)
 
 	if err != nil {
@@ -41,7 +41,7 @@ func (this DefaultAssetHandler) FindAssets(assetName string) error {
 		return this.ThrowAssetNotFoundError(assetName, options)
 	}
 
-	utils.PrintAssets(assets)
+	printers.NewAssetsPrinter(assets).Print()
 
 	return nil
 }

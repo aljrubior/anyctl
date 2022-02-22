@@ -12,28 +12,6 @@ import (
 	"text/tabwriter"
 )
 
-func PrintAssets(assets *[]entities.AssetEntity) {
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s", "NAME", "VERSION", "STATUS", "RUNTIME", "UPDATED AT", "CREATED BY")
-
-	for _, v := range *assets {
-		fmt.Fprintf(w, fmt.Sprintf("\n %s\t%s\t%s\t%s\t%s\t%s",
-			v.Name,
-			v.Version,
-			v.Status,
-			v.RuntimeVersion,
-			v.UpdatedAt,
-			v.CreatedBy.UserName))
-	}
-
-	fmt.Fprintf(w, "\n")
-}
-
 func PrintTargets(targets *[]entities.TargetEntity) {
 
 	w := new(tabwriter.Writer)
