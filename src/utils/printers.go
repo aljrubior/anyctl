@@ -527,26 +527,3 @@ func PrintOrganizationPrivateSpaceFirewallRules(privateSpace *entities.Organizat
 
 	fmt.Fprintf(w, "\n")
 }
-
-func PrintPrivateSpaceManagedFirewallRules(privateSpace *entities.PrivateSpaceEntity) {
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s", "CIDR BLOCK", "PROTOCOL", "FROM PORT", "TO PORT", "TYPE")
-
-	for _, v := range privateSpace.ManagedFirewallRules {
-		fmt.Fprintf(w, "\n %s\t%s\t%d\t%d\t%s",
-			v.CidrBlock,
-			v.Protocol,
-			v.FromPort,
-			v.ToPort,
-			v.Type,
-		)
-	}
-
-	fmt.Fprintf(w, "\n")
-}

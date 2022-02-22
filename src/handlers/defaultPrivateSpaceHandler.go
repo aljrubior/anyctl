@@ -80,7 +80,7 @@ func (this DefaultPrivateSpaceHandler) GetManagedFirewallRules(privateSpaceId st
 		return this.ThrowNewPrivateSpaceNotFoundError(privateSpaceId)
 	}
 
-	utils.PrintPrivateSpaceManagedFirewallRules(&(*privateSpaces)[0])
+	printers.NewPrivateSpacePrinter(&(*privateSpaces)[0]).PrintManagedFirewallRules()
 
 	return nil
 }
