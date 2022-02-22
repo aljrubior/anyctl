@@ -38,3 +38,25 @@ func (this *OrganizationPrivateSpacePrinter) PrintNetwork() {
 
 	fmt.Fprintf(w, "\n")
 }
+
+func (this *OrganizationPrivateSpacePrinter) PrintFirewallRules() {
+	w := new(tabwriter.Writer)
+
+	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
+
+	defer w.Flush()
+
+	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s", "CIDR BLOCK", "PROTOCOL", "FROM PORT", "TO PORT", "TYPE")
+
+	for _, v := range this.entity.FirewallRules {
+		fmt.Fprintf(w, "\n %s\t%s\t%d\t%d\t%s",
+			v.CidrBlock,
+			v.Protocol,
+			v.FromPort,
+			v.ToPort,
+			v.Type,
+		)
+	}
+
+	fmt.Fprintf(w, "\n")
+}

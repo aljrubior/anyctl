@@ -105,7 +105,7 @@ func (this DefaultOrganizationPrivateSpaceHandler) GetFirewallRules(psName strin
 		return this.ThrowNewPrivateSpaceNotFoundError(psName, options)
 	}
 
-	utils.PrintOrganizationPrivateSpaceFirewallRules(privateSpace)
+	printers.NewOrganizationPrivateSpacePrinter(privateSpace).PrintFirewallRules()
 
 	return nil
 }
