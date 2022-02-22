@@ -7,7 +7,6 @@ import (
 	"github.com/aljrubior/anyctl/managers/wrappers"
 	"github.com/aljrubior/anyctl/manifests"
 	"github.com/aljrubior/anyctl/printers"
-	"github.com/aljrubior/anyctl/utils"
 	"strings"
 )
 
@@ -152,7 +151,7 @@ func (this DefaultTargetHandler) GetAddresses(targetName string) error {
 		return this.ThrowTargetNotFoundError(targetName, options)
 	}
 
-	utils.PrintStandaloneAddresses(wrappers.NewTargetEntityWrapper(*target))
+	printers.NewTargetPrinter(target).PrintStandaloneAddresses()
 
 	return nil
 }

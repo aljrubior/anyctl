@@ -81,3 +81,31 @@ func (this *TargetPrinter) PrintStandaloneDetails() {
 
 	fmt.Fprintf(w, "\n")
 }
+
+func (this *TargetPrinter) PrintStandaloneAddresses() {
+
+	wrapper := wrappers.NewTargetEntityWrapper(*this.entity)
+
+	target, ok := wrapper.GetStandaloneTargetEntity()
+
+	if !ok {
+		println("Addresses is not available on this target type")
+		return
+	}
+
+	w := new(tabwriter.Writer)
+
+	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
+
+	defer w.Flush()
+
+	fmt.Fprintf(w, "\n %s\t%s", "INTERFACE", "IP")
+
+	for _, v := range target.Details.Addresses {
+		fmt.Fprintf(w, "\n %s\t%s",
+			v.NetworkInterface,
+			v.Ip)
+	}
+
+	fmt.Fprintf(w, "\n")
+}

@@ -5,38 +5,11 @@ import (
 	"github.com/aljrubior/anyctl/builders"
 	"github.com/aljrubior/anyctl/clients/fabrics/response"
 	"github.com/aljrubior/anyctl/managers/entities"
-	"github.com/aljrubior/anyctl/managers/wrappers"
 	"github.com/aljrubior/anyctl/manifests"
 	"gopkg.in/yaml.v2"
 	"os"
 	"text/tabwriter"
 )
-
-func PrintStandaloneAddresses(targetWrapper *wrappers.TargetEntityWrapper) {
-
-	target, ok := targetWrapper.GetStandaloneTargetEntity()
-
-	if !ok {
-		println("Addresses is not available on this target type")
-		return
-	}
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	fmt.Fprintf(w, "\n %s\t%s", "INTERFACE", "IP")
-
-	for _, v := range target.Details.Addresses {
-		fmt.Fprintf(w, "\n %s\t%s",
-			v.NetworkInterface,
-			v.Ip)
-	}
-
-	fmt.Fprintf(w, "\n")
-}
 
 func PrintOrganizationFabrics(fabrics *[]entities.OrganizationFabricEntity) {
 
