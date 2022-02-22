@@ -40,7 +40,7 @@ func (this DefaultDeploymentHandler) GetDeployments() error {
 		return err
 	}
 
-	utils.PrintDeployments(deployments, targets)
+	printers.NewDeploymentsPrinter(deployments, targets).Print()
 
 	return nil
 }
@@ -109,7 +109,7 @@ func (this DefaultDeploymentHandler) FindDeploymentsContainsName(deploymentName 
 		return nil
 	}
 
-	utils.PrintDeployments(deployments, targets)
+	printers.NewDeploymentsPrinter(deployments, targets).Print()
 
 	return nil
 }

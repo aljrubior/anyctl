@@ -12,29 +12,6 @@ import (
 	"text/tabwriter"
 )
 
-func PrintDeployments(deployments *[]entities.DeploymentItemEntity, targets *[]entities.TargetEntity) {
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	targetsMap := TargetEntities2Map(*targets)
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s", "NAME", "DSTATUS", "ASTATUS", "TARGET")
-
-	for _, v := range *deployments {
-		fmt.Fprintf(w, "\n %s\t%s\t%s\t%s",
-			v.Name,
-			v.Status,
-			v.Application.Status,
-			targetsMap[v.Target.TargetId].GetName())
-	}
-
-	fmt.Fprintf(w, "\n")
-}
-
 func PrintDeployment(deployment *entities.DeploymentEntity, targets *[]entities.TargetEntity) {
 
 	w := new(tabwriter.Writer)
