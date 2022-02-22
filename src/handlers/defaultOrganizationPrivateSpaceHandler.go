@@ -35,7 +35,7 @@ func (this DefaultOrganizationPrivateSpaceHandler) GetPrivateSpaces() error {
 		return err
 	}
 
-	utils.PrintOrganizationPrivateSpaces(privateSpaces)
+	printers.NewOrganizationPrivateSpacesPrinter(privateSpaces).Print()
 
 	return nil
 }
@@ -82,7 +82,7 @@ func (this DefaultOrganizationPrivateSpaceHandler) FindPrivateSpaceContainsName(
 		return nil
 	}
 
-	utils.PrintOrganizationPrivateSpaces(targets)
+	printers.NewOrganizationPrivateSpacesPrinter(targets).Print()
 
 	return nil
 }
