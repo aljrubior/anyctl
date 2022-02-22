@@ -37,7 +37,7 @@ func (this DefaultTargetHandler) GetTargets() error {
 		return err
 	}
 
-	utils.PrintTargets(targets)
+	printers.NewTargetsPrinter(targets).Print()
 
 	return nil
 }
@@ -64,7 +64,7 @@ func (this DefaultTargetHandler) GetTarget(targetName string) error {
 		}
 	}
 
-	utils.PrintTargets(&targetsFound)
+	printers.NewTargetsPrinter(&targetsFound).Print()
 
 	return nil
 }
@@ -83,7 +83,8 @@ func (this DefaultTargetHandler) FindTargetsContainsName(targetName string) erro
 		return err
 	}
 
-	utils.PrintTargets(targets)
+	printers.NewTargetsPrinter(targets).Print()
+
 	return nil
 }
 

@@ -12,26 +12,6 @@ import (
 	"text/tabwriter"
 )
 
-func PrintTargets(targets *[]entities.TargetEntity) {
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s", "ID", "NAME", "TYPE")
-
-	for _, v := range *targets {
-		fmt.Fprintf(w, "\n %s\t%s\t%s",
-			v.GetId(),
-			v.GetName(),
-			v.GetType())
-	}
-
-	fmt.Fprintf(w, "\n")
-}
-
 func PrintTargetSupportedVersions(targetWrapper *wrappers.TargetEntityWrapper) {
 
 	target, ok := targetWrapper.GetRuntimeFabricTargetEntity()
