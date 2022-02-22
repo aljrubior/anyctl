@@ -70,7 +70,7 @@ func (this DefaultSharedSpaceHandler) GetSharedSpace(sharedSpaceName string) err
 		return nil
 	}
 
-	utils.PrintSharedSpace(sharedSpace, privateSpace)
+	printers.NewSharedSpacePrinter(sharedSpace, privateSpace).Print()
 
 	return nil
 }
@@ -100,7 +100,7 @@ func (this DefaultSharedSpaceHandler) FindSharedSpaceContainsName(sharedSpaceNam
 			return nil
 		}
 
-		utils.PrintSharedSpace(&(*sharedSpaces)[0], privateSpace)
+		printers.NewSharedSpacePrinter(&(*sharedSpaces)[0], privateSpace).Print()
 		return nil
 
 	}

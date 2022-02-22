@@ -359,26 +359,3 @@ func PrintSharedSpaces(sharedSpaces *[]entities.SharedSpaceEntity) {
 
 	fmt.Fprintf(w, "\n")
 }
-
-func PrintSharedSpace(sharedSpace *entities.SharedSpaceEntity, privateSpace *entities.PrivateSpaceEntity) {
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s\t%s", "NAME", "REGION", "FLAVOR", "STATUS", "ADVERTISED", "REQUIRES PERMISSION", "PRIVATE SPACE")
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%v\t%v\t%s",
-		sharedSpace.Name,
-		sharedSpace.Region,
-		sharedSpace.Flavor,
-		sharedSpace.Status,
-		sharedSpace.IsAdvertised,
-		sharedSpace.RequiresPermission,
-		privateSpace.Name,
-	)
-
-	fmt.Fprintf(w, "\n")
-}
