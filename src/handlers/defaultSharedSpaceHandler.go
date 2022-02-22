@@ -6,7 +6,6 @@ import (
 	"github.com/aljrubior/anyctl/managers/entities"
 	"github.com/aljrubior/anyctl/manifests"
 	"github.com/aljrubior/anyctl/printers"
-	"github.com/aljrubior/anyctl/utils"
 )
 
 func NewDefaultSharedSpaceHandler(
@@ -41,7 +40,7 @@ func (this DefaultSharedSpaceHandler) GetSharedSpaces() error {
 		return err
 	}
 
-	utils.PrintSharedSpaces(sharedSpaces)
+	printers.NewSharedSpacesPrinter(sharedSpaces).Print()
 
 	return nil
 }
@@ -105,7 +104,8 @@ func (this DefaultSharedSpaceHandler) FindSharedSpaceContainsName(sharedSpaceNam
 
 	}
 
-	utils.PrintSharedSpaces(sharedSpaces)
+	printers.NewSharedSpacesPrinter(sharedSpaces).Print()
+
 	return nil
 }
 

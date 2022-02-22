@@ -337,25 +337,3 @@ func PrintOrganizationPrivateSpaceFabrics(privateSpaces *[]entities.Organization
 
 	fmt.Fprintf(w, "\n")
 }
-
-func PrintSharedSpaces(sharedSpaces *[]entities.SharedSpaceEntity) {
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s", "NAME", "REGION", "FLAVOR", "STATUS")
-
-	for _, v := range *sharedSpaces {
-		fmt.Fprintf(w, "\n %s\t%s\t%s\t%s",
-			v.Name,
-			v.Region,
-			v.Flavor,
-			v.Status,
-		)
-	}
-
-	fmt.Fprintf(w, "\n")
-}
