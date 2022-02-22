@@ -1,6 +1,6 @@
 package response
 
 type Environments struct {
-	Type           string   `json:"type",yaml:"type"`
-	BusinessGroups []string `json:"businessGroups",yaml:"businessGroups"`
+	Type           string   `json:"type"`
+	BusinessGroups []string `json:"businessGroups"`
 }

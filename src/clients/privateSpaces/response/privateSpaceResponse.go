@@ -1,13 +1,13 @@
 package response
 
 type PrivateSpaceResponse struct {
-	Id                   string          `yaml:"id",json:"id"`
-	Name                 string          `yaml:"name",json:"name"`
-	Region               string          `yaml:"region",json:"region"`
-	OrganizationId       string          `yaml:"organizationId",json:"organizationId"`
-	Status               string          `yaml:"status",json:"status"`
+	Id                   string          `json:"id"`
+	Name                 string          `json:"name"`
+	Region               string          `json:"region"`
+	OrganizationId       string          `json:"organizationId"`
+	Status               string          `json:"status"`
 	Version              string          `json:"version"`
-	ManagedFirewallRules []FirewallRules `yaml:"managedFirewallRules",json:"managedFirewallRules"`
-	Environments         Environments    `yaml:"environments"`
+	ManagedFirewallRules []FirewallRules `json:"managedFirewallRules"`
+	Environments         Environments    `json:"environments"`
 	Flavor               string          `json:"flavor"`
 }

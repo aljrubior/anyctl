@@ -587,12 +587,4 @@ func PrintOrganizationPrivateSpaceManifest(manifest *manifests.OrganizationPriva
 
 func PrintPrivateSpaceManifest(manifest *manifests.PrivateSpaceManifest) {
 
-	data, err := yaml.Marshal(*manifest)
-
-	if err != nil {
-		println(err)
-		return
-	}
-
-	println(string(data))
 }

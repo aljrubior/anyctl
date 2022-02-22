@@ -4,6 +4,7 @@ import (
 	"github.com/aljrubior/anyctl/errors"
 	"github.com/aljrubior/anyctl/managers"
 	"github.com/aljrubior/anyctl/manifests"
+	"github.com/aljrubior/anyctl/printers"
 	"github.com/aljrubior/anyctl/utils"
 )
 
@@ -102,7 +103,13 @@ func (this DefaultPrivateSpaceHandler) DescribePrivateSpace(privateSpaceId strin
 		return this.ThrowNewPrivateSpaceNotFoundError(privateSpaceId)
 	}
 
-	utils.PrintPrivateSpaceManifest(manifests.NewPrivateSpaceManifest((*privateSpaces)[0].PrivateSpaceResponse))
+	printer, err := printers.NewPrivateSpaceManifestPrinter(manifests.NewPrivateSpaceManifest((*privateSpaces)[0].PrivateSpaceResponse))
+
+	if err != nil {
+		return err
+	}
+
+	printer.Print()
 
 	return nil
 }
