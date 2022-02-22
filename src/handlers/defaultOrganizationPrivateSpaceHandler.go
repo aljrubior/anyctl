@@ -6,7 +6,6 @@ import (
 	"github.com/aljrubior/anyctl/managers/entities"
 	"github.com/aljrubior/anyctl/manifests"
 	"github.com/aljrubior/anyctl/printers"
-	"github.com/aljrubior/anyctl/utils"
 )
 
 func NewDefaultOrganizationPrivateSpaceHandler(configManager managers.ConfigManager, privateSpaceManager managers.OrganizationPrivateSpaceManager) *DefaultOrganizationPrivateSpaceHandler {
@@ -157,7 +156,7 @@ func (this DefaultOrganizationPrivateSpaceHandler) GetFabrics(privateSpaceName s
 		return err
 	}
 
-	utils.PrintOrganizationPrivateSpaceFabrics(fabrics)
+	printers.NewOrganizationPrivateSpaceFabricsPrinter(fabrics).Print()
 
 	return nil
 }
