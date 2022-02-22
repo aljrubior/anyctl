@@ -17,8 +17,8 @@ func NewFabricManifest(response response.FabricResponse) *FabricManifest {
 }
 
 type FabricManifest struct {
-	ApiVersion string                  `yaml:"apiVersion"`
-	Kind       string                  `yaml:"kind"`
-	Metadata   model.Metadata          `yaml:"metadata"`
-	Spec       response.FabricResponse `yaml:"spec"`
+	ApiVersion string                  `json:"apiVersion"`
+	Kind       string                  `json:"kind"`
+	Metadata   model.Metadata          `json:"metadata"`
+	Spec       response.FabricResponse `json:"spec"`
 }

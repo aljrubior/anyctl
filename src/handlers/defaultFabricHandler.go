@@ -99,7 +99,13 @@ func (this DefaultFabricHandler) DescribeFabric(privateSpaceId string) error {
 		return this.ThrowNewFabricNotFoundError(privateSpaceId)
 	}
 
-	utils.PrintFabricManifest(manifests.NewFabricManifest((*fabrics)[0].FabricResponse))
+	printer, err := printers.NewFabricManifestPrinter(manifests.NewFabricManifest((*fabrics)[0].FabricResponse))
+
+	if err != nil {
+		return err
+	}
+
+	printer.Print()
 
 	return nil
 }

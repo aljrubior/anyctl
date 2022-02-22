@@ -596,15 +596,3 @@ func PrintPrivateSpaceManifest(manifest *manifests.PrivateSpaceManifest) {
 
 	println(string(data))
 }
-
-func PrintFabricManifest(manifest *manifests.FabricManifest) {
-
-	data, err := yaml.Marshal(*manifest)
-
-	if err != nil {
-		println(err)
-		return
-	}
-
-	println(string(data))
-}
