@@ -12,27 +12,6 @@ import (
 	"text/tabwriter"
 )
 
-func PrintDeployment(deployment *entities.DeploymentEntity, targets *[]entities.TargetEntity) {
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	targetsMap := TargetEntities2Map(*targets)
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s", "NAME", "REPLICAS", "STATUS", "TARGET", "RUNTIME", "ASSET")
-
-	fmt.Fprintln(w, fmt.Sprintf("\n %s\t%s\t%s\t%s\t%s\t%s",
-		deployment.Name,
-		BuildReplicasSummary(deployment.Replicas),
-		deployment.Status,
-		targetsMap[deployment.Target.TargetId].GetName(),
-		deployment.Target.DeploymentSettings.RuntimeVersion,
-		fmt.Sprintf("%s:%s", deployment.Application.Ref.ArtifactId, deployment.Application.Ref.Version)))
-}
-
 func PrintAssets(assets *[]entities.AssetEntity) {
 	w := new(tabwriter.Writer)
 

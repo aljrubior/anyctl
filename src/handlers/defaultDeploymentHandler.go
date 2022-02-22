@@ -7,7 +7,6 @@ import (
 	"github.com/aljrubior/anyctl/managers/entities"
 	"github.com/aljrubior/anyctl/manifests"
 	"github.com/aljrubior/anyctl/printers"
-	"github.com/aljrubior/anyctl/utils"
 )
 
 func NewDeploymentHandler(deploymentManager managers.DeploymentManager, configManager managers.ConfigManager, targetManager managers.TargetManager) DefaultDeploymentHandler {
@@ -69,7 +68,7 @@ func (this DefaultDeploymentHandler) GetDeployment(deploymentName string) error 
 		return err
 	}
 
-	utils.PrintDeployment(deployment, targets)
+	printers.NewDeploymentPrinter(deployment, targets).Print()
 
 	return nil
 }
@@ -105,7 +104,7 @@ func (this DefaultDeploymentHandler) FindDeploymentsContainsName(deploymentName 
 			return nil
 		}
 
-		utils.PrintDeployment(deployment, targets)
+		printers.NewDeploymentPrinter(deployment, targets).Print()
 		return nil
 	}
 
