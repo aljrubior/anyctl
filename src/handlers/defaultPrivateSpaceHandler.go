@@ -34,7 +34,7 @@ func (this DefaultPrivateSpaceHandler) GetPrivateSpaces(privateSpaceId string) e
 		return err
 	}
 
-	utils.PrintPrivateSpaces(privateSpaces)
+	printers.NewPrivateSpacesPrinter(privateSpaces).Print()
 
 	return nil
 }
