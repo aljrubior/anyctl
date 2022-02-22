@@ -39,3 +39,25 @@ func (this *PrivateSpacePrinter) PrintManagedFirewallRules() {
 
 	fmt.Fprintf(w, "\n")
 }
+
+func (this *PrivateSpacePrinter) Print() {
+
+	w := new(tabwriter.Writer)
+
+	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
+
+	defer w.Flush()
+
+	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s", "NAME", "REGION", "STATUS", "VERSION", "FLAVOR", "ENVIRONMENT TYPE")
+
+	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%v\t%v",
+		this.entity.Name,
+		this.entity.Region,
+		this.entity.Status,
+		this.entity.Version,
+		this.entity.Flavor,
+		this.entity.Environments.Type,
+	)
+
+	fmt.Fprintf(w, "\n")
+}

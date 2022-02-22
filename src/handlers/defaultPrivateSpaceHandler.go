@@ -5,7 +5,6 @@ import (
 	"github.com/aljrubior/anyctl/managers"
 	"github.com/aljrubior/anyctl/manifests"
 	"github.com/aljrubior/anyctl/printers"
-	"github.com/aljrubior/anyctl/utils"
 )
 
 func NewDefaultPrivateSpaceHandler(configManager managers.ConfigManager, privateSpaceManager managers.PrivateSpaceManager) *DefaultPrivateSpaceHandler {
@@ -57,7 +56,7 @@ func (this DefaultPrivateSpaceHandler) GetPrivateSpace(privateSpaceId string) er
 		return this.ThrowNewPrivateSpaceNotFoundError(privateSpaceId)
 	}
 
-	utils.PrintPrivateSpace(privateSpace)
+	printers.NewPrivateSpacePrinter(privateSpace).Print()
 
 	return nil
 }
