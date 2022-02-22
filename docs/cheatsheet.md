@@ -208,6 +208,18 @@ anyctl runtimemanager deployments migrate deployment-name –with-name new-name 
 
 # Describe a deployment
 anyctl runtimemanager deployments describe deployment-name
+
+# List the change history of a deployment
+anyctl runtimemanager deployments history get <deployment-name>
+
+# Show the differences between the current deployment version and a previous version
+anyctl runtimemanager deployments history diff <deployment-name> <change-version>
+
+# Show the differences between the current deployment version and the new version
+anyctl runtimemanager deployments apply -f <deployment-file-yaml> --plan
+
+# Create or update the deployment represented in the file
+anyctl runtimemanager deployments apply -f <deployment-file-yaml>
 ```
 
 ### Schedulers command
