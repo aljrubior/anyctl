@@ -7,18 +7,18 @@ import (
 	"text/tabwriter"
 )
 
-func NewOrganizationFabricsEntity(entitites *[]entities.OrganizationFabricEntity) *OrganizationFabricsEntity {
+func NewOrganizationFabricsPrinter(entitites *[]entities.OrganizationFabricEntity) *OrganizationFabricsPrinter {
 
-	return &OrganizationFabricsEntity{
-		entitites: entitites,
+	return &OrganizationFabricsPrinter{
+		entities: entitites,
 	}
 }
 
-type OrganizationFabricsEntity struct {
-	entitites *[]entities.OrganizationFabricEntity
+type OrganizationFabricsPrinter struct {
+	entities *[]entities.OrganizationFabricEntity
 }
 
-func (this *OrganizationFabricsEntity) Print() {
+func (this *OrganizationFabricsPrinter) Print() {
 
 	w := new(tabwriter.Writer)
 
@@ -28,7 +28,7 @@ func (this *OrganizationFabricsEntity) Print() {
 
 	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s\t%s", "NAME", "REGION", "FABRIC VERSION", "STATUS", "AVAILABLE UPGRADE", "LEVEL", "DISTRIBUTION")
 
-	for _, v := range *this.entitites {
+	for _, v := range *this.entities {
 		fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s\t%s",
 			v.Name,
 			v.Region,
@@ -43,7 +43,7 @@ func (this *OrganizationFabricsEntity) Print() {
 	fmt.Fprintf(w, "\n")
 }
 
-func (this *OrganizationFabricsEntity) getRuntimeFabricDistribution(entity *entities.OrganizationFabricEntity) string {
+func (this *OrganizationFabricsPrinter) getRuntimeFabricDistribution(entity *entities.OrganizationFabricEntity) string {
 	switch entity.Vendor {
 	case "aks":
 		return "AKS"

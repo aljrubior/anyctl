@@ -11,33 +11,6 @@ import (
 	"text/tabwriter"
 )
 
-func PrintOrganizationFabric(runtimeFabric *entities.OrganizationFabricEntity) {
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	nodeSummary := builders.NewRuntimeFabricNodeSummaryBuilder(&runtimeFabric.Nodes).Build()
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s", "NAME", "READY", "HEALTHY", "SCHEDULABLE", "CAPACITY", "REGION", "VERSION", "STATUS", "DISTRIBUTION")
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s",
-		runtimeFabric.Name,
-		nodeSummary.Ready,
-		nodeSummary.Healty,
-		nodeSummary.Schedulable,
-		nodeSummary.Capacity,
-		runtimeFabric.Region,
-		runtimeFabric.Version,
-		runtimeFabric.Status,
-		getRuntimeFabricDistribution(runtimeFabric),
-	)
-
-	fmt.Fprintf(w, "\n")
-}
-
 func PrintRuntimeFabricManifest(manifest *manifests.OrganizationFabricManifest) {
 
 	data, err := yaml.Marshal(*manifest)
@@ -76,10 +49,6 @@ func PrintOrganzationFabricNodes(runtimeFabric *entities.OrganizationFabricEntit
 	}
 
 	fmt.Fprintf(w, "\n")
-}
-
-func getRuntimeFabricDistribution(runtimeFabric *entities.OrganizationFabricEntity) string {
-	return ""
 }
 
 func PrintOrganizationPrivateSpaces(privateSpaces *[]entities.OrganizationPrivateSpaceEntity) {

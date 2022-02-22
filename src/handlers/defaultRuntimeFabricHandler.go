@@ -35,7 +35,7 @@ func (this DefaultRuntimeFabrichandler) GetFabrics() error {
 		return err
 	}
 
-	printers.NewOrganizationFabricsEntity(targets).Print()
+	printers.NewOrganizationFabricsPrinter(targets).Print()
 
 	return nil
 }
@@ -58,7 +58,7 @@ func (this DefaultRuntimeFabrichandler) GetFabric(targetName string) error {
 		return this.ThrowNewOrganizationFabricNotFoundError(targetName, targets)
 	}
 
-	utils.PrintOrganizationFabric(target)
+	printers.NewOrganizationFabricPrinter(target).Print()
 
 	return nil
 }
@@ -78,11 +78,11 @@ func (this DefaultRuntimeFabrichandler) FindRuntimeFabricContainsName(targetName
 	}
 
 	if len(*targets) == 1 {
-		utils.PrintOrganizationFabric(&(*targets)[0])
+		printers.NewOrganizationFabricPrinter(&(*targets)[0]).Print()
 		return nil
 	}
 
-	printers.NewOrganizationFabricsEntity(targets).Print()
+	printers.NewOrganizationFabricsPrinter(targets).Print()
 
 	return nil
 }
