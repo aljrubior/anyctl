@@ -451,36 +451,3 @@ func PrintPrivateSpaceFabrics(fabrics *[]entities.FabricEntity) {
 
 	fmt.Fprintf(w, "\n")
 }
-
-func PrintFabrics(fabrics *[]entities.FabricEntity, organizations map[string]*entities.OrganizationEntity) {
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s", "NAME", "ORG NAME", "ORG TYPE", "VERSION", "REGION", "STATUS")
-
-	for _, v := range *fabrics {
-
-		fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s",
-			v.Name,
-			organizations[v.OrganizationId].Name,
-			organizations[v.OrganizationId].Subscription.Type,
-			v.Version,
-			v.Region,
-			v.Status)
-	}
-
-	fmt.Fprintf(w, "\n")
-}
-
-func substr(value string, index, length int) string {
-
-	if value == "" || len(value) < length {
-		return value
-	}
-
-	return value[index:length]
-}
