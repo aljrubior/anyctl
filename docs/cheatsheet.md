@@ -209,6 +209,9 @@ anyctl runtimemanager deployments migrate deployment-name –with-name new-name 
 # Describe a deployment
 anyctl runtimemanager deployments describe deployment-name
 
+# Show the logs of the deployment
+anyctl runtimemanager deployments logs <deployment-name>
+
 # List the change history of a deployment
 anyctl runtimemanager deployments history get <deployment-name>
 

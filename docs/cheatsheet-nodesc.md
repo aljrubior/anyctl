@@ -80,10 +80,12 @@ anyctl runtimemanager deployments set <deployment-name> --asset <asset-name>[:as
 anyctl runtimemanager deployments clone <deployment-name> --with-name <target-name> [--to-target-name <target-name>] [--to-environment-name <environment-name>]
 anyctl runtimemanager deployments migrate <deployment-name> --to-target-name <target-name> [--to-environment-name <environment-name>] [--to-environment-name <environment-name>]
 anyctl runtimemanager deployments describe <deployment-name>
+anyctl runtimemanager deployments logs <deployment-name>
 anyctl runtimemanager deployments history get <deployment-name>
 anyctl runtimemanager deployments history diff <deployment-name> <change-version>
 anyctl runtimemanager deployments apply -f <deployment-file.yaml> --plan
 anyctl runtimemanager deployments apply -f <deployment-file.yaml>
+
 ```
 
 ### Schedulers command
