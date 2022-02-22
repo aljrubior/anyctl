@@ -484,23 +484,3 @@ func substr(value string, index, length int) string {
 
 	return value[index:length]
 }
-
-func PrintOrganizationPrivateSpace(privateSpace *entities.OrganizationPrivateSpaceEntity) {
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s", "NAME", "REGION", "STATUS", "DNS")
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s",
-		privateSpace.Name,
-		privateSpace.Region,
-		privateSpace.Status,
-		privateSpace.Network.DnsTarget,
-	)
-
-	fmt.Fprintf(w, "\n")
-}
