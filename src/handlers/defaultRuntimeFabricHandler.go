@@ -105,7 +105,13 @@ func (this DefaultRuntimeFabrichandler) DescribeFabric(targetName string) error 
 		return this.ThrowNewOrganizationFabricNotFoundError(targetName, targets)
 	}
 
-	utils.PrintRuntimeFabricManifest(manifests.NewOrganizationFabricManifest(target.OrganizationFabricResponse))
+	printer, err := printers.NewOrganizationFabricManifestPrinter(manifests.NewOrganizationFabricManifest(target.OrganizationFabricResponse))
+
+	if err != nil {
+		return err
+	}
+
+	printer.Print()
 
 	return nil
 }

@@ -17,8 +17,8 @@ func NewOrganizationFabricManifest(response response.OrganizationFabricResponse)
 }
 
 type OrganizationFabricManifest struct {
-	ApiVersion string                              `yaml:"apiVersion"`
-	Kind       string                              `yaml:"kind"`
-	Metadata   model.Metadata                      `yaml:"metadata"`
-	Spec       response.OrganizationFabricResponse `yaml:"spec"`
+	ApiVersion string                              `json:"apiVersion"`
+	Kind       string                              `json:"kind"`
+	Metadata   model.Metadata                      `json:"metadata"`
+	Spec       response.OrganizationFabricResponse `json:"spec"`
 }

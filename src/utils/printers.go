@@ -5,23 +5,9 @@ import (
 	"github.com/aljrubior/anyctl/builders"
 	"github.com/aljrubior/anyctl/clients/fabrics/response"
 	"github.com/aljrubior/anyctl/managers/entities"
-	"github.com/aljrubior/anyctl/manifests"
-	"gopkg.in/yaml.v2"
 	"os"
 	"text/tabwriter"
 )
-
-func PrintRuntimeFabricManifest(manifest *manifests.OrganizationFabricManifest) {
-
-	data, err := yaml.Marshal(*manifest)
-
-	if err != nil {
-		println(err)
-		return
-	}
-
-	println(string(data))
-}
 
 func PrintOrganzationFabricNodes(runtimeFabric *entities.OrganizationFabricEntity) {
 

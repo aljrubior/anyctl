@@ -118,6 +118,22 @@ func NewOrganizationPrivateSpaceManifestPrinter(manifest *manifests.Organization
 
 }
 
+func NewOrganizationFabricManifestPrinter(manifest *manifests.OrganizationFabricManifest) (*ManifestPrinter, error) {
+
+	dataAsJson, err := json.Marshal(*manifest)
+
+	if err != nil {
+		return nil, err
+	}
+
+	dataAsYaml, err := yaml.JSONToYAML(dataAsJson)
+
+	return &ManifestPrinter{
+		data: dataAsYaml,
+	}, nil
+
+}
+
 type ManifestPrinter struct {
 	data []byte
 }
