@@ -102,6 +102,22 @@ func NewPrivateSpaceManifestPrinter(manifest *manifests.PrivateSpaceManifest) (*
 
 }
 
+func NewOrganizationPrivateSpaceManifestPrinter(manifest *manifests.OrganizationPrivateSpaceManifest) (*ManifestPrinter, error) {
+
+	dataAsJson, err := json.Marshal(*manifest)
+
+	if err != nil {
+		return nil, err
+	}
+
+	dataAsYaml, err := yaml.JSONToYAML(dataAsJson)
+
+	return &ManifestPrinter{
+		data: dataAsYaml,
+	}, nil
+
+}
+
 type ManifestPrinter struct {
 	data []byte
 }

@@ -5,6 +5,7 @@ import (
 	"github.com/aljrubior/anyctl/managers"
 	"github.com/aljrubior/anyctl/managers/entities"
 	"github.com/aljrubior/anyctl/manifests"
+	"github.com/aljrubior/anyctl/printers"
 	"github.com/aljrubior/anyctl/utils"
 )
 
@@ -179,7 +180,13 @@ func (this DefaultOrganizationPrivateSpaceHandler) DescribePrivateSpace(psName s
 		return this.ThrowNewPrivateSpaceNotFoundError(psName, options)
 	}
 
-	utils.PrintOrganizationPrivateSpaceManifest(manifests.NewOrganizationPrivateSpaceManifest(privateSpace.OrganizationPrivateSpaceResponse))
+	printer, err := printers.NewOrganizationPrivateSpaceManifestPrinter(manifests.NewOrganizationPrivateSpaceManifest(privateSpace.OrganizationPrivateSpaceResponse))
+
+	if err != nil {
+		return nil
+	}
+
+	printer.Print()
 
 	return nil
 }

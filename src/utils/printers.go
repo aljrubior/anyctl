@@ -572,19 +572,3 @@ func PrintOrganizationPrivateSpaceNetwork(privateSpace *entities.OrganizationPri
 
 	fmt.Fprintf(w, "\n")
 }
-
-func PrintOrganizationPrivateSpaceManifest(manifest *manifests.OrganizationPrivateSpaceManifest) {
-
-	data, err := yaml.Marshal(*manifest)
-
-	if err != nil {
-		println(err)
-		return
-	}
-
-	println(string(data))
-}
-
-func PrintPrivateSpaceManifest(manifest *manifests.PrivateSpaceManifest) {
-
-}
