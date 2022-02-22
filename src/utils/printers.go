@@ -11,31 +11,6 @@ import (
 	"text/tabwriter"
 )
 
-func PrintOrganizationFabrics(fabrics *[]entities.OrganizationFabricEntity) {
-
-	w := new(tabwriter.Writer)
-
-	w.Init(os.Stdout, 0, 0, 3, ' ', 0)
-
-	defer w.Flush()
-
-	fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s\t%s", "NAME", "REGION", "FABRIC VERSION", "STATUS", "AVAILABLE UPGRADE", "LEVEL", "DISTRIBUTION")
-
-	for _, v := range *fabrics {
-		fmt.Fprintf(w, "\n %s\t%s\t%s\t%s\t%s\t%s\t%s",
-			v.Name,
-			v.Region,
-			v.Version,
-			v.Status,
-			v.AvailableUpgradeVersion,
-			v.ClusterConfigurationLevel,
-			getRuntimeFabricDistribution(&v),
-		)
-	}
-
-	fmt.Fprintf(w, "\n")
-}
-
 func PrintOrganizationFabric(runtimeFabric *entities.OrganizationFabricEntity) {
 
 	w := new(tabwriter.Writer)
@@ -104,21 +79,7 @@ func PrintOrganzationFabricNodes(runtimeFabric *entities.OrganizationFabricEntit
 }
 
 func getRuntimeFabricDistribution(runtimeFabric *entities.OrganizationFabricEntity) string {
-
-	switch runtimeFabric.Vendor {
-	case "aks":
-		return "AKS"
-	case "eks":
-		return "EKS"
-	case "gke":
-		return "GKE"
-	case "gravitational":
-		return "APPLIANCE"
-	case "rtfc":
-		return "RTFC"
-	default:
-		return "Unknown"
-	}
+	return ""
 }
 
 func PrintOrganizationPrivateSpaces(privateSpaces *[]entities.OrganizationPrivateSpaceEntity) {

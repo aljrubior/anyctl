@@ -5,6 +5,7 @@ import (
 	"github.com/aljrubior/anyctl/managers"
 	"github.com/aljrubior/anyctl/managers/entities"
 	"github.com/aljrubior/anyctl/manifests"
+	"github.com/aljrubior/anyctl/printers"
 	"github.com/aljrubior/anyctl/utils"
 )
 
@@ -34,7 +35,7 @@ func (this DefaultRuntimeFabrichandler) GetFabrics() error {
 		return err
 	}
 
-	utils.PrintOrganizationFabrics(targets)
+	printers.NewOrganizationFabricsEntity(targets).Print()
 
 	return nil
 }
@@ -81,7 +82,7 @@ func (this DefaultRuntimeFabrichandler) FindRuntimeFabricContainsName(targetName
 		return nil
 	}
 
-	utils.PrintOrganizationFabrics(targets)
+	printers.NewOrganizationFabricsEntity(targets).Print()
 
 	return nil
 }
