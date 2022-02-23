@@ -96,9 +96,14 @@ func (this DefaultApplyDeploymentHandler) Apply(filePath string) error {
 
 	deployment, _, err := this.deploymentManager.FindDeploymentByName(ctx, deploymentName)
 
+	if err != nil {
+		return err
+	}
+
 	if deployment != nil {
+
 		response := deployment.DeploymentResponse
-		builder := requests.NewDeploymentApplyBuilder(response, manifest)
+		builder := requests.NewDeploymentApplyBuilder(&response, manifest)
 		request, err := builder.Apply()
 
 		if err != nil {
@@ -111,6 +116,17 @@ func (this DefaultApplyDeploymentHandler) Apply(filePath string) error {
 
 		return nil
 	}
+
+	builder := requests.NewDeploymentApplyBuilder(nil, manifest)
+	request, err := builder.Apply()
+
+	_, err = this.deploymentManager.Deploy(ctx, &request, ctx.EnvironmentId)
+
+	if err != nil {
+		return err
+	}
+
+	println(fmt.Sprintf("Deployment '%s' created.", deploymentName))
 
 	return nil
 }

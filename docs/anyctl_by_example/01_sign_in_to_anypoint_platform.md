@@ -30,7 +30,7 @@ kind: Config
 credentials:
   username: <plain-text-username>
   password: <plain-text-password>
-organizationId: 3f20b860-9181-44bb-bea3-35f3ec4c749c
+organizationId: 21cfa350-cb56-4895-ac8c-825f4eabc928
 environments:
 - id: 696e1c12-92a9-4044-a4ea-d45ff2db0146
   name: development

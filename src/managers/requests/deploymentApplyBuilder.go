@@ -7,7 +7,7 @@ import (
 	"reflect"
 )
 
-func NewDeploymentApplyBuilder(response response.DeploymentResponse, manifest manifests.DeploymentManifest) DeploymentApplyBuilder {
+func NewDeploymentApplyBuilder(response *response.DeploymentResponse, manifest manifests.DeploymentManifest) DeploymentApplyBuilder {
 	return DeploymentApplyBuilder{
 		response: response,
 		manifest: manifest,
@@ -15,11 +15,15 @@ func NewDeploymentApplyBuilder(response response.DeploymentResponse, manifest ma
 }
 
 type DeploymentApplyBuilder struct {
-	response response.DeploymentResponse
+	response *response.DeploymentResponse
 	manifest manifests.DeploymentManifest
 }
 
 func (this *DeploymentApplyBuilder) Apply() (DeploymentRequest, error) {
+
+	if this.response == nil {
+		return this.buildRequest(this.manifest)
+	}
 
 	this.response.Target = this.applyTarget(this.response.Target, this.manifest.Spec.Target)
 	this.response.Application = this.applyApplication(this.response.Application, this.manifest.Spec.Application)
@@ -39,6 +43,27 @@ func (this *DeploymentApplyBuilder) Apply() (DeploymentRequest, error) {
 	}
 
 	return request, nil
+}
+
+func (this *DeploymentApplyBuilder) buildRequest(manifest manifests.DeploymentManifest) (DeploymentRequest, error) {
+
+	data, err := json.Marshal(manifest.Spec)
+
+	if err != nil {
+		return DeploymentRequest{}, err
+	}
+
+	var request DeploymentRequest
+
+	err = json.Unmarshal(data, &request)
+
+	if err != nil {
+		return DeploymentRequest{}, err
+	}
+
+	data, _ = json.Marshal(request)
+
+	return request, err
 }
 
 func (this *DeploymentApplyBuilder) applyTarget(target, withTarget response.Target) response.Target {

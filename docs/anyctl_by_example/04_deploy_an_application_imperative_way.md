@@ -19,7 +19,9 @@ Expected output:
 ### 2. Deploy the Mule Application getting-started-hello-mule
 
 ```
-anyctl runtimemanager deployments run hello-mule-app --asset getting-started-hello-mule --target-name private-space-finance-qa
+anyctl runtimemanager deployments run hello-mule-app \
+   --asset getting-started-hello-mule \
+   --target-name private-space-finance-qa
 ```
 
 Expected output:
@@ -61,6 +63,16 @@ spec:
   lastSuccessfulVersion: be855c64-c3db-4043-be87-77452fd98ad1
   target:
     deploymentSettings:
+      sidecars:
+        anypoint-monitoring:
+          Image: auto
+          Resources:
+            cpu:
+              limit: 50m
+              reserved: 0m
+            memory:
+              limit: 50Mi
+              reserved: 50Mi
       anypointMonitoringScope: app
       http:
         inbound:
@@ -75,16 +87,6 @@ spec:
           limit: 700Mi
           reserved: 700Mi
       runtimeVersion: 4.5.0:20220125-1
-      sidecars:
-        anypoint-monitoring:
-          Image: auto
-          Resources:
-            cpu:
-              limit: 50m
-              reserved: 0m
-            memory:
-              limit: 50Mi
-              reserved: 50Mi
       updateStrategy: rolling
     provider: MC
     replicas: 1
@@ -93,7 +95,7 @@ spec:
   application:
     ref:
       artifactId: getting-started-hello-mule
-      groupId: 66310c16-bce5-43c4-b978-5945ed2f99c5
+      groupId: 21cfa350-cb56-4895-ac8c-825f4eabc928
       packaging: jar
       version: 1.0.0
     configuration:
