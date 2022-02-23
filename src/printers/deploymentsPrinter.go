@@ -7,7 +7,9 @@ import (
 	"text/tabwriter"
 )
 
-func NewDeploymentsPrinter(entities *[]entities.DeploymentItemEntity, targets *[]entities.TargetEntity) *DeploymentsPrinter {
+func NewDeploymentsPrinter(
+	entities *[]entities.DeploymentItemEntity,
+	targets *[]entities.TargetEntity) *DeploymentsPrinter {
 
 	return &DeploymentsPrinter{
 		entities: entities,

@@ -1,8 +1,15 @@
-# anyctl Cheat Sheet
+# anyctl Cheat Sheet (nodesc)
+
+### Login command
+
+```
+anyctl login --username <username> --password <password>
+```
 
 ### Config command
 
 ```
+anyctl config get-environments
 anyctl config set-environment <environment-name>
 anyctl config current-environment
 ```

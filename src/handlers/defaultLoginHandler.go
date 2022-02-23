@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"github.com/aljrubior/anyctl/managers"
 )
 
@@ -26,6 +27,14 @@ func (this DefaultLoginHandler) Login(username, password string) error {
 	}
 
 	this.configManager.CreateConfig(username, password, loginEntity.Token, loginEntity.OrganizationProfile)
+
+	anyconfigPath, err := this.configManager.GetAnyConfigFilePath()
+
+	if err != nil {
+		return err
+	}
+
+	println(fmt.Sprintf("Configuration file '%s' created.", anyconfigPath))
 
 	return err
 }

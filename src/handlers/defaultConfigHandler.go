@@ -5,6 +5,7 @@ import (
 	"github.com/aljrubior/anyctl/errors"
 	"github.com/aljrubior/anyctl/managers"
 	"github.com/aljrubior/anyctl/model"
+	"github.com/aljrubior/anyctl/printers"
 )
 
 func NewDefaultConfigHandler(accountManager managers.AccountManager, configManager managers.ConfigManager) DefaultConfigHandler {
@@ -74,6 +75,15 @@ func (this DefaultConfigHandler) PrintCurrentContext() error {
 	}
 
 	fmt.Println(fmt.Sprintf("Current environment: %s", environmentName))
+
+	return nil
+}
+
+func (this DefaultConfigHandler) GetEnvironments() error {
+
+	environments := this.configManager.GetEnvironments()
+
+	printers.NewEnvironmentsPrinter(environments).Print()
 
 	return nil
 }

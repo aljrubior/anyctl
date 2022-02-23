@@ -1,10 +1,19 @@
 # anyctl Cheat Sheet
 
+### Login command
+
+```
+anyctl login --username <username> --password <password>
+```
+
 ### Config command
 
 ```
+# List all Anypoint environments available in your account
+anyctl config get-environments
+
 # Change the current Anypoint environment
-anyctl config set-environment environment-name
+anyctl config set-environment <environment-name>
 
 # Display the current Anypoint environment
 anyctl config current-environment
