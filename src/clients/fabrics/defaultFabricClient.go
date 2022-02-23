@@ -26,8 +26,6 @@ func (this DefaultFabricClient) GetFabrics(token string) (*[]response.FabricResp
 
 	client := &http.Client{Timeout: time.Duration(10) * time.Second}
 
-	println(token)
-
 	req := requests.NewGetFabricsRequest(&this.config, token).Build()
 
 	resp, err := client.Do(req)

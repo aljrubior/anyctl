@@ -54,14 +54,13 @@ func (this DefaultAssetHandler) UploadAsset(fromFilePath, withName, withVersion 
 		return err
 	}
 
-	asset, err := this.assetManager.UploadAsset(ctx, fromFilePath, withName, withVersion)
+	_, err = this.assetManager.UploadAsset(ctx, fromFilePath, withName, withVersion)
 
 	if err != nil {
 		return err
 	}
 
 	println(fmt.Sprintf("Asset '%s' v%s created.", withName, withVersion))
-	println(asset.PublicationStatusLink)
 
 	return nil
 }
