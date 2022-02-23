@@ -22,13 +22,13 @@ Expected output
 Asset 'getting-started-hello-mule' v1.0.0 created.
 ```
 
-### 3. List the Mule Application from Anypoint Exchange
+### 3. List the Mule Application published in the previous step
 
 ```
 anyctl assets get getting-started-hello-mule                                                                                                                                                                                       develop  ✭ ✱
 ```
 
-Expected output
+Expected output:
 
 ```
  NAME                         VERSION   STATUS      RUNTIME   UPDATED AT                 CREATED BY

@@ -1,9 +1,9 @@
 package response
 
 type Replica struct {
-	Id                       string `yaml:"id",json:"id"`
-	State                    string `yaml:"state",json:"state"`
-	DeploymentLocation       string `yaml:"deploymentLocation",json:"deploymentLocation"`
-	CurrentDeploymentVersion string `yaml:"currentDeploymentVersion",json:"currentDeploymentVersion"`
-	Reason                   string `yaml:"reason",json:"reason"`
+	Id                       string `json:"id"`
+	State                    string `json:"state"`
+	DeploymentLocation       string `json:"deploymentLocation"`
+	CurrentDeploymentVersion string `json:"currentDeploymentVersion"`
+	Reason                   string `json:"reason"`
 }

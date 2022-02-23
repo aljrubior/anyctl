@@ -18,7 +18,7 @@ Current environment: development
 anyctl config get-environments                                                                                                                                                                                                     develop  ✭ ✱
 ```
 
-Expected output
+Expected output:
 ```
  ID                                     NAME         TYPE
  696e1c12-92a9-4044-a4ea-d45ff2db0146   development  design

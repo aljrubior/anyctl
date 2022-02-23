@@ -1,8 +1,8 @@
 package response
 
 type Asset struct {
-	GroupId    string `yaml:"groupId",json:"groupId"`
-	ArtifactId string `yaml:"artifactId",json:"artifactId"`
-	Version    string `yaml:"version",json:"version"`
-	Packaging  string `yaml:"packaging",json:"packaging"`
+	GroupId    string `json:"groupId"`
+	ArtifactId string `json:"artifactId"`
+	Version    string `json:"version"`
+	Packaging  string `json:"packaging"`
 }
