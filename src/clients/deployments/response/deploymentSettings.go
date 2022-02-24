@@ -2,7 +2,7 @@ package response
 
 type DeploymentSettings struct {
 	Jvm                                 Jvm       `json:"jvm,omitempty"`
-	AnypointMonitoringScope             string    `json:"anypointMonitoringScope,omitempty"`
+	AnypointMonitoringScope             string    `json:"anypointMonitoringScope"`
 	Sidecars                            Sidecars  `json:"sidecars,omitempty"`
 	UpdateStrategy                      string    `json:"updateStrategy,omitempty"`
 	RuntimeVersion                      string    `json:"runtimeVersion,omitempty"`

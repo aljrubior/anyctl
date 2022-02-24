@@ -53,6 +53,7 @@ func (this *GetDeploymentLogsRequest) Build() *http.Request {
 
 	q := req.URL.Query()
 	q.Add("descending", "true")
+	q.Add("length", "1000")
 	req.URL.RawQuery = q.Encode()
 
 	return req

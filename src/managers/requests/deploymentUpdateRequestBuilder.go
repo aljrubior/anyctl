@@ -1,6 +1,7 @@
 package requests
 
 import (
+	"encoding/json"
 	"github.com/aljrubior/anyctl/clients/deployments/response"
 	"github.com/aljrubior/anyctl/managers/entities"
 )
@@ -28,21 +29,32 @@ func (this *DeploymentUpdateRequestBuilder) WithAsset(assetEntity *entities.Asse
 	return this
 }
 
-func (this DeploymentUpdateRequestBuilder) Build() *DeploymentRequest {
+func (this DeploymentUpdateRequestBuilder) Build() (DeploymentRequest, error) {
 
-	return &DeploymentRequest{
-		Name: this.response.Name,
-		Target: Target{
-			Provider: this.response.Target.Provider,
-			TargetId: this.response.Target.TargetId,
-			Replicas: this.getReplicas(),
-			Type:     this.response.Target.Type,
-		},
-		Application: Application{
-			Ref:          this.buildArtifactRef(),
-			DesiredState: this.response.Application.DesiredState,
-		},
+	data, err := json.Marshal(this.response)
+
+	if err != nil {
+		return DeploymentRequest{}, err
 	}
+
+	var request DeploymentRequest
+
+	err = json.Unmarshal(data, &request)
+
+	if this.desiredReplicas != nil {
+		request.Target.Replicas = *this.desiredReplicas
+	}
+
+	if this.assetEntity != nil {
+		request.Application.Ref = ArtifactRef{
+			GroupId:    this.assetEntity.GroupId,
+			ArtifactId: this.assetEntity.AssetId,
+			Version:    this.assetEntity.Version,
+			Packaging:  "jar",
+		}
+	}
+
+	return request, nil
 }
 
 func (this DeploymentUpdateRequestBuilder) buildArtifactRef() ArtifactRef {

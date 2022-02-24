@@ -5,5 +5,5 @@ type Target struct {
 	TargetId           string             `json:"targetId,omitempty"`
 	DeploymentSettings DeploymentSettings `json:"deploymentSettings,omitempty"`
 	Replicas           int                `json:"replicas,omitempty"`
-	Type               string             `json:"type"`
+	Type               string             `json:"type,omitempty"`
 }

@@ -129,9 +129,13 @@ func (this DefaultDeploymentManager) ScaleDeployment(ctx *entities.CurrentContex
 		return nil, err
 	}
 
-	request := requests.NewDeploymentUpdateRequest(d.DeploymentResponse).WithReplicas(&desiredReplicas).Build()
+	request, err := requests.NewDeploymentUpdateRequest(d.DeploymentResponse).WithReplicas(&desiredReplicas).Build()
 
-	deployment, err := this.deploymentService.UpdateDeployment(ctx.OrganizationId, ctx.EnvironmentId, ctx.AuthorizationToken, deploymentId, request)
+	if err != nil {
+		return nil, err
+	}
+
+	deployment, err := this.deploymentService.UpdateDeployment(ctx.OrganizationId, ctx.EnvironmentId, ctx.AuthorizationToken, deploymentId, &request)
 
 	if err != nil {
 		return nil, err
@@ -158,9 +162,13 @@ func (this DefaultDeploymentManager) SetDeploymentAsset(ctx *entities.CurrentCon
 		return nil, this.ThrowAssetNotFoundError(assetRef, nil)
 	}
 
-	request := requests.NewDeploymentUpdateRequest(deployment.DeploymentResponse).WithAsset(asset).Build()
+	request, err := requests.NewDeploymentUpdateRequest(deployment.DeploymentResponse).WithAsset(asset).Build()
 
-	response, err := this.deploymentService.UpdateDeployment(ctx.OrganizationId, ctx.EnvironmentId, ctx.AuthorizationToken, deployment.Id, request)
+	if err != nil {
+		return nil, err
+	}
+
+	response, err := this.deploymentService.UpdateDeployment(ctx.OrganizationId, ctx.EnvironmentId, ctx.AuthorizationToken, deployment.Id, &request)
 
 	if err != nil {
 		return nil, err

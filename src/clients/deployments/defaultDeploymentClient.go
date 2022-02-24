@@ -134,10 +134,14 @@ func (this DefaultDeploymentClient) PatchDeployment(orgId, envId, token, deploym
 		return nil, err
 	}
 
-	data, err := ioutil.ReadAll(resp.Body)
-
 	if resp.StatusCode != 200 {
 		return nil, this.ThrowError(resp)
+	}
+
+	data, err := ioutil.ReadAll(resp.Body)
+
+	if err != nil {
+		return nil, err
 	}
 
 	var response response.DeploymentResponse

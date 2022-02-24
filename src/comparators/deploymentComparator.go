@@ -115,6 +115,10 @@ func (this *DeploymentComparator) diffNewKeysOnly(leftHand, rightHand map[interf
 				diff = this.addNewKey(diff, depth, k, nil)
 			}
 
+			if leftValue == nil {
+				leftValue = emptyMap
+			}
+
 			this.diffNewKeysOnly(leftValue.(map[interface{}]interface{}), rightValue.(map[interface{}]interface{}), depth+1)
 		default:
 			if !exists {

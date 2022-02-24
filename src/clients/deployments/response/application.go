@@ -1,8 +1,8 @@
 package response
 
 type Application struct {
+	Ref           Asset                    `json:"ref"`
 	Status        string                   `json:"status"`
 	DesiredState  string                   `json:"desiredState,omitempty"`
-	Ref           Asset                    `json:"ref"`
 	Configuration ApplicationConfiguration `json:"configuration"`
 }
