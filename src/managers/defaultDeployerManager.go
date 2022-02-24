@@ -125,8 +125,8 @@ func (this DefaultDeployerManager) clone(response response.DeploymentResponse, w
 
 }
 
-func (this DefaultDeployerManager) buildDefaultConfigurations(applicationName string) requests.ApplicationConfiguration {
-	return requests.ApplicationConfiguration{
+func (this DefaultDeployerManager) buildDefaultConfigurations(applicationName string) *requests.ApplicationConfiguration {
+	return &requests.ApplicationConfiguration{
 		ApplicationPropertiesService: requests.ApplicationPropertiesService{
 			ApplicationName:  applicationName,
 			Properties:       map[string]string{},

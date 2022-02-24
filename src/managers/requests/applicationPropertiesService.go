@@ -1,7 +1,7 @@
 package requests
 
 type ApplicationPropertiesService struct {
-	ApplicationName  string            `json:"applicationName"`
-	Properties       map[string]string `json:"properties"`
+	ApplicationName  string            `json:"applicationName,omitempty"`
+	Properties       map[string]string `json:"properties,omitempty"`
 	SecureProperties map[string]string `json:"secureProperties,omitempty"`
 }

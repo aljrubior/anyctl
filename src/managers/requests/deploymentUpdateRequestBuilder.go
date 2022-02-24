@@ -46,7 +46,7 @@ func (this DeploymentUpdateRequestBuilder) Build() (DeploymentRequest, error) {
 	}
 
 	if this.assetEntity != nil {
-		request.Application.Ref = ArtifactRef{
+		request.Application.Ref = &ArtifactRef{
 			GroupId:    this.assetEntity.GroupId,
 			ArtifactId: this.assetEntity.AssetId,
 			Version:    this.assetEntity.Version,

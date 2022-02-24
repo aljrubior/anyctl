@@ -66,7 +66,7 @@ Expected output:
  2022-02-24T03:40:05   a3d2af
 ```
 
-### 5. Show the current status of the deployment
+### 5. Show the current state of the deployment
 
 ```
 anyctl runtimemanager deployments history get hello-mule-app

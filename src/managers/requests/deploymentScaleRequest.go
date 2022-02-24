@@ -17,19 +17,19 @@ type DeploymentScaleRequestBuilder struct {
 func (this DeploymentScaleRequestBuilder) Build() *DeploymentRequest {
 
 	return &DeploymentRequest{
-		Target: Target{
+		Target: &Target{
 			Provider: this.target.Provider,
 			TargetId: this.target.TargetId,
 			Replicas: this.desiredReplicas,
-			DeploymentSettings: DeploymentSettings{
+			DeploymentSettings: &DeploymentSettings{
 				Resources: Resources{
 					Cpu: ResourceItem{
-						Limit:    this.target.DeploymentSettings.Resources.Cpu.Limit,
-						Reserved: this.target.DeploymentSettings.Resources.Cpu.Reserved,
+						Limit:    &this.target.DeploymentSettings.Resources.Cpu.Limit,
+						Reserved: &this.target.DeploymentSettings.Resources.Cpu.Reserved,
 					},
 					Memory: ResourceItem{
-						Limit:    this.target.DeploymentSettings.Resources.Memory.Limit,
-						Reserved: this.target.DeploymentSettings.Resources.Memory.Reserved,
+						Limit:    &this.target.DeploymentSettings.Resources.Memory.Limit,
+						Reserved: &this.target.DeploymentSettings.Resources.Memory.Reserved,
 					},
 				},
 				Clustered:                           this.target.DeploymentSettings.Clustered,

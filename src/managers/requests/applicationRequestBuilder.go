@@ -15,18 +15,18 @@ func (this ApplicationRequestBuilder) Build() *DeploymentRequest {
 	return &DeploymentRequest{
 		Name:   this.spec.ApplicationName,
 		Labels: []string{"beta"},
-		Target: Target{
+		Target: &Target{
 			Provider: this.spec.TargetProvider,
 			TargetId: this.spec.TargetId,
-			DeploymentSettings: DeploymentSettings{
+			DeploymentSettings: &DeploymentSettings{
 				Resources: Resources{
 					Cpu: ResourceItem{
-						Reserved: this.spec.CpuReserved,
-						Limit:    this.spec.CpuLimit,
+						Reserved: &this.spec.CpuReserved,
+						Limit:    &this.spec.CpuLimit,
 					},
 					Memory: ResourceItem{
-						Reserved: this.spec.MemoryReserved,
-						Limit:    this.spec.MemoryLimit,
+						Reserved: &this.spec.MemoryReserved,
+						Limit:    &this.spec.MemoryLimit,
 					},
 				},
 				Clustered:                           this.spec.Clustered,
@@ -46,7 +46,7 @@ func (this ApplicationRequestBuilder) Build() *DeploymentRequest {
 			Replicas: this.spec.Replicas,
 		},
 		Application: Application{
-			Ref: ArtifactRef{
+			Ref: &ArtifactRef{
 				GroupId:    this.spec.GroupId,
 				ArtifactId: this.spec.ArtifactId,
 				Version:    this.spec.ArtifactVersion,
@@ -54,7 +54,7 @@ func (this ApplicationRequestBuilder) Build() *DeploymentRequest {
 			},
 			Assets:       this.spec.Assets,
 			DesiredState: this.spec.DesiredState,
-			Configuration: ApplicationConfiguration{
+			Configuration: &ApplicationConfiguration{
 				ApplicationPropertiesService: ApplicationPropertiesService{
 					ApplicationName:  this.spec.ApplicationName,
 					Properties:       map[string]string{},

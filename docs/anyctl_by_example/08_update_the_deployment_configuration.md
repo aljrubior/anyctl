@@ -6,9 +6,9 @@
 anyctl runtimemanager deployments describe hello-mule-app
 ```
 
-### 2. Declare your deployment configurations in a file
+### 2. Declare your deployment configurations in the file
 
-Add database configurations into the application properties
+#### 2.1 Add database configurations into the application properties
 
 ```
   db.host: mysql.localhost
@@ -17,13 +17,13 @@ Add database configurations into the application properties
   db.pass: qwerty
 ```
 
-Add Java Virtual Machine arguments
+#### 2.2 Add Java Virtual Machine arguments
 
 ```
 -XX:MaxRAMPercentage=66.0
 ```
 
-Increase Deployment resources
+#### 2.3 Increase Deployment resources
 
 ```
 CPU Reserved     from 20m   to 50m
@@ -31,19 +31,20 @@ Memory Limit     from 700Mi to 750Mi
 Memory Reserved  from 700Mi to 750Mi
 ```
 
-Increase the Deployment replicas
+#### 2.4 Increase the Deployment replicas
 
 ```
-Replicas         from 2 to 3
+Replicas         from 2 to 1
 ```
 
-Change the asset version
+#### 2.5 Change the asset version
 
 ```
 Asset version    from 1.0.2 to 1.0.1
 ```
 
-File: /tmp/hello-mule-app.yaml
+
+Expected File: /tmp/hello-mule-app.yaml
 
 ```
 apiVersion: v1
@@ -81,7 +82,7 @@ spec:
               reserved: 50Mi
       updateStrategy: rolling
     provider: MC
-    replicas: 2
+    replicas: 1
     targetId: a8949688-f7b6-4302-8ca5-c9f6dea5f9aa
   application:
     configuration:
@@ -119,7 +120,7 @@ Expected output:
            ~ limit: 700Mi --> 750Mi
        ~ jvm: 
          + args: -XX:MaxRAMPercentage=66.0
-     ~ replicas: 2 --> 3
+     ~ replicas: 2 --> 1
    ~ application: 
      ~ ref: 
        ~ version: 1.0.2 --> 1.0.1
@@ -155,6 +156,19 @@ anyctl runtimemanager deployments get hello-mule-app
 Expected output:
 
 ```
+ NAME             REPLICAS   STATUS    TARGET                      RUNTIME            ASSET
+  hello-mule-app   1/1        APPLIED   runtime-mgr-private-space   4.4.0:20211227-2   getting-started-hello-mule:1.0.1
+```
+
+### 6. List the change history of the deployment
+
+```
+anyctl runtimemanager deployments history get hello-mule-app
+```
+
+Expected output:
+
+```
  DATE                  CHANGES
  2022-02-24T05:02:08   5c394d (Last successful)
  2022-02-24T04:10:04   87eb15
@@ -162,7 +176,7 @@ Expected output:
  2022-02-24T03:40:05   a3d2af
 ```
 
-### 6. Show differences between current deployment version and the previous version
+### 7. Show differences between current deployment version and the previous version
 
 ```
 anyctl runtimemanager deployments history diff hello-mule-app 87eb15 
@@ -183,7 +197,7 @@ Expected output:
          ~ memory: 
            ~ limit: 750Mi --> 700Mi
            ~ reserved: 750Mi --> 700Mi
-     ~ replicas: 3 --> 2
+     ~ replicas: 1 --> 2
    ~ application: 
      ~ configuration: 
        ~ mule.agent.application.properties.service: 
