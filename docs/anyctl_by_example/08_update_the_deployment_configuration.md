@@ -67,7 +67,7 @@ spec:
           limit: 3500m
           reserved: 50m
         memory:
-          limit: 700Mi
+          limit: 750Mi
           reserved: 750Mi
       runtimeVersion: 4.4.0:20211227-2
       sidecars:
@@ -98,7 +98,7 @@ spec:
       artifactId: getting-started-hello-mule
       groupId: a9ee3922-f172-452f-8eef-5db2e685eaa1
       packaging: jar
-      version: 1.0.2
+      version: 1.0.1
 ```
 
 ### 3. Show the deployment plan
