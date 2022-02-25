@@ -29,7 +29,7 @@ Expected output:
  TerryJeffords   FixedFrequencyScheduler   false     0       2000        MILLISECONDS 
 ```
 
-### 3. Enable a scheduler
+### 3. Enable the scheduler
 
 ```
 anyctl  runtimemanager deployments scheduler set hello-brooklyn99-app TerryJeffords --enabled true
