@@ -141,8 +141,9 @@ func (this *DeploymentComparator) diff(leftHand, rightHand map[interface{}]inter
 	for k, leftValue := range leftHand {
 		rightValue, exists := rightHand[k]
 
+		println(fmt.Sprintf("%T", leftValue))
 		switch leftValue.(type) {
-		case map[interface{}]interface{}:
+		case map[interface{}]interface{}, []interface{}:
 
 			if exists {
 				if rightValue == nil {

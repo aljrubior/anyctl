@@ -21,7 +21,7 @@ Expected output:
 ### 2. Compare the current version with the first deployment
 
 ```
-anyctl runtimemanager deployments history diff hello-mule-app 
+anyctl runtimemanager deployments history diff hello-mule-app a3d2af
 ```
 
 If you follow all the previous examples you will a result like this:

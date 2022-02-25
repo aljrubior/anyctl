@@ -37,7 +37,7 @@ Expected output:
 
 ```
  NAME             REPLICAS   STATUS    TARGET                      RUNTIME            ASSET
- hello-mule-app   2/2        APPLIED   runtime-mgr-private-space   4.4.0:20211227-2   getting-started-hello-mule:1.0.0
+ hello-mule-app   2/2        APPLIED   private-space-regions-qa    4.4.0:20211227-2   getting-started-hello-mule:1.0.0
 ```
 
 ### 4. Update the deployment to the latest version of the same asset 
@@ -62,7 +62,7 @@ Expected output:
 
 ```
  NAME             REPLICAS   STATUS    TARGET                      RUNTIME            ASSET
- hello-mule-app   2/2        APPLIED   runtime-mgr-private-space   4.4.0:20211227-2   getting-started-hello-mule:1.0.2
+ hello-mule-app   2/2        APPLIED   private-space-regions-qa    4.4.0:20211227-2   getting-started-hello-mule:1.0.2
 ```
 
 ### 5. List the change history of a deployment

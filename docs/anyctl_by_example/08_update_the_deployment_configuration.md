@@ -157,7 +157,7 @@ Expected output:
 
 ```
  NAME             REPLICAS   STATUS    TARGET                      RUNTIME            ASSET
-  hello-mule-app   1/1        APPLIED   runtime-mgr-private-space   4.4.0:20211227-2   getting-started-hello-mule:1.0.1
+ hello-mule-app   1/1        APPLIED   private-space-regions-qa    4.4.0:20211227-2   getting-started-hello-mule:1.0.1
 ```
 
 ### 6. List the change history of the deployment
