@@ -145,6 +145,10 @@ func (this *DeploymentComparator) diff(leftHand, rightHand map[interface{}]inter
 		case map[interface{}]interface{}:
 
 			if exists {
+				if rightValue == nil {
+					rightValue = emptyMap
+				}
+
 				subdiff := this.diff(leftValue.(map[interface{}]interface{}), rightValue.(map[interface{}]interface{}), depth+1)
 
 				if len(subdiff) > 0 {

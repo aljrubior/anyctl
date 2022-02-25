@@ -55,11 +55,7 @@ func (this ApplicationRequestBuilder) Build() *DeploymentRequest {
 			Assets:       this.spec.Assets,
 			DesiredState: this.spec.DesiredState,
 			Configuration: &ApplicationConfiguration{
-				ApplicationPropertiesService: ApplicationPropertiesService{
-					ApplicationName:  this.spec.ApplicationName,
-					Properties:       map[string]string{},
-					SecureProperties: map[string]string{},
-				},
+				ApplicationPropertiesService: NewApplicationPropertiesService(this.spec.ApplicationName, nil, nil),
 			},
 		},
 	}

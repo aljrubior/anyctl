@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/aljrubior/anyctl/clients/deployments/response"
 	"github.com/aljrubior/anyctl/managers/entities"
@@ -64,4 +65,15 @@ func BuildReplicasSummary(fromReplicas []response.Replica) string {
 func IsValidUUID(u string) bool {
 	_, err := uuid.Parse(u)
 	return err == nil
+}
+
+func PrintAsJson(object interface{}) {
+	data, err := json.Marshal(object)
+
+	if err != nil {
+		println(err.Error())
+	}
+
+	println(string(data))
+
 }

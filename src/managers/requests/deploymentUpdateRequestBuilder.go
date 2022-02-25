@@ -54,6 +54,14 @@ func (this DeploymentUpdateRequestBuilder) Build() (DeploymentRequest, error) {
 		}
 	}
 
+	if request.Application.Configuration.ApplicationPropertiesService.SecureProperties == nil {
+		request.Application.Configuration.ApplicationPropertiesService.SecureProperties = map[string]string{}
+	}
+
+	if request.Application.Configuration.ApplicationPropertiesService.Properties == nil {
+		request.Application.Configuration.ApplicationPropertiesService.Properties = map[string]string{}
+	}
+
 	return request, nil
 }
 

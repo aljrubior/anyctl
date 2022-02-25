@@ -3,8 +3,8 @@
 ### 1. Publish two more versions of the asset
 
 ```
-anyctl  assets upload --file /tmp/getting-started-hello-mule.jar --name getting-started-hello-mule --version 1.0.1
-anyctl  assets upload --file /tmp/getting-started-hello-mule.jar --name getting-started-hello-mule --version 1.0.2 
+anyctl assets upload --file /tmp/getting-started-hello-mule.jar --name getting-started-hello-mule --version 1.0.1
+anyctl assets upload --file /tmp/getting-started-hello-mule.jar --name getting-started-hello-mule --version 1.0.2
 ```
 
 Expected output:

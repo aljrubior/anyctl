@@ -25,7 +25,20 @@ Expected output:
 Deployment 'hello-mule-app' stopped.
 ```
 
-### 3. List the change history of the deployment
+### 3. Show the current state of the deployment
+
+```
+anyctl runtimemanager deployments get hello-mule-app
+```
+
+Expected output:
+
+```
+ NAME             REPLICAS   STATUS    TARGET                      RUNTIME            ASSET
+ hello-mule-app   0/1        APPLIED   runtime-mgr-private-space   4.4.0:20211227-2   getting-started-hello-mule:1.0.1
+```
+
+### 4. List the change history of the deployment
 
 ```
 anyctl runtimemanager deployments history get hello-mule-app
@@ -42,7 +55,7 @@ Expected output:
  2022-02-24T03:40:05   a3d2af
 ```
 
-### 4. Show differences between current deployment version and the previous version
+### 5. Show differences between current deployment version and the previous version
 
 ```
 anyctl runtimemanager deployments history diff hello-mule-app 5c394d 

@@ -63,6 +63,13 @@ func (this *DeploymentApplyBuilder) buildRequest(manifest manifests.DeploymentMa
 
 	data, _ = json.Marshal(request)
 
+	if request.Application.Configuration.ApplicationPropertiesService.Properties == nil {
+		request.Application.Configuration.ApplicationPropertiesService.Properties = map[string]string{}
+	}
+
+	if request.Application.Configuration.ApplicationPropertiesService.SecureProperties == nil {
+		request.Application.Configuration.ApplicationPropertiesService.SecureProperties = map[string]string{}
+	}
 	return request, err
 }
 
@@ -192,6 +199,18 @@ func (this *DeploymentApplyBuilder) applyConfiguration(configuration, withConfig
 
 	if !reflect.DeepEqual(configuration.ApplicationPropertiesService.Properties, withConfiguration.ApplicationPropertiesService.Properties) {
 		configuration.ApplicationPropertiesService.Properties = withConfiguration.ApplicationPropertiesService.Properties
+	}
+
+	if !reflect.DeepEqual(configuration.ApplicationPropertiesService.SecureProperties, withConfiguration.ApplicationPropertiesService.SecureProperties) {
+		configuration.ApplicationPropertiesService.SecureProperties = withConfiguration.ApplicationPropertiesService.SecureProperties
+	}
+
+	if configuration.ApplicationPropertiesService.Properties == nil {
+		configuration.ApplicationPropertiesService.Properties = map[string]string{}
+	}
+
+	if configuration.ApplicationPropertiesService.SecureProperties == nil {
+		configuration.ApplicationPropertiesService.SecureProperties = map[string]string{}
 	}
 
 	return configuration

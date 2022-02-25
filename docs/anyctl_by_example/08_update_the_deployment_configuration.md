@@ -204,7 +204,7 @@ Expected output:
          ~ properties: 
            - db.host: mysql.localhost
            - db.pass: qwerty
-           - db.port: 3306
+           - db.port: "3306"
            - db.user: root
      ~ ref: 
        ~ version: 1.0.1 --> 1.0.2
