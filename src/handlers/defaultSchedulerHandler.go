@@ -117,6 +117,35 @@ func (this DefaultSchedulerHandler) EnableScheduler(deploymentName, flowName str
 	return nil
 }
 
+func (this DefaultSchedulerHandler) EnableSchedulers(deploymentName string, enabled bool) error {
+
+	ctx, err := this.configManager.GetCurrentContext()
+
+	if err != nil {
+		return err
+	}
+
+	deployment, deployments, err := this.deploymentManager.FindDeploymentByName(ctx, deploymentName)
+
+	if err != nil {
+		return err
+	}
+
+	if deployment == nil {
+		return this.ThrowDeploymentNotFoundError(deploymentName, deployments)
+	}
+
+	scheduler, err := this.schedulerManager.EnableSchedulers(ctx, deployment.Id, enabled)
+
+	if err != nil {
+		return err
+	}
+
+	printers.NewSchedulersPrinter(scheduler).Print()
+
+	return nil
+}
+
 func (this DefaultSchedulerHandler) RunScheduler(deploymentName, flowName string) error {
 
 	ctx, err := this.configManager.GetCurrentContext()

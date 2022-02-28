@@ -6,6 +6,7 @@ type SchedulerHandler interface {
 	GetSchedulers(deploymentName string) error
 	GetScheduler(deploymentName, flowName string) error
 	EnableScheduler(deploymentName, flowName string, enabled bool) error
+	EnableSchedulers(deploymentName string, enabled bool) error
 	RunScheduler(deploymentName, flowName string) error
 	UnmanageScheduler(deploymentName, flowName string) error
 

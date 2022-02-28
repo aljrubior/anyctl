@@ -1,27 +1,26 @@
 package requests
 
-func NewSchedulerEnableRequestBuilder(flowName string, enabled bool) *SchedulerEnableRequestBuilder {
-	return &SchedulerEnableRequestBuilder{
-		flowName,
-		enabled,
-	}
+func NewSchedulerEnableRequestBuilder() *SchedulerEnableRequestBuilder {
+	return &SchedulerEnableRequestBuilder{}
 }
 
 type SchedulerEnableRequestBuilder struct {
-	flowName string
-	enabled  bool
+	schedulers []Scheduler
+}
+
+func (this *SchedulerEnableRequestBuilder) AddScheduler(flowName string, enabled bool) *SchedulerEnableRequestBuilder {
+
+	this.schedulers = append(this.schedulers, Scheduler{
+		FlowName: flowName,
+		Enabled:  enabled,
+	})
+
+	return this
 }
 
 func (this SchedulerEnableRequestBuilder) Build() *SchedulerEnableRequest {
 
-	var request []Scheduler
-
-	request = append(request, Scheduler{
-		FlowName: this.flowName,
-		Enabled:  this.enabled,
-	})
-
 	return &SchedulerEnableRequest{
-		Schedulers: request,
+		Schedulers: this.schedulers,
 	}
 }

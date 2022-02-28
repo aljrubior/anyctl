@@ -67,7 +67,7 @@ func (this DefaultSchedulerManager) EnableScheduler(ctx *entities.CurrentContext
 		return nil, schedulers, nil
 	}
 
-	req := requests.NewSchedulerEnableRequestBuilder(flowName, enabled).Build()
+	req := requests.NewSchedulerEnableRequestBuilder().AddScheduler(flowName, enabled).Build()
 
 	resp, err := this.schedulerService.EnableSchedulers(ctx.OrganizationId, ctx.EnvironmentId, ctx.AuthorizationToken, deploymentId, req)
 
@@ -76,6 +76,31 @@ func (this DefaultSchedulerManager) EnableScheduler(ctx *entities.CurrentContext
 	}
 
 	return entities.NewSchedulerEntitiesBuilder(resp).Build(), nil, nil
+}
+
+func (this DefaultSchedulerManager) EnableSchedulers(ctx *entities.CurrentContextEntity, deploymentId string, enabled bool) (*[]entities.SchedulerEntity, error) {
+
+	schedulers, err := this.GetSchedulers(ctx, deploymentId)
+
+	if err != nil {
+		return nil, err
+	}
+
+	requestBuilder := requests.NewSchedulerEnableRequestBuilder()
+
+	for _, v := range *schedulers {
+		requestBuilder.AddScheduler(v.FlowName, enabled)
+	}
+
+	req := requestBuilder.Build()
+
+	resp, err := this.schedulerService.EnableSchedulers(ctx.OrganizationId, ctx.EnvironmentId, ctx.AuthorizationToken, deploymentId, req)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return entities.NewSchedulerEntitiesBuilder(resp).Build(), nil
 }
 
 func (this DefaultSchedulerManager) RunScheduler(ctx *entities.CurrentContextEntity, deploymentId, flowName string) (*[]entities.SchedulerEntity, error) {

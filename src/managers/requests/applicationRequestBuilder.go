@@ -1,5 +1,7 @@
 package requests
 
+import "github.com/aljrubior/anyctl/clients/deployments/response"
+
 func NewApplicationRequestBuilder(fromSpec *ApplicationRequestSpec) *ApplicationRequestBuilder {
 	return &ApplicationRequestBuilder{
 		spec: fromSpec,
@@ -19,6 +21,23 @@ func (this ApplicationRequestBuilder) Build() *DeploymentRequest {
 			Provider: this.spec.TargetProvider,
 			TargetId: this.spec.TargetId,
 			DeploymentSettings: &DeploymentSettings{
+				Sidecars: &Sidecars{
+					Sidecars: response.Sidecars{
+						AnypointMonitoring: response.AnypointMonitoringSidecar{
+							Image: "auto",
+							Resources: response.Resources{
+								Cpu: response.ResourceItem{
+									Reserved: "0m",
+									Limit:    "50m",
+								},
+								Memory: response.ResourceItem{
+									Reserved: "50Mi",
+									Limit:    "50Mi",
+								},
+							},
+						},
+					},
+				},
 				Resources: Resources{
 					Cpu: ResourceItem{
 						Reserved: &this.spec.CpuReserved,

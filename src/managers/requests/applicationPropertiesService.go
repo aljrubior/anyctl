@@ -2,7 +2,6 @@ package requests
 
 func NewApplicationPropertiesService(applicationName string, properties, secureProperties *map[string]string) ApplicationPropertiesService {
 
-	println(applicationName)
 	var props, secureProps map[string]string
 
 	if properties == nil {
