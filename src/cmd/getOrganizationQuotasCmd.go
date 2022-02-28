@@ -7,7 +7,7 @@ import (
 
 var getOrganizationQuotasCmd = &cobra.Command{
 	Use:     "get-quotas",
-	Aliases: []string{"gq"},
+	Aliases: []string{"get-quotas"},
 	Short:   "Retrieve current organization quotas",
 	Run: func(cmd *cobra.Command, args []string) {
 

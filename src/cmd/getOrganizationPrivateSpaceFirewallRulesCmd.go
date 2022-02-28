@@ -8,7 +8,7 @@ import (
 
 var getOrganizationPrivateSpaceFirewallRulesCmd = &cobra.Command{
 	Use:     "get-firewall-rules",
-	Aliases: []string{"get-fr"},
+	Aliases: []string{"get-firewall-rule"},
 	Short:   "Lists all the nodes in the specified runtime fabric.",
 	Run: func(cmd *cobra.Command, args []string) {
 

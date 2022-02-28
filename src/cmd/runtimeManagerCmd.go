@@ -4,7 +4,7 @@ import "github.com/spf13/cobra"
 
 var runtimeManagerCmd = &cobra.Command{
 	Use:     "runtimemanager",
-	Aliases: []string{"rm"},
+	Aliases: []string{"arm"},
 	Short:   "Runtime Manager Interface",
 	Run: func(cmd *cobra.Command, args []string) {
 

@@ -7,7 +7,7 @@ import (
 
 var describeDeploymentCmd = &cobra.Command{
 	Use:     "describe",
-	Aliases: []string{"d"},
+	Aliases: []string{"desc"},
 	Short:   "Describe a deployment",
 	Run: func(cmd *cobra.Command, args []string) {
 

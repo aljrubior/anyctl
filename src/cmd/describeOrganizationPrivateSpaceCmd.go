@@ -6,8 +6,9 @@ import (
 )
 
 var describeOrganizationPrivateSpaceCmd = &cobra.Command{
-	Use:   "describe",
-	Short: "Describe a private spaces instance",
+	Use:     "describe",
+	Aliases: []string{"desc"},
+	Short:   "Describe a private spaces instance",
 	Run: func(cmd *cobra.Command, args []string) {
 
 		privateSpaceHandler := handlers.NewDefaultOrganizationPrivateSpaceHandler(ConfigManager, OrganizationPrivateSpaceManager)

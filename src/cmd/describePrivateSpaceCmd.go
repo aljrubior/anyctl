@@ -7,7 +7,7 @@ import (
 
 var describePrivateSpaceCmd = &cobra.Command{
 	Use:     "describe",
-	Aliases: []string{"d"},
+	Aliases: []string{"desc"},
 	Short:   "List all private spaces",
 	Run: func(cmd *cobra.Command, args []string) {
 

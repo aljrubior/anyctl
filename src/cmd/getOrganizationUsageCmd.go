@@ -9,9 +9,8 @@ import (
 var getUsageAll *bool
 
 var getOrganizationUsageCmd = &cobra.Command{
-	Use:     "get-usage",
-	Aliases: []string{"gu"},
-	Short:   " organization",
+	Use:   "get-usage",
+	Short: " organization",
 	Run: func(cmd *cobra.Command, args []string) {
 
 		usageHandler := handlers.NewDefaultOrganizationHandler(AccountManager, ConfigManager)

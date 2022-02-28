@@ -6,8 +6,9 @@ import (
 )
 
 var describeRuntimeFabricCmd = &cobra.Command{
-	Use:   "describe",
-	Short: "Describe a Runtime Fabric instance",
+	Use:     "describe",
+	Aliases: []string{"desc"},
+	Short:   "Describe a Runtime Fabric instance",
 	Run: func(cmd *cobra.Command, args []string) {
 
 		runtimeFabricManager := handlers.NewDefaultRuntimeFabricHandler(ConfigManager, OrganizationRuntimeFabricManager)
