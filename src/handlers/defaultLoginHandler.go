@@ -5,7 +5,7 @@ import (
 	"github.com/aljrubior/anyctl/managers"
 )
 
-func NewDefaultLoginHandler(loginManager managers.LoginManager, configManager managers.ConfigManager) *DefaultLoginHandler {
+func NewDefaultLoginHandler(loginManager managers.AccountManager, configManager managers.ConfigManager) *DefaultLoginHandler {
 	return &DefaultLoginHandler{
 		loginManager:  loginManager,
 		configManager: configManager,
@@ -14,7 +14,7 @@ func NewDefaultLoginHandler(loginManager managers.LoginManager, configManager ma
 
 type DefaultLoginHandler struct {
 	LoginHandler
-	loginManager  managers.LoginManager
+	loginManager  managers.AccountManager
 	configManager managers.ConfigManager
 }
 
