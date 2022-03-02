@@ -26,7 +26,7 @@ func (this *GetOrganizationRequest) buildUri() string {
 
 	protocol := this.config.Protocol
 	host := this.config.Host
-	path := this.config.OrganizationPathTemplate
+	path := this.config.OrganizationPath
 	organizationPath := fmt.Sprintf(path, this.organizationId)
 	return fmt.Sprintf("%s://%s/%s", protocol, host, organizationPath)
 }

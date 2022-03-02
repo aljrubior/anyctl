@@ -4,7 +4,7 @@ type Profile struct {
 	Id                      string                             `json:"id"`
 	OrganizationId          string                             `json:"organizationId"`
 	OrganizationPreferences map[string]OrganizationPreferences `json:"organizationPreferences"`
-	Organization            organization                       `json:"organization"`
+	Organization            Organization                       `json:"organization"`
 }
 
 func (this Profile) GetDefaultEnvironment() Environment {

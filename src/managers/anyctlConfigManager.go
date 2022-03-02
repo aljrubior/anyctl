@@ -208,12 +208,12 @@ func (this AnyctlConfigManager) GetFabricClientConfig() conf.FabricClientConfig 
 func (this *AnyctlConfigManager) GetAccountClientConfig() conf.AccountClientConfig {
 	if this.accountClientConfig == nil {
 		this.accountClientConfig = &conf.AccountClientConfig{
-			Protocol:                 this.anyctlConfig.Anypoint.Protocol,
-			Host:                     this.anyctlConfig.Anypoint.Host,
-			Port:                     this.anyctlConfig.Anypoint.Port,
-			LoginPath:                this.anyctlConfig.Anypoint.Resources.Admin.Accounts.LoginPath,
-			OrganizationPathTemplate: this.anyctlConfig.Anypoint.Resources.Admin.Accounts.OrganizationPath,
-			ProfilePath:              this.anyctlConfig.Anypoint.Resources.Admin.Accounts.ProfilePath,
+			Protocol:         this.anyctlConfig.Anypoint.Protocol,
+			Host:             this.anyctlConfig.Anypoint.Host,
+			Port:             this.anyctlConfig.Anypoint.Port,
+			LoginPath:        this.anyctlConfig.Anypoint.Resources.Admin.Accounts.LoginPath,
+			OrganizationPath: this.anyctlConfig.Anypoint.Resources.Admin.Accounts.OrganizationPath,
+			ProfilePath:      this.anyctlConfig.Anypoint.Resources.Admin.Accounts.ProfilePath,
 		}
 	}
 

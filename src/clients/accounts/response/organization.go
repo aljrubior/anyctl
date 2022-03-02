@@ -1,6 +1,6 @@
 package response
 
-type organization struct {
+type Organization struct {
 	Name               string        `json:"name"`
 	Id                 string        `json:"id"`
 	SubOrganizationIds []string      `json:"subOrganizationIds"`
